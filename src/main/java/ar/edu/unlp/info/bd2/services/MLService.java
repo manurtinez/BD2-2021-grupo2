@@ -12,7 +12,7 @@ public interface MLService {
 	 * Crea y devuelve una nueva Catogoria
 	 * @param name nombre del producto a ser creado
 	 * @return la categoria creada
-	 * @throws MLException 
+	 * @throws MLException Excepcion custom Excepcion custom
 	 */
 	Category createCategory(String name) throws MLException;
 	
@@ -22,7 +22,7 @@ public interface MLService {
 	 * @param weight peso actual del producto
 	 * @param category categor{ia del producto
 	 * @return el producto creado
-	 * @throws MLException 
+	 * @throws MLException Excepcion custom 
 	 */
 	Product createProduct(String name, Float weight, Category category) throws MLException;
 	
@@ -33,7 +33,7 @@ public interface MLService {
 	 * @param password clave con la que el usuario ingresa al sitio
 	 * @param dayOfBirth fecha de nacimiento del usuario
 	 * @return el usuario creado
-	 * @throws MLException 
+	 * @throws MLException Excepcion custom 
 	 */
 	User createUser(String email, String fullname, String password, Date dayOfBirth) throws MLException;
 	
@@ -42,7 +42,7 @@ public interface MLService {
 	 * @param name nombre del proveedor
 	 * @param cuit cuil del proveedor
 	 * @return el proveedor creado
-	 * @throws MLException 
+	 * @throws MLException Excepcion custom 
 	 */
 	Provider createProvider(String name, Long cuit) throws MLException;
 	
@@ -53,7 +53,7 @@ public interface MLService {
 	 * @param startWeight peso mínimo del producto admitido para este costo
 	 * @param endWeight peso máximo del producto admitido para este costo
 	 * @return el método de delivery creado
-	 * @throws MLException 
+	 * @throws MLException Excepcion custom 
 	 */
 	DeliveryMethod createDeliveryMethod(String name, Float cost, Float startWeight, Float endWeight) throws MLException;
 	
@@ -66,7 +66,7 @@ public interface MLService {
 	 * @param cvv código de validación de la tarjeta
 	 * @param owner nombre del titular de la tarjeta
 	 * @return el método de pago creado
-	 * @throws MLException 
+	 * @throws MLException Excepcion custom 
 	 */
 	CreditCardPayment createCreditCardPayment(String name, String brand, Long number, Date expiry, Integer cvv, String owner) throws MLException;
 	
@@ -75,7 +75,7 @@ public interface MLService {
 	 * @param name nombre del método de pago
 	 * @param promisedAmount monto con el que va a pagar el cliente
 	 * @return el método de pago creado
-	 * @throws MLException 
+	 * @throws MLException Excepcion custom 
 	 */
 	OnDeliveryPayment createOnDeliveryPayment(String name, Float promisedAmount) throws MLException;
 	
@@ -88,7 +88,7 @@ public interface MLService {
 	 * @return el precio para el producto
 	 * @implNote si el producto ya tiene un precio para el proveedor se actualiza la fecha de fin en un día antes a la initialDate
 	 *  y se el crea el nuevo precio
-	 * @throws MLException si initialDate es anterior a la initialDate actual. 
+	 * @throws MLException Excepcion custom si initialDate es anterior a la initialDate actual. 
 	 */
 	ProductOnSale createProductOnSale(Product product, Provider provider, Float price, Date initialDate) throws MLException;
 	
@@ -104,7 +104,7 @@ public interface MLService {
 	 * @param coordY coordeada Y de la dirección de entrega
 	 * @param dateOfPurchase fecha de la compra
 	 * @return la compra creada
-	 * @throws MLException si el método de delivery enviado no se corresponde con el peso de la compra
+	 * @throws MLException Excepcion custom si el método de delivery enviado no se corresponde con el peso de la compra
 	 */
 	Purchase createPurchase(ProductOnSale productOnSale, Integer quantity, User client, DeliveryMethod deliveryMethod,
 			PaymentMethod paymentMethod, String address, Float coordX, Float coordY, Date dateOfPurchase) throws MLException;

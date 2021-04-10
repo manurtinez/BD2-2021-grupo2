@@ -1,4 +1,4 @@
-package ar.edu.unlp.info.bd2.model;
+package bd2.model;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -21,10 +21,12 @@ public class Category {
     /**
      * Constructor vacio necesario
      */
-    public Category() {}
+    public Category() {
+    }
 
     /**
      * Constructor para la clase Categoria
+     * 
      * @param name El nombre de la categoria
      */
     public Category(String name) {

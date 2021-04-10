@@ -1,4 +1,4 @@
-package ar.edu.unlp.info.bd2.config;
+package bd2.config;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.context.annotation.Bean;
@@ -20,8 +20,7 @@ public class HibernateConfiguration {
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan(
-                new String[] {"ar.edu.unlp.info.bd2.model"});
+        sessionFactory.setPackagesToScan(new String[] { "bd2.model" });
         sessionFactory.setHibernateProperties(hibernateProperties());
 
         return sessionFactory;
@@ -31,7 +30,7 @@ public class HibernateConfiguration {
     public DataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/grupo" + this.getGroupNumber()+"?useSSL=false");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/grupo" + this.getGroupNumber() + "?useSSL=false");
         dataSource.setUsername("root");
         dataSource.setPassword("root");
 
@@ -40,8 +39,7 @@ public class HibernateConfiguration {
 
     @Bean
     public PlatformTransactionManager hibernateTransactionManager() {
-        HibernateTransactionManager transactionManager
-                = new HibernateTransactionManager();
+        HibernateTransactionManager transactionManager = new HibernateTransactionManager();
         transactionManager.setSessionFactory(sessionFactory().getObject());
         return transactionManager;
     }
@@ -54,7 +52,6 @@ public class HibernateConfiguration {
         hibernateProperties.setProperty("hibernate.show_sql", "true");
         hibernateProperties.setProperty("hibernate.format_sql", "true");
         hibernateProperties.setProperty("hibernate.use_sql_comments", "false");
-        
 
         return hibernateProperties;
     }

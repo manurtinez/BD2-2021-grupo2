@@ -1,4 +1,4 @@
-package ar.edu.unlp.info.bd2.model;
+package bd2.model;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -41,13 +41,15 @@ public class User {
     /**
      * Constructor vacio necesario
      */
-    public User() {}
+    public User() {
+    }
 
     /**
      * Constructor para la clase usuario
-     * @param email El email del usuario
-     * @param password La contraseña para el usuario
-     * @param fullName El nombre completo del usuario
+     * 
+     * @param email     El email del usuario
+     * @param password  La contraseña para el usuario
+     * @param fullName  El nombre completo del usuario
      * @param birthDate Fecha de nacimiento del usuario
      */
     public User(String email, String password, String fullName, Date birthDate) {

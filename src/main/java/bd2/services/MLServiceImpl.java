@@ -1,8 +1,8 @@
-package ar.edu.unlp.info.bd2.services;
+package bd2.services;
 
-import ar.edu.unlp.info.bd2.model.*;
-import ar.edu.unlp.info.bd2.repositories.MLException;
-import ar.edu.unlp.info.bd2.repositories.MLRepository;
+import bd2.model.*;
+import bd2.repositories.MLException;
+import bd2.repositories.MLRepository;
 
 import java.util.Date;
 import java.util.Optional;
@@ -11,6 +11,7 @@ public class MLServiceImpl implements MLService {
 
     /**
      * Constructor
+     * 
      * @param repository El repositorio para (??) algo
      */
     public MLServiceImpl(MLRepository repository) {
@@ -38,12 +39,14 @@ public class MLServiceImpl implements MLService {
     }
 
     @Override
-    public DeliveryMethod createDeliveryMethod(String name, Float cost, Float startWeight, Float endWeight) throws MLException {
+    public DeliveryMethod createDeliveryMethod(String name, Float cost, Float startWeight, Float endWeight)
+            throws MLException {
         return null;
     }
 
     @Override
-    public CreditCardPayment createCreditCardPayment(String name, String brand, Long number, Date expiry, Integer cvv, String owner) throws MLException {
+    public CreditCardPayment createCreditCardPayment(String name, String brand, Long number, Date expiry, Integer cvv,
+            String owner) throws MLException {
         return null;
     }
 
@@ -53,12 +56,15 @@ public class MLServiceImpl implements MLService {
     }
 
     @Override
-    public ProductOnSale createProductOnSale(Product product, Provider provider, Float price, Date initialDate) throws MLException {
+    public ProductOnSale createProductOnSale(Product product, Provider provider, Float price, Date initialDate)
+            throws MLException {
         return null;
     }
 
     @Override
-    public Purchase createPurchase(ProductOnSale productOnSale, Integer quantity, User client, DeliveryMethod deliveryMethod, PaymentMethod paymentMethod, String address, Float coordX, Float coordY, Date dateOfPurchase) throws MLException {
+    public Purchase createPurchase(ProductOnSale productOnSale, Integer quantity, User client,
+            DeliveryMethod deliveryMethod, PaymentMethod paymentMethod, String address, Float coordX, Float coordY,
+            Date dateOfPurchase) throws MLException {
         return null;
     }
 

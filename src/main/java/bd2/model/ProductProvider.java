@@ -1,33 +1,40 @@
 package bd2.model;
 
-import java.util.Date;
-import java.util.UUID;
+import bd2.model.PKs.ProductProviderPK;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Clase que representa el historial de cambios de precio para un determinado
  * producto
  */
 @Entity
-@Table(name = "product_price")
-public class ProductPrice {
+@Table(name = "product_provider")
+@AssociationOverrides({
+        @AssociationOverride(name = "product", joinColumns = @JoinColumn(name = "PRODUCT_ID")),
+        @AssociationOverride(name = "provider", joinColumns = @JoinColumn(name = "PROVIDER_ID"))
+})
+public class ProductProvider {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private UUID id;
+  @EmbeddedId
+  private ProductProviderPK id;
 
   /**
    * Id de producto correspondiente
    */
   @ManyToOne(fetch = FetchType.LAZY)
+  @MapsId("productId")
+  @JoinColumn(name = "PRODUCT_ID")
   private Product product;
+
+  /**
+   * Id de proveedor correspondiente
+   */
+  @ManyToOne(fetch = FetchType.LAZY)
+  @MapsId("providerId")
+  @JoinColumn(name = "PROVIDER_ID")
+  private Provider provider;
 
   /**
    * Precio actual del producto
@@ -42,7 +49,7 @@ public class ProductPrice {
   /**
    * Constructor vacio
    */
-  public ProductPrice() {
+  public ProductProvider() {
   }
 
   /**
@@ -52,7 +59,7 @@ public class ProductPrice {
    * @param price   Precio para el producto
    * @param date    Fecha para llevar el historial
    */
-  public ProductPrice(Product product, long price, Date date) {
+  public ProductProvider(Product product, long price, Date date) {
     this.product = product;
     this.price = price;
     this.date = date;

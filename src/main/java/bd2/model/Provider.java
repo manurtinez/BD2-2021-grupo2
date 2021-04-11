@@ -1,16 +1,9 @@
 package bd2.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 /**
  * Clase que representa un proveedor de productos
@@ -25,8 +18,8 @@ public class Provider {
 
   private String name;
 
-  @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL)
-  private List<Product> products;
+  @OneToMany(fetch = FetchType.LAZY,mappedBy = "provider")
+  private Set<ProductProvider> providers = new HashSet<ProductProvider>();
 
   private String cuit;
 
@@ -40,12 +33,12 @@ public class Provider {
    * Constructor
    * 
    * @param name     Nombre de proveedor
-   * @param products Lista de productos del proveedor
+//   * @param products Lista de productos del proveedor
    * @param cuit     CUIT del proveedor
    */
   public Provider(String name, String cuit) {
     this.name = name;
-    this.products = new ArrayList<Product>();
+//    this.products = new ArrayList<Product>();
     this.cuit = cuit;
   }
 
@@ -57,19 +50,11 @@ public class Provider {
     this.name = name;
   }
 
-  public List<Product> getProducts() {
-    return this.products;
-  }
-
-  public void setProducts(List<Product> products) {
-    this.products = products;
-  }
-
   public void addProduct(Product p) {
     // Aca iría la lógica para crear un ProductPrice con el precio y fecha del
     // producto
 
-    this.products.add(p);
+//    this.products.add(p);
   }
 
   public void changeProductPrice(Product p, long newPrice) {

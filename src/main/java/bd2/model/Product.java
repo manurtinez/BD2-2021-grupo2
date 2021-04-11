@@ -1,14 +1,9 @@
 package bd2.model;
 
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
-
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 /**
  * Clase que representa un producto
@@ -27,8 +22,8 @@ public class Product {
   @ManyToOne(fetch = FetchType.LAZY)
   private Category category;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  private Provider provider;
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+  private Set<ProductProvider> products = new HashSet<ProductProvider>();
 
   /**
    * Constructor vacio necesario
@@ -42,13 +37,11 @@ public class Product {
    * @param name     Nombre de producto
    * @param weight   Peso de producto
    * @param category Categoria de producto
-   * @param provider Proveedor del producto
    */
-  public Product(String name, float weight, Category category, Provider provider) {
+  public Product(String name, float weight, Category category) {
     this.name = name;
     this.weight = weight;
     this.category = category;
-    this.provider = provider;
   }
 
   public String getName() {
@@ -73,14 +66,6 @@ public class Product {
 
   public void setCategory(Category category) {
     this.category = category;
-  }
-
-  public Provider getProvider() {
-    return this.provider;
-  }
-
-  public void setProvider(Provider provider) {
-    this.provider = provider;
   }
 
 }

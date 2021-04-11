@@ -1,7 +1,5 @@
 package bd2.model;
 
-import bd2.model.PKs.ProductProviderPK;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -17,8 +15,9 @@ import java.util.Date;
 })
 public class ProductProvider {
 
-  @EmbeddedId
-  private ProductProviderPK id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private long id;
 
   /**
    * Id de producto correspondiente

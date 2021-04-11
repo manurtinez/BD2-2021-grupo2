@@ -37,9 +37,9 @@ Las dependencias definidas son las siguientes:
    ```
 5. Usando IntelliJ podemos correr los containers usando el [remote runner](https://www.jetbrains.com/help/idea/docker.html#using-docker-compose), permitiendo compilar el proyecto como si lo estuvieramos corriendo nativamente.
 6. phpMyAdmin es accesible de la siguiente forma:
-````
- - Acceder a http://localhost:8000/
- - En el login, ingresar server: db
- - Username: root
- - Password: root 
-````
+    ````
+     - Acceder a http://localhost:8000/
+     - En el login, ingresar server: db
+     - Username: root
+     - Password: root 
+    ````

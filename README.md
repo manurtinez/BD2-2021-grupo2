@@ -7,7 +7,7 @@ Las dependencias definidas son las siguientes:
 - OpenJDK-11
 - Maven 3.6.3
 - MySQL 8.0.23
-- phpMyAdmin 5.0.1
+- phpMyAdmin 5.1.0
 
 1. Instalar [Docker](https://docs.docker.com/get-docker/) y [Docker-Compose](https://docs.docker.com/compose/install/).
 2. Para buildear y levantar containers:

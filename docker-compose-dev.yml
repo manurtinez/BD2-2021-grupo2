@@ -1,0 +1,39 @@
+version: '3.8'
+services:
+  backend:
+    image: maven:3.6.3-openjdk-11
+    command: mvn install
+    ports:
+      - 8080:8080
+    volumes:
+      - .:/usr/src/bd2:rw
+    working_dir: /usr/src/bd2
+    depends_on:
+      - db
+  db:
+    environment:
+      MYSQL_DATABASE: grupo2
+      MYSQL_ROOT_PASSWORD: root
+    image: mysql:8.0.23
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "--silent"]
+      interval: 3s
+      retries: 5
+      start_period: 30s
+    volumes:
+      - db-data:/var/lib/mysql
+    ports:
+      - 3306:3306
+  phpmyadmin:
+    image: phpmyadmin:5.1.0
+    restart: unless-stopped
+    ports:
+      - 8000:80
+    environment:
+      - PMA_ARBITRARY=1
+    depends_on:
+      - db
+
+volumes:
+    db-data:

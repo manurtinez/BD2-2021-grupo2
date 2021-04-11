@@ -1,6 +1,13 @@
 ﻿Trabajo de referencia UNLP – BBDD2 Cursada 2021
 
 ### Setup del proyecto con Docker-Compose:
+Este setup es totalmente opcional, y permite la definición de las dependencias necesarias para correr el proyecto sin depender de VMs.
+
+Las dependencias definidas son las siguientes:
+- OpenJDK-11
+- Maven 3.6.3
+- MySQL 8.0.23
+- phpMyAdmin 5.0.1
 
 1. Instalar [Docker](https://docs.docker.com/get-docker/) y [Docker-Compose](https://docs.docker.com/compose/install/).
 2. Para buildear y levantar containers:
@@ -29,3 +36,10 @@
         ...
    ```
 5. Usando IntelliJ podemos correr los containers usando el [remote runner](https://www.jetbrains.com/help/idea/docker.html#using-docker-compose), permitiendo compilar el proyecto como si lo estuvieramos corriendo nativamente.
+6. phpMyAdmin es accesible de la siguiente forma:
+````
+ - Acceder a http://localhost:8000/
+ - En el login, ingresar server: db
+ - Username: root
+ - Password: root 
+````

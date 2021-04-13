@@ -23,7 +23,7 @@ public class Product {
   private Category category;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
-  private Set<ProductProvider> products = new HashSet<ProductProvider>();
+  private Set<ProductOnSale> products = new HashSet<ProductOnSale>();
 
   /**
    * Constructor vacio necesario

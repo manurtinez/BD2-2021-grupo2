@@ -1,11 +1,14 @@
 package bd2.services;
 
 import bd2.model.*;
+
 import bd2.repositories.MLException;
 import bd2.repositories.MLRepository;
 
 import java.util.Date;
 import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class MLServiceImpl implements MLService {
 
@@ -14,13 +17,18 @@ public class MLServiceImpl implements MLService {
      * 
      * @param repository El repositorio para (??) algo
      */
+	@Autowired
+    MLRepository repository;
+	
     public MLServiceImpl(MLRepository repository) {
 
     }
 
     @Override
     public Category createCategory(String name) throws MLException {
-        return new Category(name);
+    	Category c = new Category(name);
+        this.repository.save(c);
+        return c;
     }
 
     @Override

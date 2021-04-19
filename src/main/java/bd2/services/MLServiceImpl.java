@@ -14,9 +14,7 @@ public class MLServiceImpl implements MLService {
 
     /**
      * Constructor
-     * 
-     * @param repository El repositorio para (??) algo
-     */
+    */
 	@Autowired
     MLRepository repository;
 	
@@ -27,8 +25,7 @@ public class MLServiceImpl implements MLService {
     @Override
     public Category createCategory(String name) throws MLException {
     	Category c = new Category(name);
-        this.repository.save(c);
-        return c;
+        return this.repository.saveCategory(c);
     }
 
     @Override
@@ -88,7 +85,7 @@ public class MLServiceImpl implements MLService {
 
     @Override
     public Optional<Category> getCategoryByName(String name) {
-        return Optional.empty();
+        return Optional.of(this.repository.getCategoryByName(name));
     }
 
     @Override

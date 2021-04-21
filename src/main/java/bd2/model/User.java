@@ -24,19 +24,19 @@ public class User {
     private String email;
 
     /**
-     * Contraseña del usuario. Deberia ser un hash really
-     */
-    private String password;
-
-    /**
      * Nombre completo del usuario
      */
     private String fullName;
 
     /**
+     * Contraseña del usuario. Deberia ser un hash really
+     */
+    private String password;
+
+    /**
      * Fecha de nacimiento del usuario
      */
-    private Date birthDate;
+    private Date dayOfBirth;
 
     /**
      * Constructor vacio necesario
@@ -48,15 +48,15 @@ public class User {
      * Constructor para la clase usuario
      * 
      * @param email     El email del usuario
-     * @param password  La contraseña para el usuario
      * @param fullName  El nombre completo del usuario
-     * @param birthDate Fecha de nacimiento del usuario
+     * @param password  La contraseña para el usuario
+     * @param dayOfBirth Fecha de nacimiento del usuario
      */
-    public User(String email, String password, String fullName, Date birthDate) {
+    public User(String email, String fullName, String password, Date dayOfBirth) {
         this.setEmail(email);
         this.setPassword(password);
         this.setFullName(fullName);
-        this.setBirthDate(birthDate);
+        this.setDayOfBirth(dayOfBirth);
     }
 
     public UUID getId() {
@@ -87,11 +87,11 @@ public class User {
         this.fullName = fullName;
     }
 
-    public Date getBirthDate() {
-        return birthDate;
+    public Date getDayOfBirth() {
+        return dayOfBirth;
     }
 
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
+    public void setDayOfBirth(Date birthDate) {
+        this.dayOfBirth = birthDate;
     }
 }

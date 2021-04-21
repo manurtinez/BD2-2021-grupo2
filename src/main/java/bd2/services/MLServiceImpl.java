@@ -29,13 +29,27 @@ public class MLServiceImpl implements MLService {
     }
 
     @Override
+    public Optional<Category> getCategoryByName(String name) {
+        return Optional.of(this.repository.getCategoryByName(name));
+    }
+
+    @Override
     public Product createProduct(String name, Float weight, Category category) throws MLException {
         return null;
     }
 
     @Override
     public User createUser(String email, String fullname, String password, Date dayOfBirth) throws MLException {
-        return null;
+        if (this.repository.getUserByEmail(email) != null) {
+            throw new MLException("Constraint Violation");
+        }
+        User user = new User(email, fullname, password, dayOfBirth);
+        return this.repository.saveUser(user);
+    }
+
+    @Override
+    public Optional<User> getUserByEmail(String email) {
+        return Optional.of(this.repository.getUserByEmail(email));
     }
 
     @Override
@@ -74,18 +88,8 @@ public class MLServiceImpl implements MLService {
     }
 
     @Override
-    public Optional<User> getUserByEmail(String email) {
-        return Optional.empty();
-    }
-
-    @Override
     public Optional<Provider> getProviderByCuit(long cuit) {
         return Optional.empty();
-    }
-
-    @Override
-    public Optional<Category> getCategoryByName(String name) {
-        return Optional.of(this.repository.getCategoryByName(name));
     }
 
     @Override

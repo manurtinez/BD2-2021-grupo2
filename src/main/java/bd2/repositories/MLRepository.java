@@ -6,6 +6,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.NoResultException;
+
 @Repository
 public class MLRepository {
 
@@ -25,6 +27,19 @@ public class MLRepository {
     }
 
     public Category getCategoryByName(String name) {
-        return (Category) getSession().createQuery("from Category WHERE name = :name").setParameter("name", name).getSingleResult();
+        return (Category) getSession().createQuery("FROM Category WHERE name = :name").setParameter("name", name).getSingleResult();
+    }
+
+    public User saveUser(User user) {
+        getSession().save(user);
+        return user;
+    }
+
+    public User getUserByEmail(String email) {
+        try {
+            return (User) getSession().createQuery("FROM User WHERE email = :email").setParameter("email", email).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 }

@@ -44,32 +44,30 @@ public class MLServiceTestCase {
         assertEquals("Hogar", cat.getName());
     }
 
-    // @Test
-    // public void testCreateUser() throws MLException{
-    // Calendar cal = Calendar.getInstance();
-    // cal.set(Calendar.YEAR, 1982);
-    // cal.set(Calendar.MONTH, Calendar.MAY);
-    // cal.set(Calendar.DAY_OF_MONTH, 17);
-    // Date dob = cal.getTime();
-    // User u = this.service.createUser("federico.orlando@info.unlp.edu.ar",
-    // "Federico Orlando", "pas$w0rd", dob);
-    // assertNotNull (u.getId());
-    // assertEquals("Federico Orlando",u.getFullname());
-    // Optional<User> us =
-    // this.service.getUserByEmail("federico.orlando@info.unlp.edu.ar");
-    // if (!us.isPresent()) {
-    // throw new MLException("User doesn't exists");
-    // }
-    // User user = us.get();
-    // assertNotNull (user.getId());
-    // assertEquals("Federico Orlando",user.getFullname());
-    // assertEquals(dob, user.getDayOfBirth());
-    // assertEquals("pas$w0rd", user.getPassword());
-    // MLException ex = assertThrows(MLException.class, () ->
-    // this.service.createUser("federico.orlando@info.unlp.edu.ar", "Federico
-    // Orlando", "pas$w0rd", dob));
-    // assertEquals("Constraint Violation",ex.getMessage());
-    // }
+     @Test
+     public void testCreateUser() throws MLException{
+     Calendar cal = Calendar.getInstance();
+     cal.set(Calendar.YEAR, 1982);
+     cal.set(Calendar.MONTH, Calendar.MAY);
+     cal.set(Calendar.DAY_OF_MONTH, 17);
+     Date dob = cal.getTime();
+     User u = this.service.createUser("federico.orlando@info.unlp.edu.ar",
+     "Federico Orlando", "pas$w0rd", dob);
+     assertNotNull (u.getId());
+     assertEquals("Federico Orlando",u.getFullName());
+     Optional<User> us =
+     this.service.getUserByEmail("federico.orlando@info.unlp.edu.ar");
+     if (!us.isPresent()) {
+     throw new MLException("User doesn't exists");
+     }
+     User user = us.get();
+     assertNotNull (user.getId());
+     assertEquals("Federico Orlando",user.getFullName());
+     assertEquals(dob, user.getDayOfBirth());
+     assertEquals("pas$w0rd", user.getPassword());
+     MLException ex = assertThrows(MLException.class, () -> this.service.createUser("federico.orlando@info.unlp.edu.ar", "Federico Orlando", "pas$w0rd", dob));
+     assertEquals("Constraint Violation",ex.getMessage());
+     }
     //
     //
     // @Test

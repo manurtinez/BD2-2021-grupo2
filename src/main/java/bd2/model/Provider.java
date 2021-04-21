@@ -21,7 +21,7 @@ public class Provider {
   @OneToMany(fetch = FetchType.LAZY,mappedBy = "provider")
   private Set<ProductOnSale> providers = new HashSet<ProductOnSale>();
 
-  private String cuit;
+  private Long cuit;
 
   /**
    * Constructor vacio
@@ -36,7 +36,7 @@ public class Provider {
 //   * @param products Lista de productos del proveedor
    * @param cuit     CUIT del proveedor
    */
-  public Provider(String name, String cuit) {
+  public Provider(String name, Long cuit) {
     this.name = name;
 //    this.products = new ArrayList<Product>();
     this.cuit = cuit;
@@ -65,12 +65,16 @@ public class Provider {
 
   }
 
-  public String getCuit() {
+  public Long getCuit() {
     return this.cuit;
   }
 
-  public void setCuit(String cuit) {
+  public void setCuit(Long cuit) {
     this.cuit = cuit;
+  }
+  
+  public UUID getId() {
+      return id;
   }
 
 }

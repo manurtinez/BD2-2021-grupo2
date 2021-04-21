@@ -54,7 +54,12 @@ public class MLServiceImpl implements MLService {
 
     @Override
     public Provider createProvider(String name, Long cuit) throws MLException {
-        return null;
+    	if (this.repository.getProviderByCuit(cuit) != null) {
+            throw new MLException("Constraint Violation");
+        }
+    	
+    	Provider prov = new Provider(name, cuit);
+        return this.repository.saveProvider(prov);
     }
 
     @Override
@@ -89,7 +94,7 @@ public class MLServiceImpl implements MLService {
 
     @Override
     public Optional<Provider> getProviderByCuit(long cuit) {
-        return Optional.empty();
+    	return Optional.of(this.repository.getProviderByCuit(cuit));
     }
 
     @Override

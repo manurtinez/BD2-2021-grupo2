@@ -1,12 +1,15 @@
 package bd2.repositories;
-import bd2.model.*;
 
+import bd2.model.Category;
+import bd2.model.Provider;
+import bd2.model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceException;
 
 @Repository
 public class MLRepository {
@@ -25,19 +28,24 @@ public class MLRepository {
     	getSession().save(category);
     	return category;
     }
-    
+
     public Provider saveProvider(Provider provider) {
-    	getSession().save(provider);
-    	return provider;
+        getSession().save(provider);
+        return provider;
     }
 
     public Category getCategoryByName(String name) {
         return (Category) getSession().createQuery("FROM Category WHERE name = :name").setParameter("name", name).getSingleResult();
     }
 
-    public User saveUser(User user) {
-        getSession().save(user);
-        return user;
+    public User saveUser(User user) throws MLException {
+        try {
+            getSession().save(user);
+            getSession().flush();
+            return user;
+        } catch (PersistenceException e) {
+            throw new MLException("Constraint Violation");
+        }
     }
 
     public User getUserByEmail(String email) {

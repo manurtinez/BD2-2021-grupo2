@@ -1,15 +1,16 @@
 package bd2.services;
 
 import bd2.model.*;
-
 import bd2.repositories.MLException;
 import bd2.repositories.MLRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
+@Service
 public class MLServiceImpl implements MLService {
 
     /**
@@ -39,10 +40,8 @@ public class MLServiceImpl implements MLService {
     }
 
     @Override
+    @Transactional
     public User createUser(String email, String fullname, String password, Date dayOfBirth) throws MLException {
-        if (this.repository.getUserByEmail(email) != null) {
-            throw new MLException("Constraint Violation");
-        }
         User user = new User(email, fullname, password, dayOfBirth);
         return this.repository.saveUser(user);
     }

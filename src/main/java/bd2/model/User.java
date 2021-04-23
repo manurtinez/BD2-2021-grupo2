@@ -8,7 +8,7 @@ import java.util.UUID;
  * Clase que representa usuarios de la plataforma
  */
 @Entity(name = "User")
-@Table(name = "user")
+@Table(name = "users")
 public class User {
 
     /**
@@ -21,6 +21,7 @@ public class User {
     /**
      * Email del usuario
      */
+    @Column(unique = true)
     private String email;
 
     /**

@@ -17,7 +17,7 @@ public class Product {
   private UUID id;
 
   private String name;
-  private float weight;
+  private Float weight;
 
   @ManyToOne(fetch = FetchType.LAZY)
   private Category category;
@@ -44,6 +44,8 @@ public class Product {
     this.category = category;
   }
 
+  public UUID getId() { return this.id; }
+
   public String getName() {
     return this.name;
   }
@@ -52,11 +54,11 @@ public class Product {
     this.name = name;
   }
 
-  public float getWeight() {
+  public Float getWeight() {
     return this.weight;
   }
 
-  public void setWeight(float weight) {
+  public void setWeight(Float weight) {
     this.weight = weight;
   }
 

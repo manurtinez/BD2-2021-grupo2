@@ -87,46 +87,58 @@ public class MLServiceTestCase {
      assertEquals("Constraint Violation",ex.getMessage());
      }
     
-    // @Test
-    // public void testCreateProduct() throws MLException {
-    // Category cat = this.service.createCategory("Hogar");
-    // assertNotNull(cat.getId());
-    // Product prod = this.service.createProduct("Lamparita led 7w fria",
-    // Float.valueOf(40.5F), cat);
-    // assertNotNull(prod.getId());
-    // assertEquals(40.5F, (float) prod.getWeigth());
-    // Optional<Product> p = this.service.getProductByName("Lamparita led 7w fria");
-    // if (!p.isPresent()) {
-    // throw new MLException("Product doesn't exists");
-    // }
-    // Product product = p.get();
-    // assertNotNull(product.getId());
-    // assertEquals(Float.valueOf(40.5F), product.getWeigth());
-    // assertEquals("Hogar",product.getCategory().getName());
-    // MLException ex = assertThrows(MLException.class, () ->
-    // this.service.createProduct("Lamparita led 7w fria", Float.valueOf(40.5F),
-    // cat));
-    // assertEquals("Constraint Violation",ex.getMessage());
-    // }
-    //
-    // @Test
-    // public void testCreateDeliveryMethod() throws MLException {
-    // DeliveryMethod dm = this.service.createDeliveryMethod("Moto menos 1kg",
-    // 250.0F, 0.01F, 0.9999F);
-    // assertNotNull(dm.getId());
-    // assertEquals(Float.valueOf(250.0F),dm.getCost());
-    // assertEquals(Float.valueOf(0.9999F),dm.getEndWeight());
-    // Optional<DeliveryMethod> del = this.service.getDeliveryMethodByName("Moto
-    // menos 1kg");
-    // if (!del.isPresent()) {
-    // throw new MLException("Delivery Method doesn't exists");
-    // }
-    // DeliveryMethod d = del.get();
-    // assertNotNull(d.getId());
-    // assertEquals(Float.valueOf(250.0F),d.getCost());
-    // assertEquals(Float.valueOf(0.01F),d.getStartWeight());
-    // }
-    //
+     @Test
+     public void testCreateProduct() throws MLException {
+        Category cat = this.service.createCategory("Hogar");
+        assertNotNull(cat.getId());
+        Product prod = this.service.createProduct(
+                "Lamparita led 7w fria",
+                Float.valueOf(40.5F),
+                cat
+        );
+        assertNotNull(prod.getId());
+        assertEquals(40.5F, (float) prod.getWeight());
+        Optional<Product> p = this.service.getProductByName("Lamparita led 7w fria");
+        if (!p.isPresent()) {
+            throw new MLException("Product doesn't exists");
+        }
+        Product product = p.get();
+        assertNotNull(product.getId());
+        assertEquals(Float.valueOf(40.5F), product.getWeight());
+        assertEquals("Hogar",product.getCategory().getName());
+        MLException ex = assertThrows(MLException.class, () ->
+            this.service.createProduct(
+                    "Lamparita led 7w fria",
+                    Float.valueOf(40.5F),
+                    cat
+            )
+        );
+        assertEquals("Constraint Violation",ex.getMessage());
+    }
+
+    @Test
+    public void testCreateDeliveryMethod() throws MLException {
+        DeliveryMethod dm = this.service.createDeliveryMethod(
+                "Moto menos 1kg",
+                250.0F,
+                0.01F,
+                0.9999F
+        );
+        assertNotNull(dm.getId());
+        assertEquals(Float.valueOf(250.0F),dm.getCost());
+        assertEquals(Float.valueOf(0.9999F),dm.getEndWeight());
+        Optional<DeliveryMethod> del = this.service.getDeliveryMethodByName(
+                "Moto menos 1kg"
+        );
+        if (!del.isPresent()) {
+            throw new MLException("Delivery Method doesn't exists");
+        }
+        DeliveryMethod d = del.get();
+        assertNotNull(d.getId());
+        assertEquals(Float.valueOf(250.0F),d.getCost());
+        assertEquals(Float.valueOf(0.01F),d.getStartWeight());
+    }
+
     // @Test
     // public void testCreateCreditCardPayment() throws MLException {
     // Calendar cal = Calendar.getInstance();

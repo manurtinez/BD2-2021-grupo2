@@ -3,6 +3,7 @@ package bd2.repositories;
 import bd2.model.Category;
 import bd2.model.Provider;
 import bd2.model.User;
+import bd2.model.Product;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,19 @@ public class MLRepository {
 
     public Session getSession() {
         return this.sessionFactory.getCurrentSession();
+    }
+
+    public Object save(Object object) {
+        getSession().persist(object);
+        return object;
+    }
+
+    public Product getProductByName(String name) {
+        try {
+            return (Product) getSession().createQuery("FROM Product WHERE name = :name").setParameter("name", name).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
     
     public Category saveCategory(Category category) {

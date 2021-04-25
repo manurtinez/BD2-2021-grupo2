@@ -36,7 +36,16 @@ public class MLServiceImpl implements MLService {
 
     @Override
     public Product createProduct(String name, Float weight, Category category) throws MLException {
-        return null;
+        if (this.repository.getProductByName(name) != null) {
+            throw new MLException("Constraint Violation");
+        }
+        Product p = new Product(name, weight, category);
+        return (Product) this.repository.save(p);
+    }
+
+    @Override
+    public Optional<Product> getProductByName(String name) {
+        return Optional.of(this.repository.getProductByName(name));
     }
 
     @Override
@@ -96,10 +105,6 @@ public class MLServiceImpl implements MLService {
     	return Optional.of(this.repository.getProviderByCuit(cuit));
     }
 
-    @Override
-    public Optional<Product> getProductByName(String name) {
-        return Optional.empty();
-    }
 
     @Override
     public ProductOnSale getProductOnSaleById(Long id) {

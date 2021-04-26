@@ -83,7 +83,8 @@ public class MLServiceImpl implements MLService {
     @Override
     public CreditCardPayment createCreditCardPayment(String name, String brand, Long number, Date expiry, Integer cvv,
             String owner) throws MLException {
-        return null;
+        CreditCardPayment ccp = new CreditCardPayment(name, brand, number, expiry, cvv, owner);
+        return (CreditCardPayment) this.repository.save(ccp);
     }
 
     @Override
@@ -122,7 +123,7 @@ public class MLServiceImpl implements MLService {
 
     @Override
     public Optional<CreditCardPayment> getCreditCardPaymentByName(String name) {
-        return Optional.empty();
+        return Optional.of(this.repository.getCreditCardPaymentByName(name));
     }
 
     @Override

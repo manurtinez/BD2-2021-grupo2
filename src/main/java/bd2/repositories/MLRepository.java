@@ -5,6 +5,7 @@ import bd2.model.Provider;
 import bd2.model.User;
 import bd2.model.Product;
 import bd2.model.DeliveryMethod;
+import bd2.model.CreditCardPayment;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,6 +83,14 @@ public class MLRepository {
     public DeliveryMethod getDeliveryMethodByName(String name) {
         try {
             return (DeliveryMethod) getSession().createQuery("FROM DeliveryMethod WHERE name = :name").setParameter("name", name).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    public CreditCardPayment getCreditCardPaymentByName(String name) {
+        try {
+            return (CreditCardPayment) getSession().createQuery("FROM CreditCardPayment WHERE name = :name").setParameter("name", name).getSingleResult();
         } catch (NoResultException e) {
             return null;
         }

@@ -139,34 +139,40 @@ public class MLServiceTestCase {
         assertEquals(Float.valueOf(0.01F),d.getStartWeight());
     }
 
-    // @Test
-    // public void testCreateCreditCardPayment() throws MLException {
-    // Calendar cal = Calendar.getInstance();
-    // cal.set(Calendar.YEAR, 1982);
-    // cal.set(Calendar.MONTH, Calendar.MAY);
-    // cal.set(Calendar.DAY_OF_MONTH, 17);
-    // Date exp = cal.getTime();
-    // CreditCardPayment cc = this.service.createCreditCardPayment("Visa Federico",
-    // "Visa", 4052698512476369L, exp, 452, "Federico Orlando");
-    // assertNotNull(cc.getId());
-    // assertEquals("Visa",cc.getBrand());
-    // assertEquals(Long.valueOf(4052698512476369L), cc.getNumber());
-    // assertEquals("Federico Orlando",cc.getOwner());
-    // assertEquals(exp,cc.getExpiry());
-    // Optional<CreditCardPayment> ccp =
-    // this.service.getCreditCardPaymentByName("Visa Federico");
-    // if (!ccp.isPresent()) {
-    // throw new MLException("Credit Card Payment doesn't exists");
-    // }
-    // CreditCardPayment c = ccp.get();
-    // assertNotNull(c.getId());
-    // assertEquals("Visa",c.getBrand());
-    // assertEquals(Long.valueOf(4052698512476369L), c.getNumber());
-    // assertEquals("Federico Orlando",c.getOwner());
-    // assertEquals(exp,c.getExpiry());
-    // assertEquals(Integer.valueOf(452),c.getCvv());
-    // }
-    //
+    @Test
+    public void testCreateCreditCardPayment() throws MLException {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, 1982);
+        cal.set(Calendar.MONTH, Calendar.MAY);
+        cal.set(Calendar.DAY_OF_MONTH, 17);
+        Date exp = cal.getTime();
+        CreditCardPayment cc = this.service.createCreditCardPayment(
+                "Visa Federico",
+                "Visa",
+                4052698512476369L,
+                exp,
+                452,
+                "Federico Orlando"
+        );
+        assertNotNull(cc.getId());
+        assertEquals("Visa",cc.getBrand());
+        assertEquals(Long.valueOf(4052698512476369L), cc.getNumber());
+        assertEquals("Federico Orlando",cc.getOwner());
+        assertEquals(exp,cc.getExpiry());
+        Optional<CreditCardPayment> ccp =
+        this.service.getCreditCardPaymentByName("Visa Federico");
+        if (!ccp.isPresent()) {
+            throw new MLException("Credit Card Payment doesn't exists");
+        }
+        CreditCardPayment c = ccp.get();
+        assertNotNull(c.getId());
+        assertEquals("Visa",c.getBrand());
+        assertEquals(Long.valueOf(4052698512476369L), c.getNumber());
+        assertEquals("Federico Orlando",c.getOwner());
+        assertEquals(exp,c.getExpiry());
+        assertEquals(Integer.valueOf(452),c.getCvv());
+    }
+
     // @Test
     // public void testOnDeliveryPayment() throws MLException {
     // OnDeliveryPayment od = this.service.createOnDeliveryPayment("Pago Efectivo

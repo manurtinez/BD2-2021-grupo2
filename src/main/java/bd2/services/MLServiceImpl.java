@@ -73,7 +73,11 @@ public class MLServiceImpl implements MLService {
     @Override
     public DeliveryMethod createDeliveryMethod(String name, Float cost, Float startWeight, Float endWeight)
             throws MLException {
-        return null;
+        if (this.repository.getDeliveryMethodByName(name) != null) {
+            throw new MLException("Constraint Violation");
+        }
+        DeliveryMethod dm = new DeliveryMethod(name, cost, startWeight, endWeight);
+        return (DeliveryMethod) this.repository.save(dm);
     }
 
     @Override
@@ -113,7 +117,7 @@ public class MLServiceImpl implements MLService {
 
     @Override
     public Optional<DeliveryMethod> getDeliveryMethodByName(String name) {
-        return Optional.empty();
+        return Optional.of(this.repository.getDeliveryMethodByName(name));
     }
 
     @Override

@@ -4,6 +4,7 @@ import bd2.model.Category;
 import bd2.model.Provider;
 import bd2.model.User;
 import bd2.model.Product;
+import bd2.model.DeliveryMethod;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,6 +74,14 @@ public class MLRepository {
     public Provider getProviderByCuit(Long cuit) {
         try {
             return (Provider) getSession().createQuery("FROM Provider WHERE cuit = :cuit").setParameter("cuit", cuit).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    public DeliveryMethod getDeliveryMethodByName(String name) {
+        try {
+            return (DeliveryMethod) getSession().createQuery("FROM DeliveryMethod WHERE name = :name").setParameter("name", name).getSingleResult();
         } catch (NoResultException e) {
             return null;
         }

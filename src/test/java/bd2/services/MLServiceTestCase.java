@@ -173,23 +173,22 @@ public class MLServiceTestCase {
         assertEquals(Integer.valueOf(452),c.getCvv());
     }
 
-    // @Test
-    // public void testOnDeliveryPayment() throws MLException {
-    // OnDeliveryPayment od = this.service.createOnDeliveryPayment("Pago Efectivo
-    // Lampara", 100F);
-    // assertNotNull(od.getId());
-    // assertEquals(Float.valueOf(100F),od.getPromisedAmount());
-    // Optional<OnDeliveryPayment> odp =
-    // this.service.getOnDeliveryPaymentByName("Pago Efectivo Lampara");
-    // if (!odp.isPresent())
-    // {
-    // throw new MLException("On Delivery Payment doesn't exists");
-    // }
-    // OnDeliveryPayment dp = odp.get();
-    // assertNotNull(dp.getId());
-    // assertEquals(Float.valueOf(100F),dp.getPromisedAmount());
-    // }
-    //
+    @Test
+    public void testOnDeliveryPayment() throws MLException {
+        OnDeliveryPayment od = this.service.createOnDeliveryPayment(
+                "Pago Efectivo Lampara", 100F
+        );
+        assertNotNull(od.getId());
+        assertEquals(Float.valueOf(100F),od.getPromisedAmount());
+        Optional<OnDeliveryPayment> odp = this.service.getOnDeliveryPaymentByName("Pago Efectivo Lampara");
+        if (!odp.isPresent()) {
+            throw new MLException("On Delivery Payment doesn't exists");
+        }
+        OnDeliveryPayment dp = odp.get();
+        assertNotNull(dp.getId());
+        assertEquals(Float.valueOf(100F),dp.getPromisedAmount());
+    }
+
     // @Test
     // public void testCreateProductOnSale() throws MLException {
     // Provider p = this.service.createProvider("Philips",30715589634L);

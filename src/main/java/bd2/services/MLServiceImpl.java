@@ -89,7 +89,11 @@ public class MLServiceImpl implements MLService {
 
     @Override
     public OnDeliveryPayment createOnDeliveryPayment(String name, Float promisedAmount) throws MLException {
-        return null;
+        if (this.repository.getOnDeliveryPaymentByName(name) != null) {
+            throw new MLException("Constraint Violation");
+        }
+        OnDeliveryPayment omp = new OnDeliveryPayment(name, promisedAmount);
+        return (OnDeliveryPayment) this.repository.save(omp);
     }
 
     @Override
@@ -128,7 +132,7 @@ public class MLServiceImpl implements MLService {
 
     @Override
     public Optional<OnDeliveryPayment> getOnDeliveryPaymentByName(String name) {
-        return Optional.empty();
+        return Optional.of(this.repository.getOnDeliveryPaymentByName(name));
     }
 
     @Override

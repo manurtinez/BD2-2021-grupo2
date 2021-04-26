@@ -4,7 +4,6 @@ import bd2.config.AppConfig;
 import bd2.config.HibernateConfiguration;
 import bd2.model.*;
 import bd2.repositories.MLException;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +13,11 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { AppConfig.class,
@@ -44,58 +43,51 @@ public class MLServiceTestCase {
         assertEquals("Hogar", cat.getName());
     }
 
-     @Test
-     public void testCreateUser() throws MLException{
-     Calendar cal = Calendar.getInstance();
-     cal.set(Calendar.YEAR, 1982);
-     cal.set(Calendar.MONTH, Calendar.MAY);
-     cal.set(Calendar.DAY_OF_MONTH, 17);
-     Date dob = cal.getTime();
-     User u = this.service.createUser("federico.orlando@info.unlp.edu.ar",
-     "Federico Orlando", "pas$w0rd", dob);
-     assertNotNull (u.getId());
-     assertEquals("Federico Orlando",u.getFullName());
-     Optional<User> us =
-     this.service.getUserByEmail("federico.orlando@info.unlp.edu.ar");
-     if (!us.isPresent()) {
-     throw new MLException("User doesn't exists");
-     }
-     User user = us.get();
-     assertNotNull (user.getId());
-     assertEquals("Federico Orlando",user.getFullName());
-     assertEquals(dob, user.getDayOfBirth());
-     assertEquals("pas$w0rd", user.getPassword());
-     MLException ex = assertThrows(MLException.class, () -> this.service.createUser("federico.orlando@info.unlp.edu.ar", "Federico Orlando", "pas$w0rd", dob));
-     assertEquals("Constraint Violation",ex.getMessage());
-     }
-    
-    
-     @Test
-     public void testCreateProvider() throws MLException {
-     Provider p = this.service.createProvider("Philips",30715589634L);
-     assertNotNull (p.getId());
-     assertEquals("Philips", p.getName());
-     Optional<Provider> prov = this.service.getProviderByCuit(30715589634L);
-     if (!prov.isPresent()) {
-     throw new MLException("Provider doesn't exists");
-     }
-     Provider provider = prov.get();
-     assertNotNull (provider.getId());
-     assertEquals("Philips", provider.getName());
-     MLException ex = assertThrows(MLException.class, () ->
-     this.service.createProvider("Philips",30715589634L));
-     assertEquals("Constraint Violation",ex.getMessage());
-     }
-    
-     @Test
-     public void testCreateProduct() throws MLException {
+    @Test
+    public void testCreateUser() throws MLException {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, 1982);
+        cal.set(Calendar.MONTH, Calendar.MAY);
+        cal.set(Calendar.DAY_OF_MONTH, 17);
+        Date dob = cal.getTime();
+        User u = this.service.createUser("federico.orlando@info.unlp.edu.ar", "Federico Orlando", "pas$w0rd", dob);
+        assertNotNull(u.getId());
+        assertEquals("Federico Orlando", u.getFullName());
+        Optional<User> us = this.service.getUserByEmail("federico.orlando@info.unlp.edu.ar");
+        if (!us.isPresent()) {
+            throw new MLException("User doesn't exists");
+        }
+        User user = us.get();
+        assertNotNull(user.getId());
+        assertEquals("Federico Orlando", user.getFullName());
+        assertEquals(dob, user.getDayOfBirth());
+        assertEquals("pas$w0rd", user.getPassword());
+        MLException ex = assertThrows(MLException.class, () -> this.service
+                .createUser("federico.orlando@info.unlp.edu.ar", "Federico Orlando", "pas$w0rd", dob));
+        assertEquals("Constraint Violation", ex.getMessage());
+    }
+
+    @Test
+    public void testCreateProvider() throws MLException {
+        Provider p = this.service.createProvider("Philips", 30715589634L);
+        assertNotNull(p.getId());
+        assertEquals("Philips", p.getName());
+        Optional<Provider> prov = this.service.getProviderByCuit(30715589634L);
+        if (!prov.isPresent()) {
+            throw new MLException("Provider doesn't exists");
+        }
+        Provider provider = prov.get();
+        assertNotNull(provider.getId());
+        assertEquals("Philips", provider.getName());
+        MLException ex = assertThrows(MLException.class, () -> this.service.createProvider("Philips", 30715589634L));
+        assertEquals("Constraint Violation", ex.getMessage());
+    }
+
+    @Test
+    public void testCreateProduct() throws MLException {
         Category cat = this.service.createCategory("Hogar");
         assertNotNull(cat.getId());
-        Product prod = this.service.createProduct(
-                "Lamparita led 7w fria",
-                Float.valueOf(40.5F),
-                cat
-        );
+        Product prod = this.service.createProduct("Lamparita led 7w fria", Float.valueOf(40.5F), cat);
         assertNotNull(prod.getId());
         assertEquals(40.5F, (float) prod.getWeight());
         Optional<Product> p = this.service.getProductByName("Lamparita led 7w fria");
@@ -105,38 +97,26 @@ public class MLServiceTestCase {
         Product product = p.get();
         assertNotNull(product.getId());
         assertEquals(Float.valueOf(40.5F), product.getWeight());
-        assertEquals("Hogar",product.getCategory().getName());
-        MLException ex = assertThrows(MLException.class, () ->
-            this.service.createProduct(
-                    "Lamparita led 7w fria",
-                    Float.valueOf(40.5F),
-                    cat
-            )
-        );
-        assertEquals("Constraint Violation",ex.getMessage());
+        assertEquals("Hogar", product.getCategory().getName());
+        MLException ex = assertThrows(MLException.class,
+                () -> this.service.createProduct("Lamparita led 7w fria", Float.valueOf(40.5F), cat));
+        assertEquals("Constraint Violation", ex.getMessage());
     }
 
     @Test
     public void testCreateDeliveryMethod() throws MLException {
-        DeliveryMethod dm = this.service.createDeliveryMethod(
-                "Moto menos 1kg",
-                250.0F,
-                0.01F,
-                0.9999F
-        );
+        DeliveryMethod dm = this.service.createDeliveryMethod("Moto menos 1kg", 250.0F, 0.01F, 0.9999F);
         assertNotNull(dm.getId());
-        assertEquals(Float.valueOf(250.0F),dm.getCost());
-        assertEquals(Float.valueOf(0.9999F),dm.getEndWeight());
-        Optional<DeliveryMethod> del = this.service.getDeliveryMethodByName(
-                "Moto menos 1kg"
-        );
+        assertEquals(Float.valueOf(250.0F), dm.getCost());
+        assertEquals(Float.valueOf(0.9999F), dm.getEndWeight());
+        Optional<DeliveryMethod> del = this.service.getDeliveryMethodByName("Moto menos 1kg");
         if (!del.isPresent()) {
             throw new MLException("Delivery Method doesn't exists");
         }
         DeliveryMethod d = del.get();
         assertNotNull(d.getId());
-        assertEquals(Float.valueOf(250.0F),d.getCost());
-        assertEquals(Float.valueOf(0.01F),d.getStartWeight());
+        assertEquals(Float.valueOf(250.0F), d.getCost());
+        assertEquals(Float.valueOf(0.01F), d.getStartWeight());
     }
 
     @Test
@@ -146,69 +126,59 @@ public class MLServiceTestCase {
         cal.set(Calendar.MONTH, Calendar.MAY);
         cal.set(Calendar.DAY_OF_MONTH, 17);
         Date exp = cal.getTime();
-        CreditCardPayment cc = this.service.createCreditCardPayment(
-                "Visa Federico",
-                "Visa",
-                4052698512476369L,
-                exp,
-                452,
-                "Federico Orlando"
-        );
+        CreditCardPayment cc = this.service.createCreditCardPayment("Visa Federico", "Visa", 4052698512476369L, exp,
+                452, "Federico Orlando");
         assertNotNull(cc.getId());
-        assertEquals("Visa",cc.getBrand());
+        assertEquals("Visa", cc.getBrand());
         assertEquals(Long.valueOf(4052698512476369L), cc.getNumber());
-        assertEquals("Federico Orlando",cc.getOwner());
-        assertEquals(exp,cc.getExpiry());
-        Optional<CreditCardPayment> ccp =
-        this.service.getCreditCardPaymentByName("Visa Federico");
+        assertEquals("Federico Orlando", cc.getOwner());
+        assertEquals(exp, cc.getExpiry());
+        Optional<CreditCardPayment> ccp = this.service.getCreditCardPaymentByName("Visa Federico");
         if (!ccp.isPresent()) {
             throw new MLException("Credit Card Payment doesn't exists");
         }
         CreditCardPayment c = ccp.get();
         assertNotNull(c.getId());
-        assertEquals("Visa",c.getBrand());
+        assertEquals("Visa", c.getBrand());
         assertEquals(Long.valueOf(4052698512476369L), c.getNumber());
-        assertEquals("Federico Orlando",c.getOwner());
-        assertEquals(exp,c.getExpiry());
-        assertEquals(Integer.valueOf(452),c.getCvv());
+        assertEquals("Federico Orlando", c.getOwner());
+        assertEquals(exp, c.getExpiry());
+        assertEquals(Integer.valueOf(452), c.getCvv());
     }
 
     @Test
     public void testOnDeliveryPayment() throws MLException {
-        OnDeliveryPayment od = this.service.createOnDeliveryPayment(
-                "Pago Efectivo Lampara", 100F
-        );
+        OnDeliveryPayment od = this.service.createOnDeliveryPayment("Pago Efectivo Lampara", 100F);
         assertNotNull(od.getId());
-        assertEquals(Float.valueOf(100F),od.getPromisedAmount());
+        assertEquals(Float.valueOf(100F), od.getPromisedAmount());
         Optional<OnDeliveryPayment> odp = this.service.getOnDeliveryPaymentByName("Pago Efectivo Lampara");
         if (!odp.isPresent()) {
             throw new MLException("On Delivery Payment doesn't exists");
         }
         OnDeliveryPayment dp = odp.get();
         assertNotNull(dp.getId());
-        assertEquals(Float.valueOf(100F),dp.getPromisedAmount());
+        assertEquals(Float.valueOf(100F), dp.getPromisedAmount());
     }
 
     // @Test
-    // public void testCreateProductOnSale() throws MLException {
-    // Provider p = this.service.createProvider("Philips",30715589634L);
-    // Category c = this.service.createCategory("Hogar");
-    // Product prod = this.service.createProduct("Lamparita led 7w fria",
-    // Float.valueOf(40.5F), c);
-    // Calendar cal = Calendar.getInstance();
-    // cal.set(Calendar.YEAR, 2020);
-    // cal.set(Calendar.MONTH, Calendar.JANUARY);
-    // cal.set(Calendar.DAY_OF_MONTH, 1);
-    // Date id = cal.getTime();
-    // ProductOnSale pos = this.service.createProductOnSale(prod, p, 158.52F, id);
-    // assertNotNull(pos.getId());
-    // assertEquals(Float.valueOf(40.5F),pos.getProduct().getWeigth());
-    // assertEquals(1,pos.getProduct().getProductsOnSale().size());
-    // assertEquals(Float.valueOf(158.52F),pos.getPrice());
-    // assertEquals(null,pos.getFinalDate());
-    // assertEquals(id,pos.getInitialDate());
-    // assertEquals(p.getCuit(),pos.getProvider().getCuit());
-    // }
+    public void testCreateProductOnSale() throws MLException {
+        Provider p = this.service.createProvider("Philips", 30715589634L);
+        Category c = this.service.createCategory("Hogar");
+        Product prod = this.service.createProduct("Lamparita led 7w fria", Float.valueOf(40.5F), c);
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, 2020);
+        cal.set(Calendar.MONTH, Calendar.JANUARY);
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        Date id = cal.getTime();
+        ProductOnSale pos = this.service.createProductOnSale(prod, p, 158.52F, id);
+        assertNotNull(pos.getId());
+        assertEquals(Float.valueOf(40.5F), pos.getProduct().getWeight());
+        assertEquals(1, pos.getProduct().getProductsOnSale().size());
+        assertEquals(Float.valueOf(158.52F), (Float) pos.getPrice());
+        assertEquals(null, pos.getFinalDate());
+        assertEquals(id, pos.getInitialDate());
+        assertEquals(p.getCuit(), pos.getProvider().getCuit());
+    }
     //
     // @Test
     // public void testUpdateProductOnSale() throws MLException {

@@ -23,7 +23,7 @@ public class Product {
   private Category category;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
-  private Set<ProductOnSale> products = new HashSet<ProductOnSale>();
+  private Set<ProductOnSale> productsOnSale = new HashSet<ProductOnSale>();
 
   /**
    * Constructor vacio necesario
@@ -44,7 +44,9 @@ public class Product {
     this.category = category;
   }
 
-  public UUID getId() { return this.id; }
+  public UUID getId() {
+    return this.id;
+  }
 
   public String getName() {
     return this.name;
@@ -68,6 +70,10 @@ public class Product {
 
   public void setCategory(Category category) {
     this.category = category;
+  }
+
+  public Set<ProductOnSale> getProductsOnSale() {
+    return this.productsOnSale;
   }
 
 }

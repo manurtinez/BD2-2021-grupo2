@@ -9,10 +9,8 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "product_on_sale")
-@AssociationOverrides({
-        @AssociationOverride(name = "product", joinColumns = @JoinColumn(name = "PRODUCT_ID")),
-        @AssociationOverride(name = "provider", joinColumns = @JoinColumn(name = "PROVIDER_ID"))
-})
+@AssociationOverrides({ @AssociationOverride(name = "product", joinColumns = @JoinColumn(name = "PRODUCT_ID")),
+    @AssociationOverride(name = "provider", joinColumns = @JoinColumn(name = "PROVIDER_ID")) })
 public class ProductOnSale {
 
   @Id
@@ -38,12 +36,17 @@ public class ProductOnSale {
   /**
    * Precio actual del producto
    */
-  private long price;
+  private float price;
 
   /**
    * Fecha de cambio / creación del precio
    */
-  private Date date;
+  private Date initialDate;
+
+  /**
+   * Fecha de fin del precio. Inicia en null
+   */
+  private Date finalDate = null;
 
   /**
    * Constructor vacio
@@ -58,10 +61,11 @@ public class ProductOnSale {
    * @param price   Precio para el producto
    * @param date    Fecha para llevar el historial
    */
-  public ProductOnSale(Product product, long price, Date date) {
+  public ProductOnSale(Product product, Provider provider, float price, Date initialDate) {
     this.product = product;
+    this.provider = provider;
     this.price = price;
-    this.date = date;
+    this.initialDate = initialDate;
   }
 
   public Product getProduct() {
@@ -72,20 +76,40 @@ public class ProductOnSale {
     this.product = product;
   }
 
-  public long getPrice() {
+  public float getPrice() {
     return this.price;
   }
 
-  public void setPrice(long price) {
+  public void setPrice(float price) {
     this.price = price;
   }
 
-  public Date getDate() {
-    return this.date;
+  public Date getInitialDate() {
+    return this.initialDate;
   }
 
-  public void setDate(Date date) {
-    this.date = date;
+  public void setInitialDate(Date initialDate) {
+    this.initialDate = initialDate;
+  }
+
+  public Provider getProvider() {
+    return this.provider;
+  }
+
+  public void setProvider(Provider provider) {
+    this.provider = provider;
+  }
+
+  public long getId() {
+    return this.id;
+  }
+
+  public Date getFinalDate() {
+    return this.finalDate;
+  }
+
+  public void setFinalDate(Date finalDate) {
+    this.finalDate = finalDate;
   }
 
 }

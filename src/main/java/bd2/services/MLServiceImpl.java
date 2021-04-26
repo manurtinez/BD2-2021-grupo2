@@ -15,18 +15,18 @@ public class MLServiceImpl implements MLService {
 
     /**
      * Constructor
-    */
-	@Autowired
+     */
+    @Autowired
     MLRepository repository;
-	
+
     public MLServiceImpl(MLRepository repository) {
 
     }
 
     @Override
     public Category createCategory(String name) throws MLException {
-    	Category c = new Category(name);
-        return this.repository.saveCategory(c);
+        Category c = new Category(name);
+        return (Category) this.repository.save(c);
     }
 
     @Override
@@ -51,8 +51,11 @@ public class MLServiceImpl implements MLService {
     @Override
     @Transactional
     public User createUser(String email, String fullname, String password, Date dayOfBirth) throws MLException {
+        if (this.repository.getUserByEmail(email) != null) {
+            throw new MLException("Constraint Violation");
+        }
         User user = new User(email, fullname, password, dayOfBirth);
-        return this.repository.saveUser(user);
+        return (User) this.repository.save(user);
     }
 
     @Override
@@ -62,12 +65,12 @@ public class MLServiceImpl implements MLService {
 
     @Override
     public Provider createProvider(String name, Long cuit) throws MLException {
-    	if (this.repository.getProviderByCuit(cuit) != null) {
+        if (this.repository.getProviderByCuit(cuit) != null) {
             throw new MLException("Constraint Violation");
         }
-    	
-    	Provider prov = new Provider(name, cuit);
-        return this.repository.saveProvider(prov);
+
+        Provider prov = new Provider(name, cuit);
+        return (Provider) this.repository.save(prov);
     }
 
     @Override
@@ -99,7 +102,11 @@ public class MLServiceImpl implements MLService {
     @Override
     public ProductOnSale createProductOnSale(Product product, Provider provider, Float price, Date initialDate)
             throws MLException {
-        return null;
+        // if (this.repository.getOnDeliveryPaymentByName(name) != null) {
+        // throw new MLException("Constraint Violation");
+        // }
+        ProductOnSale pos = new ProductOnSale(product, provider, price, initialDate);
+        return (ProductOnSale) this.repository.save(pos);
     }
 
     @Override
@@ -111,9 +118,8 @@ public class MLServiceImpl implements MLService {
 
     @Override
     public Optional<Provider> getProviderByCuit(long cuit) {
-    	return Optional.of(this.repository.getProviderByCuit(cuit));
+        return Optional.of(this.repository.getProviderByCuit(cuit));
     }
-
 
     @Override
     public ProductOnSale getProductOnSaleById(Long id) {

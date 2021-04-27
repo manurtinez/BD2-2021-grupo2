@@ -22,11 +22,11 @@ public class Product {
   @ManyToOne(fetch = FetchType.LAZY)
   private Category category;
 
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
   private Set<ProductOnSale> productsOnSale = new HashSet<ProductOnSale>();
 
   /**
-   * Constructor vacio necesario
+   * Constructor vacío necesario
    */
   public Product() {
   }
@@ -70,6 +70,10 @@ public class Product {
 
   public void setCategory(Category category) {
     this.category = category;
+  }
+
+  public void addProductOnSale(ProductOnSale pos) {
+    this.productsOnSale.add(pos);
   }
 
   public Set<ProductOnSale> getProductsOnSale() {

@@ -30,6 +30,7 @@ public class MLRepository {
 
     public Object save(Object object) {
         getSession().persist(object);
+        getSession().flush();
         return object;
     }
 

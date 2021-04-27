@@ -21,16 +21,14 @@ public class ProductOnSale {
    * Id de producto correspondiente
    */
   @ManyToOne(fetch = FetchType.LAZY)
-  @MapsId("productId")
-  @JoinColumn(name = "PRODUCT_ID")
+  @JoinColumn(name = "product_id")
   private Product product;
 
   /**
    * Id de proveedor correspondiente
    */
   @ManyToOne(fetch = FetchType.LAZY)
-  @MapsId("providerId")
-  @JoinColumn(name = "PROVIDER_ID")
+  @JoinColumn(name = "provider_id")
   private Provider provider;
 
   /**
@@ -62,6 +60,7 @@ public class ProductOnSale {
    * @param date    Fecha para llevar el historial
    */
   public ProductOnSale(Product product, Provider provider, float price, Date initialDate) {
+    product.addProductOnSale(this);
     this.product = product;
     this.provider = provider;
     this.price = price;

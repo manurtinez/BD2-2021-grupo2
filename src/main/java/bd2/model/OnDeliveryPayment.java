@@ -1,7 +1,6 @@
 package bd2.model;
 
 import javax.persistence.*;
-import java.util.UUID;
 
 /**
  * Clase que representa un pago a contraentrega.
@@ -9,20 +8,12 @@ import java.util.UUID;
 
 @Entity(name = "OnDeliveryPayment")
 @Table(name = "on_delivery_payment")
-public class OnDeliveryPayment {
+public class OnDeliveryPayment extends PaymentMethod {
 
-    /**
-     * Clave primaria del objeto
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
-
-    private String name;
     private Float promisedAmount;
 
     /**
-     * Constructor vacio necesario
+     * Constructor vacío necesario
      */
     public OnDeliveryPayment() {
     }
@@ -34,20 +25,8 @@ public class OnDeliveryPayment {
      */
 
     public OnDeliveryPayment(String name, Float promisedAmount) {
-        this.name = name;
+        super(name);
         this.promisedAmount = promisedAmount;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Float getPromisedAmount() {

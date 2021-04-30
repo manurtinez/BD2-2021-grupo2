@@ -1,7 +1,7 @@
 package bd2.model;
 
-import javax.persistence.*;
-import java.util.UUID;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Date;
 
 /**
@@ -10,16 +10,8 @@ import java.util.Date;
 
 @Entity(name = "CreditCardPayment")
 @Table(name = "credit_card_payment")
-public class CreditCardPayment {
+public class CreditCardPayment extends PaymentMethod {
 
-    /**
-     * Clave primaria del objeto
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
-
-    private String name;
     private String brand;
     private Long number;
     private Date expiry;
@@ -27,7 +19,7 @@ public class CreditCardPayment {
     private String owner;
 
     /**
-     * Constructor vacio necesario
+     * Constructor vacío necesario
      */
     public CreditCardPayment() {
     }
@@ -39,24 +31,12 @@ public class CreditCardPayment {
      */
 
     public CreditCardPayment(String name, String brand, Long number, Date expiry, Integer cvv, String owner) {
-        this.name = name;
+        super(name);
         this.brand = brand;
         this.number = number;
         this.expiry = expiry;
         this.cvv = cvv;
         this.owner = owner;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getBrand() {

@@ -1,15 +1,13 @@
 package bd2.model;
 
 import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.util.Date;
 
 /**
  * Clase que representa un pago con tarjeta de crédito
  */
 
-@Entity(name = "CreditCardPayment")
-@Table(name = "credit_card_payment")
+@Entity
 public class CreditCardPayment extends PaymentMethod {
 
     private String brand;

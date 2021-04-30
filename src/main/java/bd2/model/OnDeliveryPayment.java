@@ -6,8 +6,7 @@ import javax.persistence.*;
  * Clase que representa un pago a contraentrega.
  */
 
-@Entity(name = "OnDeliveryPayment")
-@Table(name = "on_delivery_payment")
+@Entity
 public class OnDeliveryPayment extends PaymentMethod {
 
     private Float promisedAmount;

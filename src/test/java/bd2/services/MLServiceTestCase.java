@@ -215,50 +215,44 @@ public class MLServiceTestCase {
     // ex.getMessage());
     // }
     //
-    // @Test
-    // public void testCreatePurchase() throws MLException {
-    // Provider p = this.service.createProvider("Philips",30715589634L);
-    // Category c = this.service.createCategory("Hogar");
-    // Product prod = this.service.createProduct("Lamparita led 7w fria",
-    // Float.valueOf(40.5F), c);
-    // Calendar cal = Calendar.getInstance();
-    // cal.set(Calendar.YEAR, 2020);
-    // cal.set(Calendar.MONTH, Calendar.JANUARY);
-    // cal.set(Calendar.DAY_OF_MONTH, 1);
-    // Date id = cal.getTime();
-    // ProductOnSale pos = this.service.createProductOnSale(prod, p, 150F, id);
-    // assertNotNull(pos.getId());
-    // cal.set(Calendar.YEAR, 1982);
-    // cal.set(Calendar.MONTH, Calendar.MAY);
-    // cal.set(Calendar.DAY_OF_MONTH, 17);
-    // Date dob = cal.getTime();
-    // User u = this.service.createUser("federico.orlando@info.unlp.edu.ar",
-    // "Federico Orlando", "pas$w0rd", dob);
-    // OnDeliveryPayment dp = this.service.createOnDeliveryPayment("Pago Efectivo
-    // Lampara", 800F);
-    // DeliveryMethod d = this.service.createDeliveryMethod("Moto menos 1kg",
-    // 250.0F, 0.01F, 999F);
-    // cal.set(Calendar.YEAR, 2020);
-    // cal.set(Calendar.MONTH, Calendar.MAY);
-    // cal.set(Calendar.DAY_OF_MONTH, 10);
-    // Date dop = cal.getTime();
-    // Purchase pur = this.service.createPurchase(pos, 5, u, d, dp, "Calle 12 432",
-    // Float.valueOf(-54.45F), Float.valueOf(-62.22F), dop);
-    // assertEquals(Integer.valueOf(5), pur.getQuantity());
-    // assertEquals(Float.valueOf(1000F), pur.getAmount());
-    // assertEquals(u, pur.getClient());
-    // assertEquals(dop, pur.getDateOfPurchase());
-    // assertEquals(d,pur.getDeliveryMethod());
-    // assertEquals(dp,pur.getPaymentMethod());
-    // assertEquals("Calle 12 432",pur.getAddress());
-    // assertEquals(Float.valueOf(-54.45F),pur.getCoordX());
-    // assertEquals(Float.valueOf(-62.22F),pur.getCoordY());
-    // DeliveryMethod d2 = this.service.createDeliveryMethod("Moto menos 1kg",
-    // 250.0F, 0.01F, 200F);
-    // MLException ex = assertThrows(MLException.class, () ->
-    // this.service.createPurchase(pos, 5, u, d2, dp,"Calle 12
-    // 432",Float.valueOf(-54.45F), Float.valueOf(-62.22F), dop));
-    // assertEquals("método de delivery no válido",ex.getMessage());
-    // }
+    @Test
+    public void testCreatePurchase() throws MLException {
+        Provider p = this.service.createProvider("Philips", 30715589634L);
+        Category c = this.service.createCategory("Hogar");
+        Product prod = this.service.createProduct("Lamparita led 7w fria", Float.valueOf(40.5F), c);
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, 2020);
+        cal.set(Calendar.MONTH, Calendar.JANUARY);
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        Date id = cal.getTime();
+        ProductOnSale pos = this.service.createProductOnSale(prod, p, 150F, id);
+        assertNotNull(pos.getId());
+        cal.set(Calendar.YEAR, 1982);
+        cal.set(Calendar.MONTH, Calendar.MAY);
+        cal.set(Calendar.DAY_OF_MONTH, 17);
+        Date dob = cal.getTime();
+        User u = this.service.createUser("federico.orlando@info.unlp.edu.ar", "Federico Orlando", "pas$w0rd", dob);
+        OnDeliveryPayment dp = this.service.createOnDeliveryPayment("Pago Efectivo Lampara", 800F);
+        DeliveryMethod d = this.service.createDeliveryMethod("Moto menos 1kg", 250.0F, 0.01F, 999F);
+        cal.set(Calendar.YEAR, 2020);
+        cal.set(Calendar.MONTH, Calendar.MAY);
+        cal.set(Calendar.DAY_OF_MONTH, 10);
+        Date dop = cal.getTime();
+        Purchase pur = this.service.createPurchase(pos, 5, u, d, dp, "Calle 12 432", Float.valueOf(-54.45F),
+                Float.valueOf(-62.22F), dop);
+        assertEquals(Integer.valueOf(5), (Integer) pur.getQuantity());
+        assertEquals(Float.valueOf(1000F), pur.getAmount());
+        assertEquals(u, pur.getClient());
+        assertEquals(dop, pur.getDateOfPurchase());
+        assertEquals(d, pur.getDeliveryMethod());
+        assertEquals(dp, pur.getPaymentMethod());
+        assertEquals("Calle 12 432", pur.getAddress());
+        assertEquals(Float.valueOf(-54.45F), pur.getCoordX());
+        assertEquals(Float.valueOf(-62.22F), pur.getCoordY());
+        DeliveryMethod d2 = this.service.createDeliveryMethod("Moto menos 1kg", 250.0F, 0.01F, 200F);
+        MLException ex = assertThrows(MLException.class, () -> this.service.createPurchase(pos, 5, u, d2, dp,
+                "Calle 12 432", Float.valueOf(-54.45F), Float.valueOf(-62.22F), dop));
+        assertEquals("método de delivery no válido", ex.getMessage());
+    }
 
 }

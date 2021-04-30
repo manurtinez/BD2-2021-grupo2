@@ -2,6 +2,7 @@ package bd2.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * Clase que representa el historial de cambios de precio para un determinado
@@ -15,7 +16,7 @@ public class ProductOnSale {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  private long id;
+  private UUID id;
 
   /**
    * Id de producto correspondiente
@@ -99,7 +100,7 @@ public class ProductOnSale {
     this.provider = provider;
   }
 
-  public long getId() {
+  public UUID getId() {
     return this.id;
   }
 

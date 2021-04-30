@@ -113,7 +113,9 @@ public class MLServiceImpl implements MLService {
     public Purchase createPurchase(ProductOnSale productOnSale, Integer quantity, User client,
             DeliveryMethod deliveryMethod, PaymentMethod paymentMethod, String address, Float coordX, Float coordY,
             Date dateOfPurchase) throws MLException {
-        return null;
+        Purchase pur = new Purchase(productOnSale, quantity, client, deliveryMethod, paymentMethod, address, coordX,
+                coordY, dateOfPurchase);
+        return (Purchase) this.repository.save(pur);
     }
 
     @Override

@@ -76,9 +76,9 @@ public class MLServiceImpl implements MLService {
     @Override
     public DeliveryMethod createDeliveryMethod(String name, Float cost, Float startWeight, Float endWeight)
             throws MLException {
-        if (this.repository.getDeliveryMethodByName(name) != null) {
-            throw new MLException("Constraint Violation");
-        }
+        // if (this.repository.getDeliveryMethodByName(name) != null) {
+        // throw new MLException("Constraint Violation");
+        // }
         DeliveryMethod dm = new DeliveryMethod(name, cost, startWeight, endWeight);
         return (DeliveryMethod) this.repository.save(dm);
     }
@@ -113,6 +113,10 @@ public class MLServiceImpl implements MLService {
     public Purchase createPurchase(ProductOnSale productOnSale, Integer quantity, User client,
             DeliveryMethod deliveryMethod, PaymentMethod paymentMethod, String address, Float coordX, Float coordY,
             Date dateOfPurchase) throws MLException {
+        // Chequear que el delivery method soporta el peso de los productos
+        if (productOnSale.getProduct().getWeight() * quantity > deliveryMethod.getEndWeight()) {
+            throw new MLException("método de delivery no válido");
+        }
         Purchase pur = new Purchase(productOnSale, quantity, client, deliveryMethod, paymentMethod, address, coordX,
                 coordY, dateOfPurchase);
         return (Purchase) this.repository.save(pur);

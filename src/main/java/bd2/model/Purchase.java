@@ -135,12 +135,13 @@ public class Purchase {
   // Fin getters and setters
 
   /**
-   * Retorna el monto total a pagar?
+   * Retorna el monto total a pagar, es decir: Cantidad de productos, por precio
+   * por producto, mas precio de envío
    * 
    * @return monto total
    */
   public Float getAmount() {
-    return this.quantity * this.productOnSale.getPrice();
+    return (this.quantity * this.productOnSale.getPrice()) + this.deliveryMethod.getCost();
   }
 
 }

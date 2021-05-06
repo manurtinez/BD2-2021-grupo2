@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -150,5 +151,125 @@ public class MLServiceImpl implements MLService {
     @Override
     public Optional<Purchase> getPurchaseById(Long id) {
         return Optional.empty();
+    }
+
+    @Override
+    public List<Purchase> getAllPurchasesMadeByUser(String username) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public List<User> getUsersSpendingMoreThanInPurchase(Float amount) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public List<User> getUsersSpendingMoreThan(Float amount) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public List<Provider> getTopNProvidersInPurchases(int n) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public List<Product> getTop3MoreExpensiveProducts() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public List<User> getTopNUsersMorePurchase(int n) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public List<Purchase> getPurchasesInPeriod(Date startDate, Date endDate) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public List<Product> getProductForCategory(Category category) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public List<Purchase> getPurchasesForProvider(Long cuit) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Product getBestSellingProduct() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public List<Product> getProductsOnePrice() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public List<Product> getProductWithMoreThan20percentDiferenceInPrice() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Provider getProviderLessExpensiveProduct() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public List<Provider> getProvidersDoNotSellOn(Date day) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public List<ProductOnSale> getSoldProductsOn(Date day) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public List<Product> getProductsNotSold() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public DeliveryMethod getMostUsedDeliveryMethod() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public OnDeliveryPayment getMoreChangeOnDeliveryMethod() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Product getHeaviestProduct() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Category getCategoryWithLessProducts() {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

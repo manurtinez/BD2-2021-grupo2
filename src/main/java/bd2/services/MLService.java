@@ -6,7 +6,7 @@ import bd2.repositories.MLException;
 import java.util.Date;
 import java.util.Optional;
 
-public interface MLService {
+public interface MLService extends MLStatisticsService {
 
 	/**
 	 * Crea y devuelve una nueva Catogoria

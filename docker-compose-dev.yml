@@ -2,7 +2,7 @@ version: '3.8'
 services:
   backend:
     image: maven:3.6.3-openjdk-11
-    command: mvn install
+    command: mvn clean install -e
     ports:
       - 8080:8080
     volumes:

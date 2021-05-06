@@ -1,5 +1,7 @@
 package bd2.repositories;
 
+import java.util.UUID;
+import java.util.Date;
 import bd2.model.Category;
 import bd2.model.Provider;
 import bd2.model.User;
@@ -106,9 +108,28 @@ public class MLRepository {
     public OnDeliveryPayment getOnDeliveryPaymentByName(String name) {
         try {
             return (OnDeliveryPayment) getSession().createQuery("FROM OnDeliveryPayment WHERE name = :name")
-                    .setParameter("name", name).getSingleResult();
+                    .setParameter("name", name)
+                    .getSingleResult();
         } catch (NoResultException e) {
             return null;
+        }
+    }
+
+    public boolean hasNewerProductOnSaleVersion(UUID productId, UUID providerId, Date date) {
+        try {
+            getSession().createQuery(
+                    "FROM ProductOnSale pos " +
+                            "inner join pos.product as prod " +
+                            "inner join pos.provider as prov " +
+                            "WHERE prod.id = :productId and prov.id = :providerId and pos.finalDate > :date"
+            )
+                    .setParameter("productId", productId)
+                    .setParameter("providerId", providerId)
+                    .setParameter("date", date)
+                    .getSingleResult();
+            return true;
+        } catch (NoResultException e) {
+            return false;
         }
     }
 }

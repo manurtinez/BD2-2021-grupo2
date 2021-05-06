@@ -86,7 +86,7 @@ public class MLServiceImpl implements MLService {
 
     @Override
     public CreditCardPayment createCreditCardPayment(String name, String brand, Long number, Date expiry, Integer cvv,
-            String owner) throws MLException {
+                                                     String owner) throws MLException {
         CreditCardPayment ccp = new CreditCardPayment(name, brand, number, expiry, cvv, owner);
         return (CreditCardPayment) this.repository.save(ccp);
     }
@@ -103,9 +103,9 @@ public class MLServiceImpl implements MLService {
     @Override
     public ProductOnSale createProductOnSale(Product product, Provider provider, Float price, Date initialDate)
             throws MLException {
-        // if (this.repository.getOnDeliveryPaymentByName(name) != null) {
-        // throw new MLException("Constraint Violation");
-        // }
+        if (this.repository.hasNewerProductOnSaleVersion(product.getId(), provider.getId(), initialDate)) {
+            throw new MLException("Ya existe un precio para el producto con fecha de inicio de vigencia posterior a la fecha de inicio dada");
+        }
         ProductOnSale pos = new ProductOnSale(product, provider, price, initialDate);
         return (ProductOnSale) this.repository.save(pos);
     }
@@ -121,6 +121,9 @@ public class MLServiceImpl implements MLService {
         Purchase pur = new Purchase(productOnSale, quantity, client, deliveryMethod, paymentMethod, address, coordX,
                 coordY, dateOfPurchase);
         return (Purchase) this.repository.save(pur);
+                                   DeliveryMethod deliveryMethod, PaymentMethod paymentMethod, String address, Float coordX, Float coordY,
+                                   Date dateOfPurchase) throws MLException {
+        return null;
     }
 
     @Override

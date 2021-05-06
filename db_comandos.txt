@@ -1,0 +1,31 @@
+COMO CREAR USUARIOS Y DB:
+
+A) CREACIÓN DE USUARIOS
+Primero utilizaremos el comando: 
+mysql -u root -p
+para poder acceder a la consola mysql.
+Una vez abierta esta última, tipeamos el siguiente comando con las creden-
+ciales de nuestro nuevo user:
+CREATE USER 'grupo2'@'localhost' IDENTIFIED BY '123';
+(prestar atención a el ";" final). Ya hemos creado el usuario con nombre 
+grupo2 y contraseña 123, ahora necesitamos darle permisos, en este caso le 
+otorgaremos todos los permisos a nuestro user con el siguiente comando:
+GRANT ALL PRIVILEGES ON * . * TO 'grupo2'@'localhost';
+Y por último, tipeamos el comando:
+FLUSH PRIVILEGES;
+Así dejaremos vigentes los cambios que acabamos de hacer.
+Para ver nuestro nuevo usuario, en la consola mysql podemos tipear:
+SELECT User,Host FROM mysql.user;
+Para salir de la consola mysql podemos tipear el comando 'quit'.
+
+B) CREACIÓN DE DB:
+Para este caso, necesitamos tener la consola mysql abierta (ver 
+comandos en la sección anterior); Seguidamente, tipeamos el siguiente 
+comando para crear la bd:
+CREATE DATABASE grupo2;
+Una vez hecho esto, podemos verificar que se creó correctamente con el
+comando:
+SHOW DATABASES
+
+
+

@@ -120,4 +120,17 @@ public class MLRepository {
             return null;
         }
     }
+
+    public List<User> getUsersSpendingMoreThanInPurchase(Float amount) {
+        try {
+            return getSession()
+                    .createQuery("SELECT p.client FROM Purchase p " + "JOIN p.client as cl "
+                            + "JOIN p.productOnSale as pos " + "JOIN p.deliveryMethod as dm "
+                            + "WHERE (p.quantity * pos.price + dm.cost) > :amount")
+                    .setParameter("amount", amount).getResultList();
+
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 }

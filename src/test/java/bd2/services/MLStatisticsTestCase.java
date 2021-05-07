@@ -64,16 +64,13 @@ public class MLStatisticsTestCase {
     assertEquals(5, this.service.getAllPurchasesMadeByUser("silviasez428@gmail.com").size());
   }
 
-  // @Test
-  // public void testGetUsersSpendingMoreThanInPurchase() {
-  // List<User> users =
-  // this.service.getUsersSpendingMoreThanInPurchase(Float.valueOf(920000F));
-  // assertEquals(3, users.size());
-  // this.assertListEquality(users.stream().map(property ->
-  // property.getEmail()).collect(Collectors.toList()),
-  // Arrays.asList("carlospascual402@hotmail.com", "matiasgarca37@hotmail.com",
-  // "maracalvo55@yahoo.com"));
-  // }
+  @Test
+  public void testGetUsersSpendingMoreThanInPurchase() {
+    List<User> users = this.service.getUsersSpendingMoreThanInPurchase(Float.valueOf(920000F));
+    assertEquals(3, users.size());
+    this.assertListEquality(users.stream().map(property -> property.getEmail()).collect(Collectors.toList()),
+        Arrays.asList("carlospascual402@hotmail.com", "matiasgarca37@hotmail.com", "maracalvo55@yahoo.com"));
+  }
 
   // @Test
   // public void testGetUsersSpendingMoreThan() {

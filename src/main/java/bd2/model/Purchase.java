@@ -12,22 +12,22 @@ public class Purchase {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private UUID id;
 
-  @ManyToOne
-  @JoinColumn(name = "product_on_sale_id")
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "product_on_sale_id", nullable = false)
   private ProductOnSale productOnSale;
 
   private int quantity;
 
-  @ManyToOne
-  @JoinColumn(name = "client_id")
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "client_id", nullable = false)
   private User client;
 
-  @ManyToOne
-  @JoinColumn(name = "delivery_method_id")
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "delivery_method_id", nullable = false)
   private DeliveryMethod deliveryMethod;
 
-  @ManyToOne
-  @JoinColumn(name = "payment_method_id")
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "payment_method_id", nullable = false)
   private PaymentMethod paymentMethod;
 
   private String address;

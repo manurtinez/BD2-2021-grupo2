@@ -93,9 +93,9 @@ public class MLServiceImpl implements MLService {
 
     @Override
     public OnDeliveryPayment createOnDeliveryPayment(String name, Float promisedAmount) throws MLException {
-        if (this.repository.getOnDeliveryPaymentByName(name) != null) {
-            throw new MLException("Constraint Violation");
-        }
+        // if (this.repository.getOnDeliveryPaymentByName(name) != null) {
+        // throw new MLException("Constraint Violation");
+        // }
         OnDeliveryPayment omp = new OnDeliveryPayment(name, promisedAmount);
         return (OnDeliveryPayment) this.repository.save(omp);
     }
@@ -155,8 +155,7 @@ public class MLServiceImpl implements MLService {
 
     @Override
     public List<Purchase> getAllPurchasesMadeByUser(String username) {
-        // TODO Auto-generated method stub
-        return null;
+        return this.repository.getAllPurchasesMadeByUser(username);
     }
 
     @Override

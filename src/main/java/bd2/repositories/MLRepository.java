@@ -1,21 +1,20 @@
 package bd2.repositories;
 
-import bd2.model.Category;
-import bd2.model.Provider;
-import bd2.model.User;
-import bd2.model.Product;
-import bd2.model.DeliveryMethod;
-import bd2.model.CreditCardPayment;
-import bd2.model.OnDeliveryPayment;
+import bd2.model.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 import javax.persistence.NoResultException;
 // import javax.persistence.PersistenceException;
+import javax.transaction.Transactional;
 
 @Repository
+@SuppressWarnings("unchecked")
+@Transactional
 public class MLRepository {
 
     @Autowired
@@ -107,6 +106,16 @@ public class MLRepository {
         try {
             return (OnDeliveryPayment) getSession().createQuery("FROM OnDeliveryPayment WHERE name = :name")
                     .setParameter("name", name).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    public List<Purchase> getAllPurchasesMadeByUser(String username) {
+        try {
+            return (List<Purchase>) getSession()
+                    .createQuery("SELECT ps FROM Purchase ps WHERE ps.client.email = :username")
+                    .setParameter("username", username).getResultList();
         } catch (NoResultException e) {
             return null;
         }

@@ -165,8 +165,7 @@ public class MLServiceImpl implements MLService {
 
     @Override
     public List<User> getUsersSpendingMoreThan(Float amount) {
-        // TODO Auto-generated method stub
-        return null;
+        return this.repository.getUsersSpendingMoreThan(amount);
     }
 
     @Override

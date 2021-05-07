@@ -128,7 +128,18 @@ public class MLRepository {
                             + "JOIN p.productOnSale as pos " + "JOIN p.deliveryMethod as dm "
                             + "WHERE (p.quantity * pos.price + dm.cost) > :amount")
                     .setParameter("amount", amount).getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 
+    public List<User> getUsersSpendingMoreThan(Float amount) {
+        try {
+            return getSession()
+                    .createQuery("SELECT p.client FROM Purchase p " + "JOIN p.client as cl "
+                            + "JOIN p.productOnSale as pos " + "JOIN p.deliveryMethod as dm " + "GROUP BY p.client "
+                            + "HAVING SUM(p.quantity * pos.price + dm.cost) > CAST(:amount as double)")
+                    .setParameter("amount", amount).getResultList();
         } catch (NoResultException e) {
             return null;
         }

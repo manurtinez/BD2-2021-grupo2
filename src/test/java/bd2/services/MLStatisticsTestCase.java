@@ -80,15 +80,13 @@ public class MLStatisticsTestCase {
         Arrays.asList("santiagoserrano157@yahoo.com", "santiagomartin638@yahoo.com", "florenciaalonso505@yahoo.com"));
   }
 
-  // @Test
-  // public void testGetTopNProvidersInPurchases() {
-  // List<Provider> providers = this.service.getTopNProvidersInPurchases(3);
-  // assertEquals(3, providers.size());
-  // this.assertListEquality(providers.stream().map(property ->
-  // property.getName()).collect(Collectors.toList()),
-  // Arrays.asList("Grupo Nucleo S.A.", "Refrigeracion MG Repuestos", "Seara
-  // Refrigeración S.H."));
-  // }
+  @Test
+  public void testGetTopNProvidersInPurchases() {
+    List<Provider> providers = this.service.getTopNProvidersInPurchases(3);
+    assertEquals(3, providers.size());
+    this.assertListEquality(providers.stream().map(property -> property.getName()).collect(Collectors.toList()),
+        Arrays.asList("Grupo Nucleo S.A.", "Refrigeracion MG Repuestos", "Seara Refrigeración S.H."));
+  }
 
   // @Test
   // public void testGetTop3MoreExpensiveProducts() {

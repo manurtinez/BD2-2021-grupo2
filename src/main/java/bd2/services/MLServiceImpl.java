@@ -170,8 +170,7 @@ public class MLServiceImpl implements MLService {
 
     @Override
     public List<Provider> getTopNProvidersInPurchases(int n) {
-        // TODO Auto-generated method stub
-        return null;
+        return this.repository.getTopNProvidersInPurchases(n);
     }
 
     @Override

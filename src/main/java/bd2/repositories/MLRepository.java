@@ -144,4 +144,15 @@ public class MLRepository {
             return null;
         }
     }
+
+    public List<Provider> getTopNProvidersInPurchases(int n) {
+        try {
+            return getSession()
+                    .createQuery("SELECT p FROM Purchase pur " + "JOIN pur.productOnSale as pos "
+                            + "JOIN pos.provider as p " + "GROUP BY p.id " + "ORDER BY SUM(pur.quantity) DESC")
+                    .setFirstResult(0).setMaxResults(3).getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 }

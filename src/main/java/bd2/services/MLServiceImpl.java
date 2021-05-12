@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 import java.util.Optional;
 
 @Service
@@ -103,9 +104,9 @@ public class MLServiceImpl implements MLService {
     @Override
     public ProductOnSale createProductOnSale(Product product, Provider provider, Float price, Date initialDate)
             throws MLException {
-        // if (this.repository.getOnDeliveryPaymentByName(name) != null) {
-        // throw new MLException("Constraint Violation");
-        // }
+        if (this.repository.hasNewerProductOnSaleVersion(product, provider, initialDate)) {
+            throw new MLException("Ya existe un precio para el producto con fecha de inicio de vigencia posterior a la fecha de inicio dada");
+        }
         ProductOnSale pos = new ProductOnSale(product, provider, price, initialDate);
         return (ProductOnSale) this.repository.save(pos);
     }
@@ -133,7 +134,7 @@ public class MLServiceImpl implements MLService {
         return null;
     }
 
-    @Override
+
     public Optional<DeliveryMethod> getDeliveryMethodByName(String name) {
         return Optional.of(this.repository.getDeliveryMethodByName(name));
     }

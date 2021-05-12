@@ -57,8 +57,9 @@ public class ProductOnSale {
    * Constructor
    * 
    * @param product El producto correspondiente
+   * @param provider El provider correspondiente
    * @param price   Precio para el producto
-   * @param date    Fecha para llevar el historial
+   * @param initialDate    Fecha para llevar el historial
    */
   public ProductOnSale(Product product, Provider provider, float price, Date initialDate) {
     product.addProductOnSale(this);

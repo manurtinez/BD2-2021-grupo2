@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID;
+import java.util.Date;
 
 import javax.persistence.NoResultException;
 // import javax.persistence.PersistenceException;
@@ -153,6 +155,21 @@ public class MLRepository {
                     .setFirstResult(0).setMaxResults(3).getResultList();
         } catch (NoResultException e) {
             return null;
+        }
+    }
+
+    public boolean hasNewerProductOnSaleVersion(UUID productId, UUID providerId, Date initialDate) {
+        try {
+            getSession().createQuery(
+                    "SELECT pos FROM ProductOnSale pos JOIN pos.product as prod JOIN pos.provider as prov WHERE prod.id = :productId and prov.id = :providerId and pos.initialDate >= :initialDate"
+            )
+                    .setParameter("productId", productId)
+                    .setParameter("providerId", providerId)
+                    .setParameter("initialDate", initialDate)
+                    .getSingleResult();
+            return true;
+        } catch (NoResultException e) {
+            return false;
         }
     }
 }

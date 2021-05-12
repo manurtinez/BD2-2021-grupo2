@@ -180,41 +180,38 @@ public class MLServiceTestCase {
         assertEquals(p.getCuit(), pos.getProvider().getCuit());
     }
 
-    // @Test
-    // public void testUpdateProductOnSale() throws MLException {
-    // Provider p = this.service.createProvider("Philips", 30715589634L);
-    // Category c = this.service.createCategory("Hogar");
-    // Product prod = this.service.createProduct("Lamparita led 7w fria",
-    // Float.valueOf(40.5F), c);
-    // Calendar cal = Calendar.getInstance();
-    // cal.set(Calendar.YEAR, 2020);
-    // cal.set(Calendar.MONTH, Calendar.JANUARY);
-    // cal.set(Calendar.DAY_OF_MONTH, 1);
-    // Date id = cal.getTime();
-    // ProductOnSale pos = this.service.createProductOnSale(prod, p, 158.52F, id);
-    // assertNotNull(pos.getId());
-    // cal.set(Calendar.YEAR, 2020);
-    // cal.set(Calendar.MONTH, Calendar.FEBRUARY);
-    // cal.set(Calendar.DAY_OF_MONTH, 1);
-    // Date id2 = cal.getTime();
-    // ProductOnSale pos2 = this.service.createProductOnSale(prod, p, 175F, id2);
-    // assertNotNull(pos2.getId());
-    // assertEquals(Float.valueOf(175F), (Float) pos2.getPrice());
-    // assertEquals(2, pos2.getProduct().getProductsOnSale().size());
-    // assertEquals(null, pos2.getFinalDate());
-    // assertEquals(id2, pos2.getInitialDate());
-    // cal.set(Calendar.YEAR, 2020);
-    // cal.set(Calendar.MONTH, Calendar.JANUARY);
-    // cal.set(Calendar.DAY_OF_MONTH, 15);
-    // Date id3 = cal.getTime();
-    // MLException ex = assertThrows(MLException.class, () ->
-    // this.service.createProductOnSale(prod, p, 200F, id3));
-    // assertEquals(
-    // "Ya existe un precio para el producto con fecha de inicio de vigencia
-    // posterior a la fecha de inicio dada",
-    // ex.getMessage());
-    // }
-    //
+    @Test
+    public void testUpdateProductOnSale() throws MLException {
+        Provider p = this.service.createProvider("Philips", 30715589634L);
+        Category c = this.service.createCategory("Hogar");
+        Product prod = this.service.createProduct("Lamparita led 7w fria", Float.valueOf(40.5F), c);
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, 2020);
+        cal.set(Calendar.MONTH, Calendar.JANUARY);
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        Date id = cal.getTime();
+        ProductOnSale pos = this.service.createProductOnSale(prod, p, 158.52F, id);
+        assertNotNull(pos.getId());
+        cal.set(Calendar.YEAR, 2020);
+        cal.set(Calendar.MONTH, Calendar.FEBRUARY);
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        Date id2 = cal.getTime();
+        ProductOnSale pos2 = this.service.createProductOnSale(prod, p, 175F, id2);
+        assertNotNull(pos2.getId());
+        assertEquals(Float.valueOf(175F), (Float) pos2.getPrice());
+        assertEquals(2, pos2.getProduct().getProductsOnSale().size());
+        assertEquals(null, pos2.getFinalDate());
+        assertEquals(id2, pos2.getInitialDate());
+        cal.set(Calendar.YEAR, 2020);
+        cal.set(Calendar.MONTH, Calendar.JANUARY);
+        cal.set(Calendar.DAY_OF_MONTH, 15);
+        Date id3 = cal.getTime();
+        MLException ex = assertThrows(MLException.class, () -> this.service.createProductOnSale(prod, p, 200F, id3));
+        assertEquals(
+                "Ya existe un precio para el producto con fecha de inicio de vigencia posterior a la fecha de inicio dada",
+                ex.getMessage());
+    }
+
     @Test
     public void testCreatePurchase() throws MLException {
         Provider p = this.service.createProvider("Philips", 30715589634L);

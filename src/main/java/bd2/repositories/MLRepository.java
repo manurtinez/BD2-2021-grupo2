@@ -6,11 +6,11 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 import javax.persistence.NoResultException;
-// import javax.persistence.PersistenceException;
 import javax.transaction.Transactional;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
 @Repository
 @SuppressWarnings("unchecked")
@@ -153,6 +153,19 @@ public class MLRepository {
                     .setFirstResult(0).setMaxResults(3).getResultList();
         } catch (NoResultException e) {
             return null;
+        }
+    }
+
+    public boolean hasNewerProductOnSaleVersion(UUID productId, UUID providerId, Date initialDate) {
+        try {
+            List<ProductOnSale> result = (List<ProductOnSale>) getSession()
+                    .createQuery("SELECT pos FROM ProductOnSale pos WHERE pos.initialDate >= :initialDate")
+                    .setParameter("initialDate", initialDate).getResultList();
+            // TODO esto es un crimen contra la humanidad, Julian, ayudanos porfa （°ʖ̯°)
+            return result.stream().anyMatch(
+                    res -> (res.getProduct().getId() == productId) && (res.getProvider().getId() == providerId));
+        } catch (NoResultException e) {
+            return false;
         }
     }
 }

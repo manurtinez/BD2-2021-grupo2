@@ -6,13 +6,11 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.NoResultException;
+import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-import java.util.Date;
-
-import javax.persistence.NoResultException;
-// import javax.persistence.PersistenceException;
-import javax.transaction.Transactional;
 
 @Repository
 @SuppressWarnings("unchecked")
@@ -160,14 +158,12 @@ public class MLRepository {
 
     public boolean hasNewerProductOnSaleVersion(UUID productId, UUID providerId, Date initialDate) {
         try {
-            getSession().createQuery(
-                    "SELECT pos FROM ProductOnSale pos JOIN pos.product as prod JOIN pos.provider as prov WHERE prod.id = :productId and prov.id = :providerId and pos.initialDate >= :initialDate"
-            )
-                    .setParameter("productId", productId)
-                    .setParameter("providerId", providerId)
-                    .setParameter("initialDate", initialDate)
-                    .getSingleResult();
-            return true;
+            List<ProductOnSale> result = (List<ProductOnSale>) getSession()
+                    .createQuery("SELECT pos FROM ProductOnSale pos WHERE pos.initialDate >= :initialDate")
+                    .setParameter("initialDate", initialDate).getResultList();
+            // TODO esto es un crimen contra la humanidad, Julian, ayudanos porfa （°ʖ̯°)
+            return result.stream().anyMatch(
+                    res -> (res.getProduct().getId() == productId) && (res.getProvider().getId() == providerId));
         } catch (NoResultException e) {
             return false;
         }

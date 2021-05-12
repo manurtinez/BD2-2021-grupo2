@@ -20,8 +20,8 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {AppConfig.class,
-        HibernateConfiguration.class}, loader = AnnotationConfigContextLoader.class)
+@ContextConfiguration(classes = { AppConfig.class,
+        HibernateConfiguration.class }, loader = AnnotationConfigContextLoader.class)
 @Transactional
 @Rollback(true)
 public class MLServiceTestCase {
@@ -184,8 +184,7 @@ public class MLServiceTestCase {
     public void testUpdateProductOnSale() throws MLException {
         Provider p = this.service.createProvider("Philips", 30715589634L);
         Category c = this.service.createCategory("Hogar");
-        Product prod = this.service.createProduct("Lamparita led 7w fria",
-                Float.valueOf(40.5F), c);
+        Product prod = this.service.createProduct("Lamparita led 7w fria", Float.valueOf(40.5F), c);
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.YEAR, 2020);
         cal.set(Calendar.MONTH, Calendar.JANUARY);
@@ -207,8 +206,7 @@ public class MLServiceTestCase {
         cal.set(Calendar.MONTH, Calendar.JANUARY);
         cal.set(Calendar.DAY_OF_MONTH, 15);
         Date id3 = cal.getTime();
-        MLException ex = assertThrows(MLException.class, () ->
-                this.service.createProductOnSale(prod, p, 200F, id3));
+        MLException ex = assertThrows(MLException.class, () -> this.service.createProductOnSale(prod, p, 200F, id3));
         assertEquals(
                 "Ya existe un precio para el producto con fecha de inicio de vigencia posterior a la fecha de inicio dada",
                 ex.getMessage());

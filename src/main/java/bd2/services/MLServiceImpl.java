@@ -104,8 +104,9 @@ public class MLServiceImpl implements MLService {
     @Override
     public ProductOnSale createProductOnSale(Product product, Provider provider, Float price, Date initialDate)
             throws MLException {
-        if (this.repository.hasNewerProductOnSaleVersion(product, provider, initialDate)) {
-            throw new MLException("Ya existe un precio para el producto con fecha de inicio de vigencia posterior a la fecha de inicio dada");
+        if (this.repository.hasNewerProductOnSaleVersion(product.getId(), provider.getId(), initialDate)) {
+            throw new MLException(
+                    "Ya existe un precio para el producto con fecha de inicio de vigencia posterior a la fecha de inicio dada");
         }
         ProductOnSale pos = new ProductOnSale(product, provider, price, initialDate);
         return (ProductOnSale) this.repository.save(pos);
@@ -133,7 +134,6 @@ public class MLServiceImpl implements MLService {
     public ProductOnSale getProductOnSaleById(Long id) {
         return null;
     }
-
 
     public Optional<DeliveryMethod> getDeliveryMethodByName(String name) {
         return Optional.of(this.repository.getDeliveryMethodByName(name));

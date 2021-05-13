@@ -187,8 +187,7 @@ public class MLServiceImpl implements MLService {
 
     @Override
     public List<Purchase> getPurchasesInPeriod(Date startDate, Date endDate) {
-        // TODO Auto-generated method stub
-        return null;
+        return this.repository.getPurchasesInPeriod(startDate, endDate);
     }
 
     @Override

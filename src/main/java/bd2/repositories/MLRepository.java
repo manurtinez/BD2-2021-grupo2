@@ -179,4 +179,12 @@ public class MLRepository {
             return false;
         }
     }
+
+    public List<Purchase> getPurchasesInPeriod(Date startDate, Date endDate) {
+        return (List<Purchase>) getSession()
+                .createQuery("SELECT p FROM Purchase p WHERE p.dateOfPurchase BETWEEN :startDate and :endDate")
+                .setParameter("startDate", startDate)
+                .setParameter("endDate", endDate)
+                .getResultList();
+    }
 }

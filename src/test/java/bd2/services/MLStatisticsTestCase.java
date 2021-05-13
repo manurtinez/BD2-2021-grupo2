@@ -113,17 +113,15 @@ public class MLStatisticsTestCase {
 
   // }
 
-  // @Test
-  // public void testGetPurchasesInPeriod() throws ParseException {
-  // List<Purchase> purchases =
-  // this.service.getPurchasesInPeriod(sdf.parse("8/1/2020"),
-  // sdf.parse("20/01/2020"));
-  // assertEquals(4, purchases.size());
-  // this.assertListEquality(purchases.stream().map(property ->
-  // property.getAddress()).collect(Collectors.toList()),
-  // Arrays.asList("Calle 56 Nº1582", "Calle 51 Nº399", "Calle 44 Nº812", "Calle
-  // 52 Nº816"));
-  // }
+    @Test
+    public void testGetPurchasesInPeriod() throws ParseException {
+        List<Purchase> purchases =
+                this.service.getPurchasesInPeriod(sdf.parse("8/1/2020"),
+                        sdf.parse("20/01/2020"));
+        assertEquals(4, purchases.size());
+        this.assertListEquality(purchases.stream().map(property -> property.getAddress()).collect(Collectors.toList()),
+                Arrays.asList("Calle 56 Nº1582", "Calle 51 Nº399", "Calle 44 Nº812", "Calle 52Nº816"));
+    }
 
   // @Test
   // public void testGetProductForCategory() throws MLException {

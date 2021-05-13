@@ -88,16 +88,16 @@ public class MLStatisticsTestCase {
         Arrays.asList("Grupo Nucleo S.A.", "Refrigeracion MG Repuestos", "Seara Refrigeración S.H."));
   }
 
-  // @Test
-  // public void testGetTop3MoreExpensiveProducts() {
-  // List<Product> products = this.service.getTop3MoreExpensiveProducts();
-  // assertEquals(3, products.size());
-  // this.assertListEquality(products.stream().map(property ->
-  // property.getName()).collect(Collectors.toList()),
-  // Arrays.asList("Salamandra A Leña Tromen Pehuen 9500 Kcal/h 106 M2 Cuotas",
-  // "Lavarropas automático Samsung WW90J5410G inverter plata 9kg 220 V",
-  // "Nebulizador a pistón Omron NE-C801 blanco 100V/240V"));
-  // }
+   @Test
+   public void testGetTop3MoreExpensiveProducts() {
+	   List<Product> products = this.service.getTop3MoreExpensiveProducts();
+	   assertEquals(3, products.size());
+	   this.assertListEquality(products.stream().map(property ->
+	   property.getName()).collect(Collectors.toList()),
+	   Arrays.asList("Salamandra A Leña Tromen Pehuen 9500 Kcal/h 106 M2 Cuotas",
+	   "Lavarropas  automático Samsung WW90J5410G inverter plata 9kg 220 V",
+	   "Nebulizador a pistón Omron NE-C801 blanco 100V/240V"));
+   }
 
   // @Test
   // public void testGetTopNUsersMorePurchase() {

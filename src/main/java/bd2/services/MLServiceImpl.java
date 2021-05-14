@@ -176,20 +176,17 @@ public class MLServiceImpl implements MLService {
 
     @Override
     public List<Product> getTop3MoreExpensiveProducts() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.repository.getTop3MoreExpensiveProducts();
     }
 
     @Override
     public List<User> getTopNUsersMorePurchase(int n) {
-        // TODO Auto-generated method stub
-        return null;
+        return this.repository.getTopNUsersMorePurchase(n);
     }
 
     @Override
     public List<Purchase> getPurchasesInPeriod(Date startDate, Date endDate) {
-        // TODO Auto-generated method stub
-        return null;
+        return this.repository.getPurchasesInPeriod(startDate, endDate);
     }
 
     @Override

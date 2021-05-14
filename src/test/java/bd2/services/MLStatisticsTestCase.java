@@ -88,42 +88,40 @@ public class MLStatisticsTestCase {
         Arrays.asList("Grupo Nucleo S.A.", "Refrigeracion MG Repuestos", "Seara Refrigeración S.H."));
   }
 
-  // @Test
-  // public void testGetTop3MoreExpensiveProducts() {
-  // List<Product> products = this.service.getTop3MoreExpensiveProducts();
-  // assertEquals(3, products.size());
-  // this.assertListEquality(products.stream().map(property ->
-  // property.getName()).collect(Collectors.toList()),
-  // Arrays.asList("Salamandra A Leña Tromen Pehuen 9500 Kcal/h 106 M2 Cuotas",
-  // "Lavarropas automático Samsung WW90J5410G inverter plata 9kg 220 V",
-  // "Nebulizador a pistón Omron NE-C801 blanco 100V/240V"));
-  // }
+   @Test
+   public void testGetTop3MoreExpensiveProducts() {
+	   List<Product> products = this.service.getTop3MoreExpensiveProducts();
+	   assertEquals(3, products.size());
+	   this.assertListEquality(products.stream().map(property ->
+	   property.getName()).collect(Collectors.toList()),
+	   Arrays.asList("Salamandra A Leña Tromen Pehuen 9500 Kcal/h 106 M2 Cuotas",
+	   "Lavarropas  automático Samsung WW90J5410G inverter plata 9kg 220 V",
+	   "Nebulizador a pistón Omron NE-C801 blanco 100V/240V"));
+   }
 
-  // @Test
-  // public void testGetTopNUsersMorePurchase() {
-  // List<User> users = this.service.getTopNUsersMorePurchase(7);
-  // assertEquals(7, users.size());
-  // this.assertListEquality(users.stream().map(property ->
-  // property.getEmail()).collect(Collectors.toList()),
-  // Arrays.asList("silviasez428@gmail.com", "matiasherrero831@gmail.com",
-  // "santiagoserrano157@yahoo.com",
-  // "silviaromero99@me.com", "florenciaalonso505@yahoo.com",
-  // "paulacaballero154@yahoo.com",
-  // "paulamorales955@yahoo.com"));
+   @Test
+   public void testGetTopNUsersMorePurchase() {
+	   List<User> users = this.service.getTopNUsersMorePurchase(7);
+	   assertEquals(7, users.size());
+	   this.assertListEquality(users.stream().map(property ->
+	   property.getEmail()).collect(Collectors.toList()),
+	   Arrays.asList("silviasez428@gmail.com", "matiasherrero831@gmail.com",
+	   "santiagoserrano157@yahoo.com",
+	   "silviaromero99@me.com", "florenciaalonso505@yahoo.com",
+	   "paulacaballero154@yahoo.com",
+	   "paulamorales955@yahoo.com"));
 
-  // }
+   }
 
-  // @Test
-  // public void testGetPurchasesInPeriod() throws ParseException {
-  // List<Purchase> purchases =
-  // this.service.getPurchasesInPeriod(sdf.parse("8/1/2020"),
-  // sdf.parse("20/01/2020"));
-  // assertEquals(4, purchases.size());
-  // this.assertListEquality(purchases.stream().map(property ->
-  // property.getAddress()).collect(Collectors.toList()),
-  // Arrays.asList("Calle 56 Nº1582", "Calle 51 Nº399", "Calle 44 Nº812", "Calle
-  // 52 Nº816"));
-  // }
+    @Test
+    public void testGetPurchasesInPeriod() throws ParseException {
+        List<Purchase> purchases =
+                this.service.getPurchasesInPeriod(sdf.parse("8/1/2020"),
+                        sdf.parse("20/01/2020"));
+        assertEquals(4, purchases.size());
+        this.assertListEquality(purchases.stream().map(property -> property.getAddress()).collect(Collectors.toList()),
+                Arrays.asList("Calle 56 Nº1582", "Calle 51 Nº399", "Calle 44 Nº812", "Calle 52 Nº816"));
+    }
 
   // @Test
   // public void testGetProductForCategory() throws MLException {

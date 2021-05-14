@@ -155,6 +155,28 @@ public class MLRepository {
             return null;
         }
     }
+    
+    public List<Product> getTop3MoreExpensiveProducts(){
+    	try {
+    		return getSession()
+    				.createQuery("SELECT prod FROM ProductOnSale as pos "+"JOIN pos.product as prod "
+    				+"ORDER BY pos.price DESC")
+    				.setMaxResults(3).getResultList();
+    	} catch (NoResultException e) {
+    		return null;
+    	}
+    }
+    
+    public List<User> getTopNUsersMorePurchase(int n){
+    	try {
+    		 return getSession()
+    				.createQuery("SELECT cli FROM Purchase as pur "
+    					+"JOIN pur.client as cli "
+    					+"ORDER BY cli.purchases.size DESC").setMaxResults(n).getResultList();
+    	} catch (NoResultException e) {
+    		return null;
+    	}
+    }
 
     public boolean hasNewerProductOnSaleVersion(UUID productId, UUID providerId, Date initialDate) {
         try {
@@ -167,5 +189,13 @@ public class MLRepository {
         } catch (NoResultException e) {
             return false;
         }
+    }
+
+    public List<Purchase> getPurchasesInPeriod(Date startDate, Date endDate) {
+        return (List<Purchase>) getSession()
+                .createQuery("SELECT p FROM Purchase p WHERE p.dateOfPurchase BETWEEN :startDate and :endDate")
+                .setParameter("startDate", startDate)
+                .setParameter("endDate", endDate)
+                .getResultList();
     }
 }

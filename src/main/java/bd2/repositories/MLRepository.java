@@ -166,6 +166,17 @@ public class MLRepository {
     		return null;
     	}
     }
+    
+    public List<User> getTopNUsersMorePurchase(int n){
+    	try {
+    		 return getSession()
+    				.createQuery("SELECT cli FROM Purchase as pur "
+    					+"JOIN pur.client as cli "
+    					+"ORDER BY cli.purchases.size DESC").setMaxResults(n).getResultList();
+    	} catch (NoResultException e) {
+    		return null;
+    	}
+    }
 
     public boolean hasNewerProductOnSaleVersion(UUID productId, UUID providerId, Date initialDate) {
         try {

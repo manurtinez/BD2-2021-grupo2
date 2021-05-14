@@ -3,7 +3,8 @@ package bd2.model;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
-
+import java.util.HashSet;
+import java.util.Set;
 /**
  * Clase que representa usuarios de la plataforma
  */
@@ -42,6 +43,10 @@ public class User {
     /**
      * Constructor vacio necesario
      */
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "client", cascade = CascadeType.ALL)
+    private Set<Purchase> purchases = new HashSet<Purchase>();
+    
     public User() {
     }
 
@@ -94,5 +99,9 @@ public class User {
 
     public void setDayOfBirth(Date birthDate) {
         this.dayOfBirth = birthDate;
+    }
+    
+    public Set<Purchase> purchases() {
+    	return purchases;
     }
 }

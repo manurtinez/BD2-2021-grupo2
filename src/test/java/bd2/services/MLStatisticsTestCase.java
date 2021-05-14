@@ -99,19 +99,19 @@ public class MLStatisticsTestCase {
 	   "Nebulizador a pistón Omron NE-C801 blanco 100V/240V"));
    }
 
-  // @Test
-  // public void testGetTopNUsersMorePurchase() {
-  // List<User> users = this.service.getTopNUsersMorePurchase(7);
-  // assertEquals(7, users.size());
-  // this.assertListEquality(users.stream().map(property ->
-  // property.getEmail()).collect(Collectors.toList()),
-  // Arrays.asList("silviasez428@gmail.com", "matiasherrero831@gmail.com",
-  // "santiagoserrano157@yahoo.com",
-  // "silviaromero99@me.com", "florenciaalonso505@yahoo.com",
-  // "paulacaballero154@yahoo.com",
-  // "paulamorales955@yahoo.com"));
+   @Test
+   public void testGetTopNUsersMorePurchase() {
+	   List<User> users = this.service.getTopNUsersMorePurchase(7);
+	   assertEquals(7, users.size());
+	   this.assertListEquality(users.stream().map(property ->
+	   property.getEmail()).collect(Collectors.toList()),
+	   Arrays.asList("silviasez428@gmail.com", "matiasherrero831@gmail.com",
+	   "santiagoserrano157@yahoo.com",
+	   "silviaromero99@me.com", "florenciaalonso505@yahoo.com",
+	   "paulacaballero154@yahoo.com",
+	   "paulamorales955@yahoo.com"));
 
-  // }
+   }
 
   // @Test
   // public void testGetPurchasesInPeriod() throws ParseException {

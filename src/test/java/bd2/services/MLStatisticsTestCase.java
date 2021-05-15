@@ -168,12 +168,12 @@ public class MLStatisticsTestCase {
 	   assertEquals(Long.valueOf(20535001383L), provider.getCuit());
    }
 
-  // @Test
-  // public void testGetProvidersDoNotSellOn() throws ParseException {
-  // List<Provider> providers =
-  // this.service.getProvidersDoNotSellOn(sdf.parse("29/01/2020"));
-  // assertEquals(16, providers.size());
-  // }
+   @Test
+   public void testGetProvidersDoNotSellOn() throws ParseException {
+	   List<Provider> providers =
+	   this.service.getProvidersDoNotSellOn(sdf.parse("29/01/2020"));
+	   assertEquals(16, providers.size());
+   }
 
   // @Test
   // public void testGetSoldProductsOn() throws ParseException {

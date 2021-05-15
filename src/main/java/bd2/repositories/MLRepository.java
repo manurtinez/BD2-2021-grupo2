@@ -155,7 +155,7 @@ public class MLRepository {
             return null;
         }
     }
-    
+
     public List<Product> getTop3MoreExpensiveProducts(){
     	try {
     		return getSession()
@@ -178,14 +178,18 @@ public class MLRepository {
     	}
     }
 
-    public boolean hasNewerProductOnSaleVersion(UUID productId, UUID providerId, Date initialDate) {
+    public boolean hasNewerProductOnSaleVersion(Product product, Provider provider, Date initialDate) {
         try {
-            List<ProductOnSale> result = (List<ProductOnSale>) getSession()
-                    .createQuery("SELECT pos FROM ProductOnSale pos WHERE pos.initialDate >= :initialDate")
-                    .setParameter("initialDate", initialDate).getResultList();
-            // TODO esto es un crimen contra la humanidad, Julian, ayudanos porfa （°ʖ̯°)
-            return result.stream().anyMatch(
-                    res -> (res.getProduct().getId() == productId) && (res.getProvider().getId() == providerId));
+            getSession()
+                    .createQuery("SELECT pos FROM ProductOnSale pos " +
+                            "WHERE pos.product = :product "
+                            + "and pos.provider = :provider "
+                            + "and pos.initialDate >= :initialDate"
+                    )
+                    .setParameter("product", product)
+                    .setParameter("provider", provider)
+                    .setParameter("initialDate", initialDate).getSingleResult();
+            return true;
         } catch (NoResultException e) {
             return false;
         }

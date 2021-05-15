@@ -15,8 +15,8 @@ import java.util.UUID;
 public class ProductOnSale {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private UUID id;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
   /**
    * Id de producto correspondiente
@@ -101,7 +101,7 @@ public class ProductOnSale {
     this.provider = provider;
   }
 
-  public UUID getId() {
+  public Long getId() {
     return this.id;
   }
 

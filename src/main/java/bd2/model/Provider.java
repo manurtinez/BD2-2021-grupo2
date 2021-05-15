@@ -13,8 +13,8 @@ import java.util.UUID;
 public class Provider {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private UUID id;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
   private String name;
 
@@ -73,7 +73,7 @@ public class Provider {
     this.cuit = cuit;
   }
   
-  public UUID getId() {
+  public Long getId() {
       return id;
   }
 

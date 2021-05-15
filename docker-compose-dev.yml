@@ -2,7 +2,7 @@ version: '3.8'
 services:
   backend:
     image: maven:3.6.3-openjdk-11
-    command: mvn clean package -Dmaven.surefire.debug="-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=*:5005"
+    command: mvn package -Dmaven.surefire.debug="-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=*:5005"
     ports:
       - 8080:8080
       - 5005:5005

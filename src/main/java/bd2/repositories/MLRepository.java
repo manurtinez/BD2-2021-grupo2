@@ -245,4 +245,11 @@ public class MLRepository {
             return null;
         }
     }
+
+    public List<Purchase> getPurchasesForProvider(Long cuit) {
+        return (List<Purchase>) getSession()
+                .createQuery("SELECT pur FROM Purchase pur WHERE pur.productOnSale.provider.cuit = :cuit")
+                .setParameter("cuit", cuit)
+                .getResultList();
+    }
 }

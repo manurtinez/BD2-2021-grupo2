@@ -195,8 +195,7 @@ public class MLServiceImpl implements MLService {
 
     @Override
     public List<Purchase> getPurchasesForProvider(Long cuit) {
-        // TODO Auto-generated method stub
-        return null;
+        return this.repository.getPurchasesForProvider(cuit);
     }
 
     @Override

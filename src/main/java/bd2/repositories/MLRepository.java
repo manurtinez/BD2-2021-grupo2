@@ -212,6 +212,18 @@ public class MLRepository {
         }
     }
     
+    public List<Product> getProductsOnePrice(){
+    	try {
+    		return getSession()
+    				.createQuery("SELECT prod FROM ProductOnSale as pos JOIN pos.product as prod "
+    				+"WHERE NOT EXISTS "
+    				+"(SELECT pd FROM ProductOnSale as ps JOIN ps.product as pd WHERE ps.product.id = pos.product.id AND ps.price <> pos.price)"
+    				).getResultList();
+    	} catch (NoResultException e) {
+    		return null;
+    	}
+    }
+    
     public Product getHeaviestProduct() {
     	try {
             return (Product) getSession().createQuery(

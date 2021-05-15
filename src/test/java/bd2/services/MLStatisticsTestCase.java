@@ -157,11 +157,11 @@ public class MLStatisticsTestCase {
 	   assertEquals(product.getName(), "Lavarropas  automático Samsung WW90J5410G inverter plata 9kg 220 V");
    }
 
-  // @Test
-  // public void testGetProductsOnePrice() {
-  // List<Product> products = this.service.getProductsOnePrice();
-  // assertEquals(12, products.size());
-  // }
+   @Test
+   public void testGetProductsOnePrice() {
+	   List<Product> products = this.service.getProductsOnePrice();
+	   assertEquals(12, products.size());
+   }
 
   // @Test
   // public void testGetProviderLessExpensiveProduct() {

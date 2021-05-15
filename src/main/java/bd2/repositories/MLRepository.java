@@ -257,6 +257,31 @@ public class MLRepository {
     		return null;
     	}
     }
+    
+    public Provider getProviderLessExpensiveProduct() {
+    	try {
+            return (Provider) getSession().createQuery(
+            		"SELECT prov FROM ProductOnSale pos JOIN pos.provider as prov "
+            		+"ORDER BY pos.price")
+            		.setMaxResults(1)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+    
+    public List<Provider> getProvidersDoNotSellOn(Date day){
+    	try {
+    		return getSession()
+    				.createQuery("SELECT prov FROM Provider as prov "
+    				+"WHERE prov NOT IN "
+    				+"(SELECT pro FROM Purchase pur JOIN pur.productOnSale as pos JOIN pos.provider as pro "
+    				+ "WHERE pur.dateOfPurchase = :day)"
+    				).setParameter("day", day).getResultList();
+    	} catch (NoResultException e) {
+    		return null;
+    	}
+    }
 
     public Product getHeaviestProduct() {
     	try {

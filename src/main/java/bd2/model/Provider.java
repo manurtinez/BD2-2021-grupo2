@@ -19,7 +19,7 @@ public class Provider {
   private String name;
 
   @OneToMany(fetch = FetchType.LAZY,mappedBy = "provider")
-  private Set<ProductOnSale> providers = new HashSet<ProductOnSale>();
+  private Set<ProductOnSale> productsOnSale = new HashSet<ProductOnSale>();
 
   private Long cuit;
 

@@ -216,8 +216,7 @@ public class MLServiceImpl implements MLService {
 
     @Override
     public Provider getProviderLessExpensiveProduct() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.repository.getProviderLessExpensiveProduct();
     }
 
     @Override

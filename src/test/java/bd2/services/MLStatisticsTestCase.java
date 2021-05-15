@@ -162,11 +162,11 @@ public class MLStatisticsTestCase {
 	   assertEquals(12, products.size());
    }
 
-  // @Test
-  // public void testGetProviderLessExpensiveProduct() {
-  // Provider provider = this.service.getProviderLessExpensiveProduct();
-  // assertEquals(Long.valueOf(20535001383L), provider.getCuit());
-  // }
+   @Test
+   public void testGetProviderLessExpensiveProduct() {
+	   Provider provider = this.service.getProviderLessExpensiveProduct();
+	   assertEquals(Long.valueOf(20535001383L), provider.getCuit());
+   }
 
   // @Test
   // public void testGetProvidersDoNotSellOn() throws ParseException {

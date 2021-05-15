@@ -234,6 +234,18 @@ public class MLRepository {
     		return null;
     	}
     }
+    
+    public Provider getProviderLessExpensiveProduct() {
+    	try {
+            return (Provider) getSession().createQuery(
+            		"SELECT prov FROM ProductOnSale pos JOIN pos.provider as prov "
+            		+"ORDER BY pos.price")
+            		.setMaxResults(1)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 
     public Product getHeaviestProduct() {
     	try {

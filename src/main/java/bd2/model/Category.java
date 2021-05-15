@@ -1,5 +1,7 @@
 package bd2.model;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.util.UUID;
 
@@ -15,8 +17,8 @@ public class Category {
      * Clave primaria del objeto
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     /**
      * Constructor vacio necesario
@@ -38,7 +40,7 @@ public class Category {
      */
     private String name;
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 

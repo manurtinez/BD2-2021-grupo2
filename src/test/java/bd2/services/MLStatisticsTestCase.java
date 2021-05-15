@@ -123,23 +123,22 @@ public class MLStatisticsTestCase {
                 Arrays.asList("Calle 56 Nº1582", "Calle 51 Nº399", "Calle 44 Nº812", "Calle 52 Nº816"));
     }
 
-  // @Test
-  // public void testGetProductForCategory() throws MLException {
-  // Optional<Category> oc = this.service.getCategoryByName("Calderas");
-  // if (!oc.isPresent()) {
-  // throw new MLException("Category not found");
-  // }
-  // Category cat = oc.get();
-  // List<Product> products = this.service.getProductForCategory(cat);
-  // assertEquals(4, products.size());
-  // this.assertListEquality(products.stream().map(property ->
-  // property.getName()).collect(Collectors.toList()),
-  // Arrays.asList("Caldera Peisa Diva Duo Ds 32000 Kcal Tiro Forzado",
-  // "Caldera Mural Orbis 230cto Solo Calefaccion 29000 Kcal Tiro Natural Con
-  // Envio",
-  // "Caldera Mural Orbis 230cto Calefaccion 30000 Kcal + Envio",
-  // "Caldera A Gas Baxi Eco 4s 24 Doble Servicio Tiro Forzado"));
-  // }
+  @Test
+  public void testGetProductForCategory() throws MLException {
+    Optional<Category> oc = this.service.getCategoryByName("Calderas");
+    if (!oc.isPresent()) {
+      throw new MLException("Category not found");
+    }
+    Category cat = oc.get();
+    List<Product> products = this.service.getProductForCategory(cat);
+    assertEquals(4, products.size());
+    this.assertListEquality(products.stream().map(property ->
+                    property.getName()).collect(Collectors.toList()),
+            Arrays.asList("Caldera Peisa Diva Duo Ds 32000 Kcal Tiro Forzado",
+                    "Caldera Mural Orbis 230cto Solo Calefaccion 29000 Kcal Tiro Natural Con Envio",
+                    "Caldera Mural Orbis 230cto Calefaccion 30000 Kcal + Envio",
+                    "Caldera A Gas Baxi Eco 4s 24 Doble Servicio Tiro Forzado"));
+  }
 
   // @Test
   // public void testGetPurchasesForProvider() {

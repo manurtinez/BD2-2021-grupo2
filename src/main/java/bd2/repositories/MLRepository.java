@@ -187,4 +187,11 @@ public class MLRepository {
                 .setParameter("endDate", endDate)
                 .getResultList();
     }
+
+    public List<Product> getProductForCategory(Category category) {
+        return (List<Product>) getSession()
+                .createQuery("SELECT p FROM Product p WHERE p.category = :category")
+                .setParameter("category", category)
+                .getResultList();
+    }
 }

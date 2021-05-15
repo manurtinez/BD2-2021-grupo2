@@ -10,6 +10,7 @@ import javax.persistence.NoResultException;
 import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -32,6 +33,13 @@ public class MLRepository {
         getSession().flush();
         return object;
     }
+
+    public Object update(Object object) {
+        getSession().update(object);
+        getSession().flush();
+        return object;
+    }
+
 
     public Product getProductByName(String name) {
         try {
@@ -178,6 +186,21 @@ public class MLRepository {
     	}
     }
 
+    public Optional<ProductOnSale> getLastProductOnSaleVersion(Product product, Provider provider) {
+        return getSession()
+                .createQuery("SELECT pos FROM ProductOnSale pos " +
+                        "WHERE pos.product = :product "
+                        + "and pos.provider = :provider " +
+                        "and pos.finalDate IS NULL"
+                )
+                .setParameter("product", product)
+                .setParameter("provider", provider)
+                .setMaxResults(1)
+                .getResultList()
+                .stream()
+                .findFirst();
+    }
+
     public boolean hasNewerProductOnSaleVersion(Product product, Provider provider, Date initialDate) {
         try {
             getSession()
@@ -251,5 +274,13 @@ public class MLRepository {
                 .createQuery("SELECT pur FROM Purchase pur WHERE pur.productOnSale.provider.cuit = :cuit")
                 .setParameter("cuit", cuit)
                 .getResultList();
+    }
+
+    public Provider getProviderLessExpensiveProduct() {
+        return (Provider) getSession().createQuery("SELECT prov " +
+                "FROM ProductOnSale pos " +
+                "JOIN pos.provider as prov " +
+                "WHERE pos.finalDate IS NULL " +
+                "ORDER BY pos.price ASC").setMaxResults(1).getSingleResult();
     }
 }

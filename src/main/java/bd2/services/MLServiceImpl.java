@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -106,6 +107,12 @@ public class MLServiceImpl implements MLService {
         if (this.repository.hasNewerProductOnSaleVersion(product, provider, initialDate)) {
             throw new MLException(
                     "Ya existe un precio para el producto con fecha de inicio de vigencia posterior a la fecha de inicio dada");
+        }
+        Optional<ProductOnSale> oldPos = this.repository.getLastProductOnSaleVersion(product, provider);
+        if (oldPos.isPresent()) {
+            Calendar cal = Calendar.getInstance();
+            oldPos.get().setFinalDate(initialDate);
+            this.repository.update(oldPos.get());
         }
         ProductOnSale pos = new ProductOnSale(product, provider, price, initialDate);
         return (ProductOnSale) this.repository.save(pos);
@@ -216,8 +223,7 @@ public class MLServiceImpl implements MLService {
 
     @Override
     public Provider getProviderLessExpensiveProduct() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.repository.getProviderLessExpensiveProduct();
     }
 
     @Override

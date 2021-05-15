@@ -1,6 +1,8 @@
 package bd2.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -37,6 +39,9 @@ public class Category {
      * Nombre de la categoria
      */
     private String name;
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "category", cascade = CascadeType.ALL)
+    private Set<Product> products = new HashSet<Product>();
 
     public UUID getId() {
         return id;

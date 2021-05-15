@@ -200,6 +200,18 @@ public class MLRepository {
     }
     
     
+    public Product getBestSellingProduct() {
+    	try {
+            return (Product) getSession().createQuery(
+            		"SELECT prod FROM Purchase pur JOIN pur.productOnSale as pos JOIN pos.product as prod "
+            		+"GROUP BY prod.id ORDER BY count(*) DESC")
+            		.setMaxResults(1)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+    
     public Product getHeaviestProduct() {
     	try {
             return (Product) getSession().createQuery(

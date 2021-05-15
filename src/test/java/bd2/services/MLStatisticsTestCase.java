@@ -99,19 +99,19 @@ public class MLStatisticsTestCase {
 	   "Nebulizador a pistón Omron NE-C801 blanco 100V/240V"));
    }
 
-  // @Test
-  // public void testGetTopNUsersMorePurchase() {
-  // List<User> users = this.service.getTopNUsersMorePurchase(7);
-  // assertEquals(7, users.size());
-  // this.assertListEquality(users.stream().map(property ->
-  // property.getEmail()).collect(Collectors.toList()),
-  // Arrays.asList("silviasez428@gmail.com", "matiasherrero831@gmail.com",
-  // "santiagoserrano157@yahoo.com",
-  // "silviaromero99@me.com", "florenciaalonso505@yahoo.com",
-  // "paulacaballero154@yahoo.com",
-  // "paulamorales955@yahoo.com"));
+   @Test
+   public void testGetTopNUsersMorePurchase() {
+	   List<User> users = this.service.getTopNUsersMorePurchase(7);
+	   assertEquals(7, users.size());
+	   this.assertListEquality(users.stream().map(property ->
+	   property.getEmail()).collect(Collectors.toList()),
+	   Arrays.asList("silviasez428@gmail.com", "matiasherrero831@gmail.com",
+	   "santiagoserrano157@yahoo.com",
+	   "silviaromero99@me.com", "florenciaalonso505@yahoo.com",
+	   "paulacaballero154@yahoo.com",
+	   "paulamorales955@yahoo.com"));
 
-  // }
+   }
 
     @Test
     public void testGetPurchasesInPeriod() throws ParseException {
@@ -150,18 +150,17 @@ public class MLStatisticsTestCase {
   // Arrays.asList("Calle 40 Nº137", "Calle 57 Nº1637", "Calle 62 Nº1158"));
   // }
 
-  // @Test
-  // public void testGetBestSellingProduct() {
-  // Product product = this.service.getBestSellingProduct();
-  // assertEquals(product.getName(), "Lavarropas automático Samsung WW90J5410G
-  // inverter plata 9kg 220 V");
-  // }
+   @Test
+   public void testGetBestSellingProduct() {
+	   Product product = this.service.getBestSellingProduct();
+	   assertEquals(product.getName(), "Lavarropas  automático Samsung WW90J5410G inverter plata 9kg 220 V");
+   }
 
-  // @Test
-  // public void testGetProductsOnePrice() {
-  // List<Product> products = this.service.getProductsOnePrice();
-  // assertEquals(12, products.size());
-  // }
+   @Test
+   public void testGetProductsOnePrice() {
+	   List<Product> products = this.service.getProductsOnePrice();
+	   assertEquals(12, products.size());
+   }
 
   // @Test
   // public void testGetProviderLessExpensiveProduct() {
@@ -215,12 +214,12 @@ public class MLStatisticsTestCase {
   // assertEquals(29, products.size());
   // }
 
-  // @Test
-  // public void testGetHeaviestProduct() {
-  // Product product = this.service.getHeaviestProduct();
-  // assertEquals("Lavavajillas Drean Dish 15.2 DT de 15 cubiertos blanco 220V",
-  // product.getName());
-  // }
+   @Test
+   public void testGetHeaviestProduct() {
+	   Product product = this.service.getHeaviestProduct();
+	   assertEquals("Lavavajillas Drean Dish 15.2 DT de 15 cubiertos blanco 220V",
+	   product.getName());
+   }
 
   // @Test
   // public void testGetCategoryWithLessProducts() {

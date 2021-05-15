@@ -167,6 +167,17 @@ public class MLRepository {
     	}
     }
 
+    public List<User> getTopNUsersMorePurchase(int n){
+    	try {
+    		 return getSession()
+    				.createQuery("SELECT cli FROM Purchase as pur "
+    					+"JOIN pur.client as cli "
+    					+"ORDER BY cli.purchases.size DESC").setMaxResults(n).getResultList();
+    	} catch (NoResultException e) {
+    		return null;
+    	}
+    }
+
     public boolean hasNewerProductOnSaleVersion(UUID productId, UUID providerId, Date initialDate) {
         try {
             List<ProductOnSale> result = (List<ProductOnSale>) getSession()
@@ -193,5 +204,41 @@ public class MLRepository {
                 .createQuery("SELECT p FROM Product p WHERE p.category = :category")
                 .setParameter("category", category)
                 .getResultList();
+    }
+
+
+    public Product getBestSellingProduct() {
+    	try {
+            return (Product) getSession().createQuery(
+            		"SELECT prod FROM Purchase pur JOIN pur.productOnSale as pos JOIN pos.product as prod "
+            		+"GROUP BY prod.id ORDER BY count(*) DESC")
+            		.setMaxResults(1)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    public List<Product> getProductsOnePrice(){
+    	try {
+    		return getSession()
+    				.createQuery("SELECT prod FROM ProductOnSale as pos JOIN pos.product as prod "
+    				+"WHERE NOT EXISTS "
+    				+"(SELECT pd FROM ProductOnSale as ps JOIN ps.product as pd WHERE ps.product.id = pos.product.id AND ps.price <> pos.price)"
+    				).getResultList();
+    	} catch (NoResultException e) {
+    		return null;
+    	}
+    }
+
+    public Product getHeaviestProduct() {
+    	try {
+            return (Product) getSession().createQuery(
+            		"FROM Product prod ORDER BY weight DESC")
+            		.setMaxResults(1)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 }

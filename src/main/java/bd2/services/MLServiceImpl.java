@@ -257,8 +257,7 @@ public class MLServiceImpl implements MLService {
 
     @Override
     public Product getHeaviestProduct() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.repository.getHeaviestProduct();
     }
 
     @Override

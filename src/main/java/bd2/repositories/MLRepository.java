@@ -198,4 +198,16 @@ public class MLRepository {
                 .setParameter("endDate", endDate)
                 .getResultList();
     }
+    
+    
+    public Product getHeaviestProduct() {
+    	try {
+            return (Product) getSession().createQuery(
+            		"FROM Product prod ORDER BY weight DESC")
+            		.setMaxResults(1)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 }

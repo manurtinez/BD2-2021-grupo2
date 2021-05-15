@@ -216,12 +216,12 @@ public class MLStatisticsTestCase {
   // assertEquals(29, products.size());
   // }
 
-  // @Test
-  // public void testGetHeaviestProduct() {
-  // Product product = this.service.getHeaviestProduct();
-  // assertEquals("Lavavajillas Drean Dish 15.2 DT de 15 cubiertos blanco 220V",
-  // product.getName());
-  // }
+   @Test
+   public void testGetHeaviestProduct() {
+	   Product product = this.service.getHeaviestProduct();
+	   assertEquals("Lavavajillas Drean Dish 15.2 DT de 15 cubiertos blanco 220V",
+	   product.getName());
+   }
 
   // @Test
   // public void testGetCategoryWithLessProducts() {

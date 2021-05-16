@@ -244,8 +244,7 @@ public class MLServiceImpl implements MLService {
 
     @Override
     public DeliveryMethod getMostUsedDeliveryMethod() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.repository.getMostUsedDeliveryMethod();
     }
 
     @Override

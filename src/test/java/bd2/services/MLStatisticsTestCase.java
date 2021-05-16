@@ -195,11 +195,11 @@ public class MLStatisticsTestCase {
 	   assertEquals(49, products.size());
    }
 
-  // @Test
-  // public void testGetMostUsedDeliveryMethod() {
-  // DeliveryMethod dm = this.service.getMostUsedDeliveryMethod();
-  // assertEquals("Flete", dm.getName());
-  // }
+    @Test
+    public void testGetMostUsedDeliveryMethod() {
+        DeliveryMethod dm = this.service.getMostUsedDeliveryMethod();
+        assertEquals("Flete", dm.getName());
+    }
 
     @Test
     public void testGetMoreChangeOnDeliveryMethod() {

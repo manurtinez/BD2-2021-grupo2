@@ -309,4 +309,17 @@ public class MLRepository {
             return null;
         }
     }
+
+    public DeliveryMethod getMostUsedDeliveryMethod() {
+        try {
+            return (DeliveryMethod) getSession().createQuery(
+                    "SELECT dm FROM Purchase pur " +
+                            "JOIN pur.deliveryMethod dm " +
+                            "GROUP BY dm " +
+                            "ORDER BY count(*) DESC"
+            ).setMaxResults(1).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 }

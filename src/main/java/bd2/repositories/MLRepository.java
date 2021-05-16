@@ -322,4 +322,17 @@ public class MLRepository {
             return null;
         }
     }
+
+    public Category getCategoryWithLessProducts() {
+        try {
+            return (Category) getSession().createQuery(
+                    "SELECT c FROM Category c " +
+                            "JOIN c.products prods " +
+                            "GROUP BY c " +
+                            "ORDER BY count(*)"
+            ).setMaxResults(1).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 }

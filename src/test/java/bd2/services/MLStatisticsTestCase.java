@@ -225,9 +225,9 @@ public class MLStatisticsTestCase {
 	   product.getName());
    }
 
-  // @Test
-  // public void testGetCategoryWithLessProducts() {
-  // Category category = this.service.getCategoryWithLessProducts();
-  // assertEquals("Calderas", category.getName());
-  // }
+    @Test
+    public void testGetCategoryWithLessProducts() {
+        Category category = this.service.getCategoryWithLessProducts();
+        assertEquals("Calderas", category.getName());
+    }
 }

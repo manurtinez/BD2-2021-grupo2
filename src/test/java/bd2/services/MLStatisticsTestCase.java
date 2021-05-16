@@ -189,11 +189,11 @@ public class MLStatisticsTestCase {
   // "Lavavajillas Drean Dish 15.2 DT de 15 cubiertos blanco 220V"));
   // }
 
-  // @Test
-  // public void testGetProductsNotSold() {
-  // List<Product> products = this.service.getProductsNotSold();
-  // assertEquals(49, products.size());
-  // }
+   @Test
+   public void testGetProductsNotSold() {
+	   List<Product> products = this.service.getProductsNotSold();
+	   assertEquals(49, products.size());
+   }
 
   // @Test
   // public void testGetMostUsedDeliveryMethod() {

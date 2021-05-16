@@ -271,6 +271,18 @@ public class MLRepository {
     	}
     }
 
+    public List<Product> getProductsNotSold(){
+    	try {
+    		return getSession()
+    				.createQuery("SELECT prod FROM Product as prod "
+    				+"WHERE prod.id NOT IN "
+    				+"(SELECT pr.id FROM Purchase as pur JOIN pur.productOnSale as ps JOIN ps.product as pr)"
+    				).getResultList();
+    	} catch (NoResultException e) {
+    		return null;
+    	}
+    }
+    
     public Product getHeaviestProduct() {
     	try {
             return (Product) getSession().createQuery(

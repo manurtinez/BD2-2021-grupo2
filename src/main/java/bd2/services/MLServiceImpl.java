@@ -239,8 +239,7 @@ public class MLServiceImpl implements MLService {
 
     @Override
     public List<Product> getProductsNotSold() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.repository.getProductsNotSold();
     }
 
     @Override

@@ -258,18 +258,6 @@ public class MLRepository {
     	}
     }
     
-    public Provider getProviderLessExpensiveProduct() {
-    	try {
-            return (Provider) getSession().createQuery(
-            		"SELECT prov FROM ProductOnSale pos JOIN pos.provider as prov "
-            		+"ORDER BY pos.price")
-            		.setMaxResults(1)
-                    .getSingleResult();
-        } catch (NoResultException e) {
-            return null;
-        }
-    }
-    
     public List<Provider> getProvidersDoNotSellOn(Date day){
     	try {
     		return getSession()
@@ -302,10 +290,19 @@ public class MLRepository {
     }
 
     public Provider getProviderLessExpensiveProduct() {
-        return (Provider) getSession().createQuery("SELECT prov " +
+        return (Provider) getSession().createQuery(
+                "SELECT prov " +
                 "FROM ProductOnSale pos " +
                 "JOIN pos.provider as prov " +
                 "WHERE pos.finalDate IS NULL " +
-                "ORDER BY pos.price ASC").setMaxResults(1).getSingleResult();
+                "ORDER BY pos.price").setMaxResults(1).getSingleResult();
     }
+
+    /*
+     public OnDeliveryPayment getMoreChangeOnDeliveryMethod() {
+         return (OnDeliveryPayment) getSession()
+                 .createQuery("SELECT odp FROM OnDeliveryPayment odp " +
+                         "JOIN Purchase.paymentMethod as pur").getResultList();
+     }
+    */
 }

@@ -201,11 +201,11 @@ public class MLStatisticsTestCase {
   // assertEquals("Flete", dm.getName());
   // }
 
-  // @Test
-  // public void testGetMoreChangeOnDeliveryMethod() {
-  // OnDeliveryPayment odp = this.service.getMoreChangeOnDeliveryMethod();
-  // assertEquals("Pago Efectivo pos072", odp.getName());
-  // }
+    @Test
+    public void testGetMoreChangeOnDeliveryMethod() {
+        OnDeliveryPayment odp = this.service.getMoreChangeOnDeliveryMethod();
+        assertEquals("Pago Efectivo pos072", odp.getName());
+    }
 
   // @Test
   // public void testGetProductWithMoreThan20percentDiferenceInPrice() {

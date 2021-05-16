@@ -50,29 +50,12 @@ public class MLRepository {
         }
     }
 
-    // public Category saveCategory(Category category) {
-    // return (Category) getSession().save(category);
-    // }
-
-    // public Provider saveProvider(Provider provider) {
-    // getSession().save(provider);
-    // return provider;
-    // }
 
     public Category getCategoryByName(String name) {
         return (Category) getSession().createQuery("FROM Category WHERE name = :name").setParameter("name", name)
                 .getSingleResult();
     }
 
-    // public User saveUser(User user) throws MLException {
-    // try {
-    // getSession().save(user);
-    // getSession().flush();
-    // return user;
-    // } catch (PersistenceException e) {
-    // throw new MLException("Constraint Violation");
-    // }
-    // }
 
     public User getUserByEmail(String email) {
         try {

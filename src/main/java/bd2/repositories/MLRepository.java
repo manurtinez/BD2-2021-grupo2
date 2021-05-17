@@ -266,8 +266,9 @@ public class MLRepository {
     public OnDeliveryPayment getMoreChangeOnDeliveryMethod() {
         try {
             return (OnDeliveryPayment) getSession().createQuery(
-                    "SELECT pm FROM Purchase pur " + "JOIN pur.paymentMethod pm " + "JOIN pur.productOnSale pos "
-                            + "WHERE TYPE(pm) = OnDeliveryPayment " + "ORDER BY (pm.promisedAmount - pos.price) DESC")
+                    "SELECT pur.paymentMethod FROM Purchase pur " +
+                            "WHERE TYPE(pur.paymentMethod.class) = OnDeliveryPayment " +
+                            "ORDER BY (pur.paymentMethod.promisedAmount - (pur.productOnSale.price * pur.quantity) - pur.deliveryMethod.cost ) DESC")
                     .setMaxResults(1).getSingleResult();
         } catch (NoResultException e) {
             return null;

@@ -305,4 +305,18 @@ public class MLRepository {
             return null;
         }
     }
+
+    public List<Product> getProductWithMoreThan20percentDiferenceInPrice() {
+        try {
+            return (List<Product>) getSession().createQuery("SELECT prod " +
+                    "FROM ProductOnSale pos " +
+                    "JOIN pos.product prod " +
+                    "WHERE pos.finalDate IS NULL " +
+                    "GROUP BY prod " +
+                    "HAVING (((MAX(pos.price) - MIN(pos.price)) / (((MAX(pos.price) + MIN(pos.price))) / 2)) * 100) > 20"
+            ).getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 }

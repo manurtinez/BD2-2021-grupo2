@@ -2,7 +2,6 @@ package bd2.model;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.UUID;
 
 /**
  * Clase que representa el historial de cambios de precio para un determinado
@@ -56,10 +55,10 @@ public class ProductOnSale {
   /**
    * Constructor
    * 
-   * @param product El producto correspondiente
-   * @param provider El provider correspondiente
-   * @param price   Precio para el producto
-   * @param initialDate    Fecha para llevar el historial
+   * @param product     El producto correspondiente
+   * @param provider    El provider correspondiente
+   * @param price       Precio para el producto
+   * @param initialDate Fecha para llevar el historial
    */
   public ProductOnSale(Product product, Provider provider, float price, Date initialDate) {
     product.addProductOnSale(this);

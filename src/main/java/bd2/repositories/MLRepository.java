@@ -11,7 +11,6 @@ import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Repository
 @SuppressWarnings("unchecked")

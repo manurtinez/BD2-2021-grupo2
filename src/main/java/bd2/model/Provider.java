@@ -3,7 +3,6 @@ package bd2.model;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 /**
  * Clase que representa un proveedor de productos
@@ -18,7 +17,7 @@ public class Provider {
 
   private String name;
 
-  @OneToMany(fetch = FetchType.LAZY,mappedBy = "provider")
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "provider")
   private Set<ProductOnSale> productsOnSale = new HashSet<ProductOnSale>();
 
   private Long cuit;
@@ -32,13 +31,13 @@ public class Provider {
   /**
    * Constructor
    * 
-   * @param name     Nombre de proveedor
-//   * @param products Lista de productos del proveedor
-   * @param cuit     CUIT del proveedor
+   * @param name Nombre de proveedor // * @param products Lista de productos del
+   *             proveedor
+   * @param cuit CUIT del proveedor
    */
   public Provider(String name, Long cuit) {
     this.name = name;
-//    this.products = new ArrayList<Product>();
+    // this.products = new ArrayList<Product>();
     this.cuit = cuit;
   }
 
@@ -54,7 +53,7 @@ public class Provider {
     // Aca iría la lógica para crear un ProductPrice con el precio y fecha del
     // producto
 
-//    this.products.add(p);
+    // this.products.add(p);
   }
 
   public void changeProductPrice(Product p, long newPrice) {
@@ -72,9 +71,9 @@ public class Provider {
   public void setCuit(Long cuit) {
     this.cuit = cuit;
   }
-  
+
   public Long getId() {
-      return id;
+    return id;
   }
 
 }

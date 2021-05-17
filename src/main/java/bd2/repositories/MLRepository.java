@@ -40,7 +40,6 @@ public class MLRepository {
         return object;
     }
 
-
     public Product getProductByName(String name) {
         try {
             return (Product) getSession().createQuery("FROM Product WHERE name = :name").setParameter("name", name)
@@ -50,12 +49,10 @@ public class MLRepository {
         }
     }
 
-
     public Category getCategoryByName(String name) {
         return (Category) getSession().createQuery("FROM Category WHERE name = :name").setParameter("name", name)
                 .getSingleResult();
     }
-
 
     public User getUserByEmail(String email) {
         try {
@@ -147,53 +144,40 @@ public class MLRepository {
         }
     }
 
-    public List<Product> getTop3MoreExpensiveProducts(){
-    	try {
-    		return getSession()
-    				.createQuery("SELECT prod FROM ProductOnSale as pos "+"JOIN pos.product as prod "
-    				+"ORDER BY pos.price DESC")
-    				.setMaxResults(3).getResultList();
-    	} catch (NoResultException e) {
-    		return null;
-    	}
+    public List<Product> getTop3MoreExpensiveProducts() {
+        try {
+            return getSession().createQuery(
+                    "SELECT prod FROM ProductOnSale as pos " + "JOIN pos.product as prod " + "ORDER BY pos.price DESC")
+                    .setMaxResults(3).getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
-    public List<User> getTopNUsersMorePurchase(int n){
-    	try {
-    		 return getSession()
-    				.createQuery("SELECT cli FROM Purchase as pur "
-    					+"JOIN pur.client as cli "
-    					+"ORDER BY cli.purchases.size DESC").setMaxResults(n).getResultList();
-    	} catch (NoResultException e) {
-    		return null;
-    	}
+    public List<User> getTopNUsersMorePurchase(int n) {
+        try {
+            return getSession().createQuery(
+                    "SELECT cli FROM Purchase as pur " + "JOIN pur.client as cli " + "ORDER BY cli.purchases.size DESC")
+                    .setMaxResults(n).getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
     public Optional<ProductOnSale> getLastProductOnSaleVersion(Product product, Provider provider) {
         return getSession()
-                .createQuery("SELECT pos FROM ProductOnSale pos " +
-                        "WHERE pos.product = :product "
-                        + "and pos.provider = :provider " +
-                        "and pos.finalDate IS NULL"
-                )
-                .setParameter("product", product)
-                .setParameter("provider", provider)
-                .setMaxResults(1)
-                .getResultList()
-                .stream()
-                .findFirst();
+                .createQuery("SELECT pos FROM ProductOnSale pos " + "WHERE pos.product = :product "
+                        + "and pos.provider = :provider " + "and pos.finalDate IS NULL")
+                .setParameter("product", product).setParameter("provider", provider).setMaxResults(1).getResultList()
+                .stream().findFirst();
     }
 
     public boolean hasNewerProductOnSaleVersion(Product product, Provider provider, Date initialDate) {
         try {
             getSession()
-                    .createQuery("SELECT pos FROM ProductOnSale pos " +
-                            "WHERE pos.product = :product "
-                            + "and pos.provider = :provider "
-                            + "and pos.initialDate >= :initialDate"
-                    )
-                    .setParameter("product", product)
-                    .setParameter("provider", provider)
+                    .createQuery("SELECT pos FROM ProductOnSale pos " + "WHERE pos.product = :product "
+                            + "and pos.provider = :provider " + "and pos.initialDate >= :initialDate")
+                    .setParameter("product", product).setParameter("provider", provider)
                     .setParameter("initialDate", initialDate).getSingleResult();
             return true;
         } catch (NoResultException e) {
@@ -204,73 +188,60 @@ public class MLRepository {
     public List<Purchase> getPurchasesInPeriod(Date startDate, Date endDate) {
         return (List<Purchase>) getSession()
                 .createQuery("SELECT p FROM Purchase p WHERE p.dateOfPurchase BETWEEN :startDate and :endDate")
-                .setParameter("startDate", startDate)
-                .setParameter("endDate", endDate)
-                .getResultList();
+                .setParameter("startDate", startDate).setParameter("endDate", endDate).getResultList();
     }
 
     public List<Product> getProductForCategory(Category category) {
-        return (List<Product>) getSession()
-                .createQuery("SELECT p FROM Product p WHERE p.category = :category")
-                .setParameter("category", category)
-                .getResultList();
+        return (List<Product>) getSession().createQuery("SELECT p FROM Product p WHERE p.category = :category")
+                .setParameter("category", category).getResultList();
     }
 
-
     public Product getBestSellingProduct() {
-    	try {
-            return (Product) getSession().createQuery(
-            		"SELECT prod FROM Purchase pur JOIN pur.productOnSale as pos JOIN pos.product as prod "
-            		+"GROUP BY prod.id ORDER BY count(*) DESC")
-            		.setMaxResults(1)
-                    .getSingleResult();
+        try {
+            return (Product) getSession()
+                    .createQuery("SELECT prod FROM Purchase pur JOIN pur.productOnSale as pos JOIN pos.product as prod "
+                            + "GROUP BY prod.id ORDER BY count(*) DESC")
+                    .setMaxResults(1).getSingleResult();
         } catch (NoResultException e) {
             return null;
         }
     }
 
-    public List<Product> getProductsOnePrice(){
-    	try {
-    		return getSession()
-    				.createQuery("SELECT prod FROM ProductOnSale as pos JOIN pos.product as prod "
-    				+"WHERE NOT EXISTS "
-    				+"(SELECT pd FROM ProductOnSale as ps JOIN ps.product as pd WHERE ps.product.id = pos.product.id AND ps.price <> pos.price)"
-    				).getResultList();
-    	} catch (NoResultException e) {
-    		return null;
-    	}
-    }
-    
-    public List<Provider> getProvidersDoNotSellOn(Date day){
-    	try {
-    		return getSession()
-    				.createQuery("SELECT prov FROM Provider as prov "
-    				+"WHERE prov NOT IN "
-    				+"(SELECT pro FROM Purchase pur JOIN pur.productOnSale as pos JOIN pos.provider as pro "
-    				+ "WHERE pur.dateOfPurchase = :day)"
-    				).setParameter("day", day).getResultList();
-    	} catch (NoResultException e) {
-    		return null;
-    	}
+    public List<Product> getProductsOnePrice() {
+        try {
+            return getSession().createQuery("SELECT prod FROM ProductOnSale as pos JOIN pos.product as prod "
+                    + "WHERE NOT EXISTS "
+                    + "(SELECT pd FROM ProductOnSale as ps JOIN ps.product as pd WHERE ps.product.id = pos.product.id AND ps.price <> pos.price)")
+                    .getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
-    public List<Product> getProductsNotSold(){
-    	try {
-    		return getSession()
-    				.createQuery("SELECT prod FROM Product as prod "
-    				+"WHERE prod.id NOT IN "
-    				+"(SELECT pr.id FROM Purchase as pur JOIN pur.productOnSale as ps JOIN ps.product as pr)"
-    				).getResultList();
-    	} catch (NoResultException e) {
-    		return null;
-    	}
+    public List<Provider> getProvidersDoNotSellOn(Date day) {
+        try {
+            return getSession().createQuery("SELECT prov FROM Provider as prov " + "WHERE prov NOT IN "
+                    + "(SELECT pro FROM Purchase pur JOIN pur.productOnSale as pos JOIN pos.provider as pro "
+                    + "WHERE pur.dateOfPurchase = :day)").setParameter("day", day).getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
-    
+
+    public List<Product> getProductsNotSold() {
+        try {
+            return getSession()
+                    .createQuery("SELECT prod FROM Product as prod " + "WHERE prod.id NOT IN "
+                            + "(SELECT pr.id FROM Purchase as pur JOIN pur.productOnSale as ps JOIN ps.product as pr)")
+                    .getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
     public Product getHeaviestProduct() {
-    	try {
-            return (Product) getSession().createQuery(
-            		"FROM Product prod ORDER BY weight DESC")
-            		.setMaxResults(1)
+        try {
+            return (Product) getSession().createQuery("FROM Product prod ORDER BY weight DESC").setMaxResults(1)
                     .getSingleResult();
         } catch (NoResultException e) {
             return null;
@@ -280,18 +251,14 @@ public class MLRepository {
     public List<Purchase> getPurchasesForProvider(Long cuit) {
         return (List<Purchase>) getSession()
                 .createQuery("SELECT pur FROM Purchase pur WHERE pur.productOnSale.provider.cuit = :cuit")
-                .setParameter("cuit", cuit)
-                .getResultList();
+                .setParameter("cuit", cuit).getResultList();
     }
 
     public Provider getProviderLessExpensiveProduct() {
         try {
-            return (Provider) getSession().createQuery(
-                    "SELECT prov " +
-                            "FROM ProductOnSale pos " +
-                            "JOIN pos.provider as prov " +
-                            "WHERE pos.finalDate IS NULL " +
-                            "ORDER BY pos.price").setMaxResults(1).getSingleResult();
+            return (Provider) getSession().createQuery("SELECT prov " + "FROM ProductOnSale pos "
+                    + "JOIN pos.provider as prov " + "WHERE pos.finalDate IS NULL " + "ORDER BY pos.price")
+                    .setMaxResults(1).getSingleResult();
         } catch (NoResultException e) {
             return null;
         }
@@ -300,11 +267,9 @@ public class MLRepository {
     public OnDeliveryPayment getMoreChangeOnDeliveryMethod() {
         try {
             return (OnDeliveryPayment) getSession().createQuery(
-                    "SELECT pm FROM Purchase pur " +
-                            "JOIN pur.paymentMethod pm " +
-                            "JOIN pur.productOnSale pos " +
-                            "WHERE TYPE(pm) = OnDeliveryPayment " +
-                            "ORDER BY (pm.promisedAmount - pos.price) DESC").setMaxResults(1).getSingleResult();
+                    "SELECT pm FROM Purchase pur " + "JOIN pur.paymentMethod pm " + "JOIN pur.productOnSale pos "
+                            + "WHERE TYPE(pm) = OnDeliveryPayment " + "ORDER BY (pm.promisedAmount - pos.price) DESC")
+                    .setMaxResults(1).getSingleResult();
         } catch (NoResultException e) {
             return null;
         }
@@ -312,12 +277,9 @@ public class MLRepository {
 
     public DeliveryMethod getMostUsedDeliveryMethod() {
         try {
-            return (DeliveryMethod) getSession().createQuery(
-                    "SELECT dm FROM Purchase pur " +
-                            "JOIN pur.deliveryMethod dm " +
-                            "GROUP BY dm " +
-                            "ORDER BY count(*) DESC"
-            ).setMaxResults(1).getSingleResult();
+            return (DeliveryMethod) getSession().createQuery("SELECT dm FROM Purchase pur "
+                    + "JOIN pur.deliveryMethod dm " + "GROUP BY dm " + "ORDER BY count(*) DESC").setMaxResults(1)
+                    .getSingleResult();
         } catch (NoResultException e) {
             return null;
         }
@@ -326,11 +288,20 @@ public class MLRepository {
     public Category getCategoryWithLessProducts() {
         try {
             return (Category) getSession().createQuery(
-                    "SELECT c FROM Category c " +
-                            "JOIN c.products prods " +
-                            "GROUP BY c " +
-                            "ORDER BY count(*)"
-            ).setMaxResults(1).getSingleResult();
+                    "SELECT c FROM Category c " + "JOIN c.products prods " + "GROUP BY c " + "ORDER BY count(*)")
+                    .setMaxResults(1).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    public List<ProductOnSale> getSoldProductsOn(Date day) {
+        try {
+            List<ProductOnSale> results = getSession()
+                    .createQuery("SELECT DISTINCT pos FROM Purchase pur " + "JOIN pur.productOnSale pos "
+                            + "JOIN FETCH pos.product prod " + "WHERE pur.dateOfPurchase = :day ")
+                    .setParameter("day", day).getResultList();
+            return results;
         } catch (NoResultException e) {
             return null;
         }

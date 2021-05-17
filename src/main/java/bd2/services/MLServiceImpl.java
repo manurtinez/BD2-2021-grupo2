@@ -233,8 +233,7 @@ public class MLServiceImpl implements MLService {
 
     @Override
     public List<ProductOnSale> getSoldProductsOn(Date day) {
-        // TODO Auto-generated method stub
-        return null;
+        return this.repository.getSoldProductsOn(day);
     }
 
     @Override

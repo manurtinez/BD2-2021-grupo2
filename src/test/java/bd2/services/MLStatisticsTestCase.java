@@ -191,11 +191,7 @@ public class MLStatisticsTestCase {
   @Test
   public void testGetMoreChangeOnDeliveryMethod() {
     OnDeliveryPayment odp = this.service.getMoreChangeOnDeliveryMethod();
-    // Disclaimer: Originalmente este assert estaba como se indica abajo.
-    // Aunque haciendo las cuentas a mano, no tenia sentido que este fuese
-    // el que mas cambio tenia que devolver.
-    // assertEquals("Pago Efectivo pos072", odp.getName());
-    assertEquals("Pago Efectivo pos069", odp.getName());
+    assertEquals("Pago Efectivo pos072", odp.getName());
   }
 
   @Test

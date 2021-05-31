@@ -1,5 +1,7 @@
 // SE INDICAN LAS QUERIES USADAS EN EL TP SEPARADAS POR CONSIGNA:
 
+// PARTE 2: Primeros pasos con MongoDB.
+
 // 5)
 
 // Crear DB
@@ -124,10 +126,8 @@ db.products.updateMany({
 	}
 })
 
-// PARTE 3: Índices
- 
-// 11) En la colección de compras se encuentra un índice definido para la clave primaria (_id)
-// que por defecto asigna MongoDB a todo documento.
+
+// PARTE 3: Índices.
 
 // 12)
 

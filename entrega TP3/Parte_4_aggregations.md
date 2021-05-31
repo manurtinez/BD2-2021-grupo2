@@ -7,13 +7,13 @@ Esta DB ya dispone un indice geoespacial en el atributo `location` de la colecci
 use test
 ```
 
-14. Esto puede ser logrado utilizando la funcion $sample del framework de aggregation (cuyo punto de entrada es la funcion aggregate). En nuestro caso, para seleccionar 5 es:
+14. Esto puede ser logrado utilizando la funcion `$sample` del framework de aggregation (cuyo punto de entrada es la funcion `aggregate`). En nuestro caso, para seleccionar 5 es:
 
 ```
 db.purchases.aggregate([{ $sample: { size: 5 } }])
 ````
 
-15. En este caso, utilizando el operador $geoNear, podremos obtener los purchases que se encuentran a menos de un km de distancia de las coordenadas expresadas en $near. La distancia se anota en metros, en el operador maxDistance. Para finalizar, guardamos los resultados anteriores en una colección llamada purchasesInCaba, utilizando el operador $out:
+15. En este caso, utilizando el operador `$geoNear`, podremos obtener los purchases que se encuentran a menos de un km de distancia de las coordenadas expresadas en $near. La distancia se anota en metros, en el operador `maxDistance`. Para finalizar, guardamos los resultados anteriores en una colección llamada `purchasesInCaba`, utilizando el stage `$out`:
 
 
 ```
@@ -31,7 +31,7 @@ db.purchases.aggregate([
 ])
 ```
 
-16. En la siguiente captura obtenemos la colección de productos mencionada (utilizando el stage $project para seleccionar solo el productName), y la llamamos en este caso “productsSoldInCaba”:
+16. En la siguiente captura obtenemos la colección de productos mencionada (utilizando el stage `$project` para seleccionar solo el productName), y la llamamos en este caso `productsSoldInCaba`:
 
 ```
 db.purchasesInCaba.aggregate([
@@ -40,7 +40,7 @@ db.purchasesInCaba.aggregate([
 ])
 ```
 
-17. En este inciso, utilizamos el stage $lookup que permite hacer join entre documentos de distintas colecciones. Para que la consulta sea mas eficiente, creamos un índice en productName que es el atributo por el cual se efectúan los joins.
+17. En este inciso, utilizamos el stage `$lookup` que permite hacer join entre documentos de distintas colecciones. Para que la consulta sea mas eficiente, creamos un índice en `productName` que es el atributo por el cual se efectúan los joins.
 
 ```
 db.purchases.createIndex({ productName: 1 })
@@ -57,7 +57,7 @@ db.productsSoldInCaba.aggregate([
 ])
 ```
 
-18. En el siguiente fragmento mostramos, partiendo de la query del punto anterior, de qué forma podemos obtener el promedio de costo de envío para cada producto, utilizando primero el metodo $unwind para “desempaquetar” los arrays de compras, y luego el operador $avg para calcular el promedio:
+18. En el siguiente fragmento mostramos, partiendo de la query del punto anterior, de qué forma podemos obtener el promedio de costo de envío para cada producto, utilizando primero el stage `$unwind` para “desempaquetar” los arrays de compras, y luego el acumulador `$avg` para calcular el promedio:
 
 ```
 db.productsSoldInCaba.aggregate([

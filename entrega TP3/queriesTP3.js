@@ -123,3 +123,16 @@ db.products.updateMany({
 		price: 1.1,
 	}
 })
+
+// PARTE 3: Índices
+ 
+// 11) En la colección de compras se encuentra un índice definido para la clave primaria (_id)
+// que por defecto asigna MongoDB a todo documento.
+
+// 12)
+
+db.purchases.find({productName: "Producto 11"}).explain("executionStats")
+
+// 13) 
+
+db.purchases.find({location: {$geoWithin: {$geometry: cabaLocation}}}).explain("executionStats")

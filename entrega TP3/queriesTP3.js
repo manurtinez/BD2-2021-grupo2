@@ -158,5 +158,7 @@ var cabaLocation = {
 	]]]
    }
 
+// para crear indices
+db.purchases.createIndex( { location : "2dsphere"} )
 // query
 db.purchases.find({location: {$geoWithin: {$geometry: cabaLocation}}}).explain("executionStats")

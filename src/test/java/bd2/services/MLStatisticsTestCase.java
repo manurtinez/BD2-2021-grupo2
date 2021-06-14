@@ -1,6 +1,23 @@
 package bd2.services;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import bd2.config.*;
+import bd2.model.*;
+import bd2.repositories.MLException;
+import bd2.utils.DBInitializer;
+import org.junit.Assert;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
+import org.springframework.transaction.annotation.Transactional;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -9,28 +26,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.junit.Assert;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
-import org.springframework.transaction.annotation.Transactional;
-
-import bd2.config.*;
-import bd2.model.*;
-import bd2.repositories.MLException;
-import bd2.utils.DBInitializer;
-
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = { AppConfig.class, HibernateConfiguration.class,
-    DBInitializerConfig.class }, loader = AnnotationConfigContextLoader.class)
 @Transactional
-@Rollback(true)
+@Rollback(false)
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = { SpringDataConfiguration.class }, loader = AnnotationConfigContextLoader.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 
 public class MLStatisticsTestCase {
@@ -38,6 +37,7 @@ public class MLStatisticsTestCase {
   DBInitializer initializer;
 
   @Autowired
+  @Qualifier("springDataJpaService")
   MLService service;
 
   SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -196,8 +196,7 @@ public class MLStatisticsTestCase {
 
   @Test
   public void testGetProductWithMoreThan20percentDiferenceInPrice() {
-    List<Product> products =
-            this.service.getProductWithMoreThan20percentDiferenceInPrice();
+    List<Product> products = this.service.getProductWithMoreThan20percentDiferenceInPrice();
     assertEquals(29, products.size());
   }
 

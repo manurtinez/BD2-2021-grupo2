@@ -1,33 +1,41 @@
 package bd2.services;
 
-import bd2.config.AppConfig;
-import bd2.config.HibernateConfiguration;
+import static org.junit.jupiter.api.Assertions.*;
+
+import bd2.config.SpringDataConfiguration;
 import bd2.model.*;
 import bd2.repositories.MLException;
+
+import java.util.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = { AppConfig.class,
-        HibernateConfiguration.class }, loader = AnnotationConfigContextLoader.class)
 @Transactional
 @Rollback(true)
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = { SpringDataConfiguration.class }, loader = AnnotationConfigContextLoader.class)
 public class MLServiceTestCase {
 
     @Autowired
+    @Qualifier("springDataJpaService")
     MLService service;
+
+    protected MLService getService() {
+        return service;
+    }
+
+    @BeforeEach
+    public void setUp() {
+        this.service = this.getService();
+    }
 
     @Test
     public void testCreateCategory() throws MLException {

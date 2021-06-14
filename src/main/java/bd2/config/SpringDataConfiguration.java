@@ -24,61 +24,62 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 public class SpringDataConfiguration {
 
-    @Bean
-    public MLService springDataJpaService() {
-        return new SpringDataMLService();
-    }
+  @Bean
+  public MLService springDataJpaService() {
+    return new SpringDataMLService();
+  }
 
-    @Bean
-    public DBInitializer createDBInitializer() {
-        return new DBInitializer();
-    }
+  @Bean
+  public DBInitializer createDBInitializer() {
+    return new DBInitializer();
+  }
 
-    @Bean
-    public DataSource dataSource() {
-        BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/grupo" + this.getGroupNumber() + "?useSSL=false");
-        dataSource.setUsername("grupo999");
-        dataSource.setPassword("pa$$word");
+  @Bean
+  public DataSource dataSource() {
+    BasicDataSource dataSource = new BasicDataSource();
+    dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+    dataSource.setUrl(
+        "jdbc:mysql://localhost:3306/grupo" + this.getGroupNumber() + "?allowPublicKeyRetrieval=true&useSSL=false");
+    dataSource.setUsername("grupo2");
+    dataSource.setPassword("123");
 
-        return dataSource;
-    }
+    return dataSource;
+  }
 
-    @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-        LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-        em.setDataSource(dataSource());
-        em.setPackagesToScan(new String[] { "ar.edu.unlp.info.bd2.model" });
+  @Bean
+  public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+    LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
+    em.setDataSource(dataSource());
+    em.setPackagesToScan(new String[] { "ar.edu.unlp.info.bd2.model" });
 
-        JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        em.setJpaVendorAdapter(vendorAdapter);
-        em.setJpaProperties(hibernateProperties());
+    JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+    em.setJpaVendorAdapter(vendorAdapter);
+    em.setJpaProperties(hibernateProperties());
 
-        return em;
-    }
+    return em;
+  }
 
-    @Bean
-    public PlatformTransactionManager transactionManager(@Qualifier("entityManagerFactory") EntityManagerFactory emf) {
-        JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(emf);
+  @Bean
+  public PlatformTransactionManager transactionManager(@Qualifier("entityManagerFactory") EntityManagerFactory emf) {
+    JpaTransactionManager transactionManager = new JpaTransactionManager();
+    transactionManager.setEntityManagerFactory(emf);
 
-        return transactionManager;
-    }
+    return transactionManager;
+  }
 
-    private final Properties hibernateProperties() {
-        Properties hibernateProperties = new Properties();
+  private final Properties hibernateProperties() {
+    Properties hibernateProperties = new Properties();
 
-        hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "create");
-        hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5InnoDBDialect");
-        hibernateProperties.setProperty("hibernate.show_sql", "true");
-        hibernateProperties.setProperty("hibernate.format_sql", "true");
-        hibernateProperties.setProperty("hibernate.use_sql_comments", "false");
+    hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "create");
+    hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5InnoDBDialect");
+    hibernateProperties.setProperty("hibernate.show_sql", "true");
+    hibernateProperties.setProperty("hibernate.format_sql", "true");
+    hibernateProperties.setProperty("hibernate.use_sql_comments", "false");
 
-        return hibernateProperties;
-    }
+    return hibernateProperties;
+  }
 
-    private Integer getGroupNumber() {
-        return 999;
-    }
+  private Integer getGroupNumber() {
+    return 2;
+  }
 }

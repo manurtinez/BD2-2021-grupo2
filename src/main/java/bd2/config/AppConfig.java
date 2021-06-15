@@ -7,14 +7,14 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class AppConfig {
-    @Bean
-    public MLService createService() {
-        MLRepository repository = this.createRepository();
-        return new MLServiceImpl(repository);
-    }
+  @Bean
+  public MLService createService() {
+    MLRepository repository = this.createRepository();
+    return new MLServiceImpl(repository);
+  }
 
-    @Bean
-    public MLRepository createRepository() {
-        return new MLRepository();
-    }
+  @Bean
+  public MLRepository createRepository() {
+    return new MLRepository();
+  }
 }

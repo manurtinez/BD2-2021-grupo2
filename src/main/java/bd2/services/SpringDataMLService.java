@@ -1,8 +1,13 @@
 package bd2.services;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
+import javax.transaction.Transactional;
+
+import org.springframework.data.domain.PageRequest;
 
 import bd2.model.Category;
 import bd2.model.CreditCardPayment;
@@ -15,8 +20,77 @@ import bd2.model.Provider;
 import bd2.model.Purchase;
 import bd2.model.User;
 import bd2.repositories.MLException;
+import bd2.repositories.spring.*;
 
+@Transactional
 public class SpringDataMLService implements MLService {
+
+  // OBJETO PARA DEFINIR LIMITES A QUERIES
+  private PageRequest pageable;
+
+  // REPOSITORY DEFINITIONS
+
+  private CategoryRepository categoryRepository;
+
+  private UserRepository userRepository;
+
+  private ProductRepository productRepository;
+
+  private PurchaseRepository purchaseRepository;
+
+  private ProviderRepository providerRepository;
+
+  private ProductOnSaleRepository productOnSaleRepository;
+
+  private PaymentMethodRepository paymentMethodRepository;
+
+  private DeliveryMethodRepository deliveryMethodRepository;
+
+  private OnDeliveryPaymentRepository onDeliveryPaymentRepository;
+
+  public CreditCardPaymentRepository creditCardPaymentRepository;
+
+  // REPOSITORY GETTERS
+
+  public CategoryRepository getCategoryRepository() {
+    return this.categoryRepository;
+  }
+
+  public UserRepository getUserRepository() {
+    return this.userRepository;
+  }
+
+  public ProductRepository getProductRepository() {
+    return this.productRepository;
+  }
+
+  public PurchaseRepository getPurchaseRepository() {
+    return this.purchaseRepository;
+  }
+
+  public ProviderRepository getProviderRepository() {
+    return this.providerRepository;
+  }
+
+  public ProductOnSaleRepository getProductOnSaleRepository() {
+    return this.productOnSaleRepository;
+  }
+
+  public PaymentMethodRepository getPaymentMethodRepository() {
+    return this.paymentMethodRepository;
+  }
+
+  public DeliveryMethodRepository getDeliveryMethodRepository() {
+    return this.deliveryMethodRepository;
+  }
+
+  public OnDeliveryPaymentRepository getOnDeliveryPaymentRepository() {
+    return this.onDeliveryPaymentRepository;
+  }
+
+  public CreditCardPaymentRepository getCreditCardPaymentRepository() {
+    return this.creditCardPaymentRepository;
+  }
 
   @Override
   public List<Purchase> getAllPurchasesMadeByUser(String username) {
@@ -140,8 +214,9 @@ public class SpringDataMLService implements MLService {
 
   @Override
   public Category createCategory(String name) throws MLException {
-    // TODO Auto-generated method stub
-    return null;
+    Category c = new Category(name);
+    this.getCategoryRepository().save(c);
+    return c;
   }
 
   @Override
@@ -211,8 +286,7 @@ public class SpringDataMLService implements MLService {
 
   @Override
   public Optional<Category> getCategoryByName(String name) {
-    // TODO Auto-generated method stub
-    return null;
+    return Optional.of(this.getCategoryRepository().findByName(name));
   }
 
   @Override

@@ -1,12 +1,13 @@
 package bd2.services;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import javax.inject.Inject;
 
 import javax.transaction.Transactional;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
 import bd2.model.Category;
@@ -24,30 +25,28 @@ import bd2.repositories.spring.*;
 
 @Transactional
 public class SpringDataMLService implements MLService {
-
-  // OBJETO PARA DEFINIR LIMITES A QUERIES
-  private PageRequest pageable;
-
   // REPOSITORY DEFINITIONS
 
+  @Inject
   private CategoryRepository categoryRepository;
 
+  @Inject
   private UserRepository userRepository;
-
+  @Inject
   private ProductRepository productRepository;
-
+  @Inject
   private PurchaseRepository purchaseRepository;
-
+  @Inject
   private ProviderRepository providerRepository;
-
+  @Inject
   private ProductOnSaleRepository productOnSaleRepository;
-
+  @Inject
   private PaymentMethodRepository paymentMethodRepository;
-
+  @Inject
   private DeliveryMethodRepository deliveryMethodRepository;
-
+  @Inject
   private OnDeliveryPaymentRepository onDeliveryPaymentRepository;
-
+  @Inject
   public CreditCardPaymentRepository creditCardPaymentRepository;
 
   // REPOSITORY GETTERS
@@ -208,8 +207,7 @@ public class SpringDataMLService implements MLService {
 
   @Override
   public Category getCategoryWithLessProducts() {
-    // TODO Auto-generated method stub
-    return null;
+    return this.getCategoryRepository().getCategoryWithLessProducts(PageRequest.of(0, 1)).getContent().get(0);
   }
 
   @Override

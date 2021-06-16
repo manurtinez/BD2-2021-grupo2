@@ -20,7 +20,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@EnableJpaRepositories(basePackages = "ar.edu.unlp.info.bd2.repositories")
+@EnableJpaRepositories(basePackages = "bd2.repositories")
 @EnableTransactionManagement
 public class SpringDataConfiguration {
 
@@ -50,7 +50,7 @@ public class SpringDataConfiguration {
   public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
     LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
     em.setDataSource(dataSource());
-    em.setPackagesToScan(new String[] { "ar.edu.unlp.info.bd2.model" });
+    em.setPackagesToScan(new String[] { "bd2.model" });
 
     JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
     em.setJpaVendorAdapter(vendorAdapter);

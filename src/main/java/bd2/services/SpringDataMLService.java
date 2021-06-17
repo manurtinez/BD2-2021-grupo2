@@ -219,8 +219,12 @@ public class SpringDataMLService implements MLService {
 
   @Override
   public Product createProduct(String name, Float weight, Category category) throws MLException {
-    // TODO Auto-generated method stub
-    return null;
+    if (this.productRepository.findByName(name) != null) {
+      throw new MLException("Constraint Violation");
+    }
+    Product p = new Product(name, weight, category);
+    this.getProductRepository().save(p);
+    return p;
   }
 
   @Override
@@ -289,8 +293,7 @@ public class SpringDataMLService implements MLService {
 
   @Override
   public Optional<Product> getProductByName(String name) {
-    // TODO Auto-generated method stub
-    return null;
+    return Optional.of(this.getProductRepository().findByName(name));
   }
 
   @Override

@@ -8,4 +8,6 @@ import bd2.model.CreditCardPayment;
 
 public interface CreditCardPaymentRepository extends CrudRepository<CreditCardPayment, UUID> {
 
+	public CreditCardPayment findByName(String name);
+	
 }

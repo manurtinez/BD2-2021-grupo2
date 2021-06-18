@@ -235,8 +235,13 @@ public class SpringDataMLService implements MLService {
 
   @Override
   public Provider createProvider(String name, Long cuit) throws MLException {
-    // TODO Auto-generated method stub
-    return null;
+	  
+	  if (this.providerRepository.findByName(name) != null) {
+	      throw new MLException("Constraint Violation");
+	    }
+	  Provider pr = new Provider(name, cuit);
+	  this.getProviderRepository().save(pr);
+	  return pr;
   }
 
   @Override
@@ -249,14 +254,24 @@ public class SpringDataMLService implements MLService {
   @Override
   public CreditCardPayment createCreditCardPayment(String name, String brand, Long number, Date expiry, Integer cvv,
       String owner) throws MLException {
-    // TODO Auto-generated method stub
-    return null;
+	  
+	  if (this.creditCardPaymentRepository.findByName(name) != null) {
+	      throw new MLException("Constraint Violation");
+	    }
+	  CreditCardPayment ccp = new CreditCardPayment(name,brand,number,expiry,cvv,owner);
+	  this.getCreditCardPaymentRepository().save(ccp);
+	  return ccp;
   }
 
   @Override
   public OnDeliveryPayment createOnDeliveryPayment(String name, Float promisedAmount) throws MLException {
-    // TODO Auto-generated method stub
-    return null;
+	  
+	  if (this.onDeliveryPaymentRepository.findByName(name) != null) {
+	      throw new MLException("Constraint Violation");
+	    }
+	  OnDeliveryPayment dp = new OnDeliveryPayment(name,promisedAmount);
+	  this.getOnDeliveryPaymentRepository().save(dp);
+	  return dp;
   }
 
   @Override
@@ -311,13 +326,12 @@ public class SpringDataMLService implements MLService {
   @Override
   public Optional<CreditCardPayment> getCreditCardPaymentByName(String name) {
     // TODO Auto-generated method stub
-    return null;
+	  return Optional.of(this.getCreditCardPaymentRepository().findByName(name));
   }
 
   @Override
   public Optional<OnDeliveryPayment> getOnDeliveryPaymentByName(String name) {
-    // TODO Auto-generated method stub
-    return null;
+	  return Optional.of(this.getOnDeliveryPaymentRepository().findByName(name));
   }
 
   @Override

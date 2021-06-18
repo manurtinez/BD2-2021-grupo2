@@ -8,4 +8,6 @@ import bd2.model.OnDeliveryPayment;
 
 public interface OnDeliveryPaymentRepository extends CrudRepository<OnDeliveryPayment, UUID> {
 
+	public OnDeliveryPayment findByName(String name);
+	
 }

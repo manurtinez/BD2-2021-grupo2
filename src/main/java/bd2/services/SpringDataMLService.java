@@ -1,9 +1,9 @@
 package bd2.services;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
 import javax.inject.Inject;
 
 import javax.transaction.Transactional;
@@ -229,8 +229,11 @@ public class SpringDataMLService implements MLService {
 
   @Override
   public User createUser(String email, String fullname, String password, Date dayOfBirth) throws MLException {
-    // TODO Auto-generated method stub
-    return null;
+    if (this.userRepository.findByEmail(email) != null) {
+      throw new MLException("Constraint Violation");
+    }
+    User user = new User(email, fullname, password, dayOfBirth);
+    return (User) this.userRepository.save(user);
   }
 
   @Override
@@ -247,8 +250,8 @@ public class SpringDataMLService implements MLService {
   @Override
   public DeliveryMethod createDeliveryMethod(String name, Float cost, Float startWeight, Float endWeight)
       throws MLException {
-    // TODO Auto-generated method stub
-    return null;
+    DeliveryMethod dm = new DeliveryMethod(name, cost, startWeight, endWeight);
+    return (DeliveryMethod) this.deliveryMethodRepository.save(dm);
   }
 
   @Override
@@ -297,14 +300,18 @@ public class SpringDataMLService implements MLService {
   public Purchase createPurchase(ProductOnSale productOnSale, Integer quantity, User client,
       DeliveryMethod deliveryMethod, PaymentMethod paymentMethod, String address, Float coordX, Float coordY,
       Date dateOfPurchase) throws MLException {
-    // TODO Auto-generated method stub
-    return null;
+    // Chequear que el delivery method soporta el peso de los productos
+    if (productOnSale.getProduct().getWeight() * quantity > deliveryMethod.getEndWeight()) {
+      throw new MLException("método de delivery no válido");
+    }
+    Purchase pur = new Purchase(productOnSale, quantity, client, deliveryMethod, paymentMethod, address, coordX, coordY,
+        dateOfPurchase);
+    return (Purchase) this.purchaseRepository.save(pur);
   }
 
   @Override
   public Optional<User> getUserByEmail(String email) {
-    // TODO Auto-generated method stub
-    return null;
+    return Optional.of(this.userRepository.findByEmail(email));
   }
 
   @Override
@@ -330,8 +337,7 @@ public class SpringDataMLService implements MLService {
 
   @Override
   public Optional<DeliveryMethod> getDeliveryMethodByName(String name) {
-    // TODO Auto-generated method stub
-    return null;
+    return this.deliveryMethodRepository.findByName(name);
   }
 
   @Override
@@ -346,9 +352,9 @@ public class SpringDataMLService implements MLService {
   }
 
   @Override
+  // Este método no es usado en los tests
   public Optional<Purchase> getPurchaseById(Long id) {
-    // TODO Auto-generated method stub
-    return null;
+    return Optional.empty();
   }
 
 }

@@ -1,5 +1,6 @@
 package bd2.repositories.spring;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.repository.CrudRepository;
@@ -7,5 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 import bd2.model.DeliveryMethod;
 
 public interface DeliveryMethodRepository extends CrudRepository<DeliveryMethod, UUID> {
+
+  Optional<DeliveryMethod> findByName(String name);
 
 }

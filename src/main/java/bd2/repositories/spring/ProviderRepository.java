@@ -6,6 +6,6 @@ import bd2.model.Provider;
 
 public interface ProviderRepository extends CrudRepository<Provider, Long> {
 	
-	public Provider findByName(String name);
+	public Provider findByCuit(long cuit);
 
 }

@@ -236,7 +236,7 @@ public class SpringDataMLService implements MLService {
   @Override
   public Provider createProvider(String name, Long cuit) throws MLException {
 	  
-	  if (this.providerRepository.findByName(name) != null) {
+	  if (this.providerRepository.findByCuit(cuit) != null) {
 	      throw new MLException("Constraint Violation");
 	    }
 	  Provider pr = new Provider(name, cuit);
@@ -297,8 +297,7 @@ public class SpringDataMLService implements MLService {
 
   @Override
   public Optional<Provider> getProviderByCuit(long cuit) {
-    // TODO Auto-generated method stub
-    return null;
+	  return Optional.of(this.getProviderRepository().findByCuit(cuit));
   }
 
   @Override

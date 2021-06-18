@@ -1,5 +1,6 @@
 package bd2.services;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -7,7 +8,6 @@ import javax.inject.Inject;
 
 import javax.transaction.Transactional;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
 import bd2.model.Category;
@@ -235,13 +235,13 @@ public class SpringDataMLService implements MLService {
 
   @Override
   public Provider createProvider(String name, Long cuit) throws MLException {
-	  
-	  if (this.providerRepository.findByCuit(cuit) != null) {
-	      throw new MLException("Constraint Violation");
-	    }
-	  Provider pr = new Provider(name, cuit);
-	  this.getProviderRepository().save(pr);
-	  return pr;
+
+    if (this.providerRepository.findByCuit(cuit) != null) {
+      throw new MLException("Constraint Violation");
+    }
+    Provider pr = new Provider(name, cuit);
+    this.getProviderRepository().save(pr);
+    return pr;
   }
 
   @Override
@@ -254,31 +254,43 @@ public class SpringDataMLService implements MLService {
   @Override
   public CreditCardPayment createCreditCardPayment(String name, String brand, Long number, Date expiry, Integer cvv,
       String owner) throws MLException {
-	  
-	  if (this.creditCardPaymentRepository.findByName(name) != null) {
-	      throw new MLException("Constraint Violation");
-	    }
-	  CreditCardPayment ccp = new CreditCardPayment(name,brand,number,expiry,cvv,owner);
-	  this.getCreditCardPaymentRepository().save(ccp);
-	  return ccp;
+
+    if (this.creditCardPaymentRepository.findByName(name) != null) {
+      throw new MLException("Constraint Violation");
+    }
+    CreditCardPayment ccp = new CreditCardPayment(name, brand, number, expiry, cvv, owner);
+    this.getCreditCardPaymentRepository().save(ccp);
+    return ccp;
   }
 
   @Override
   public OnDeliveryPayment createOnDeliveryPayment(String name, Float promisedAmount) throws MLException {
-	  
-	  if (this.onDeliveryPaymentRepository.findByName(name) != null) {
-	      throw new MLException("Constraint Violation");
-	    }
-	  OnDeliveryPayment dp = new OnDeliveryPayment(name,promisedAmount);
-	  this.getOnDeliveryPaymentRepository().save(dp);
-	  return dp;
+
+    if (this.onDeliveryPaymentRepository.findByName(name) != null) {
+      throw new MLException("Constraint Violation");
+    }
+    OnDeliveryPayment dp = new OnDeliveryPayment(name, promisedAmount);
+    this.getOnDeliveryPaymentRepository().save(dp);
+    return dp;
   }
 
   @Override
   public ProductOnSale createProductOnSale(Product product, Provider provider, Float price, Date initialDate)
       throws MLException {
-    // TODO Auto-generated method stub
-    return null;
+    if (!this.productOnSaleRepository.hasNewerProductOnSaleVersion(PageRequest.of(0, 1), product, provider, initialDate)
+        .getContent().isEmpty()) {
+      throw new MLException(
+          "Ya existe un precio para el producto con fecha de inicio de vigencia posterior a la fecha de inicio dada");
+    }
+    List<ProductOnSale> resultList = this.productOnSaleRepository
+        .getLastProductOnSaleVersion(PageRequest.of(0, 1), product, provider).getContent();
+    if (!resultList.isEmpty()) {
+      ProductOnSale oldPos = resultList.get(0);
+      oldPos.setFinalDate(initialDate);
+      this.productOnSaleRepository.save(oldPos);
+    }
+    ProductOnSale pos = new ProductOnSale(product, provider, price, initialDate);
+    return (ProductOnSale) this.productOnSaleRepository.save(pos);
   }
 
   @Override
@@ -297,7 +309,7 @@ public class SpringDataMLService implements MLService {
 
   @Override
   public Optional<Provider> getProviderByCuit(long cuit) {
-	  return Optional.of(this.getProviderRepository().findByCuit(cuit));
+    return Optional.of(this.getProviderRepository().findByCuit(cuit));
   }
 
   @Override
@@ -325,12 +337,12 @@ public class SpringDataMLService implements MLService {
   @Override
   public Optional<CreditCardPayment> getCreditCardPaymentByName(String name) {
     // TODO Auto-generated method stub
-	  return Optional.of(this.getCreditCardPaymentRepository().findByName(name));
+    return Optional.of(this.getCreditCardPaymentRepository().findByName(name));
   }
 
   @Override
   public Optional<OnDeliveryPayment> getOnDeliveryPaymentByName(String name) {
-	  return Optional.of(this.getOnDeliveryPaymentRepository().findByName(name));
+    return Optional.of(this.getOnDeliveryPaymentRepository().findByName(name));
   }
 
   @Override

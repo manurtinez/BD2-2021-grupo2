@@ -93,8 +93,7 @@ public class SpringDataMLService implements MLService {
 
   @Override
   public List<Purchase> getAllPurchasesMadeByUser(String username) {
-    // TODO Auto-generated method stub
-    return null;
+    return this.userRepository.getAllPurchasesMadeByUser(username);
   }
 
   @Override
@@ -147,8 +146,7 @@ public class SpringDataMLService implements MLService {
 
   @Override
   public Product getBestSellingProduct() {
-    // TODO Auto-generated method stub
-    return null;
+    return this.productRepository.getBestSellingProduct(PageRequest.of(0, 1)).getContent().get(0);
   }
 
   @Override

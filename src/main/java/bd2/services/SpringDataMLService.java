@@ -98,14 +98,12 @@ public class SpringDataMLService implements MLService {
 
   @Override
   public List<User> getUsersSpendingMoreThanInPurchase(Float amount) {
-    // TODO Auto-generated method stub
-    return null;
+    return this.userRepository.getUsersSpendingMoreThanInPurchase(amount);
   }
 
   @Override
   public List<User> getUsersSpendingMoreThan(Float amount) {
-    // TODO Auto-generated method stub
-    return null;
+    return this.userRepository.getUsersSpendingMoreThan(amount);
   }
 
   @Override
@@ -122,8 +120,7 @@ public class SpringDataMLService implements MLService {
 
   @Override
   public List<User> getTopNUsersMorePurchase(int n) {
-    // TODO Auto-generated method stub
-    return null;
+    return this.userRepository.getTopNUsersMorePurchase(PageRequest.of(0, n));
   }
 
   @Override
@@ -187,20 +184,17 @@ public class SpringDataMLService implements MLService {
 
   @Override
   public DeliveryMethod getMostUsedDeliveryMethod() {
-    // TODO Auto-generated method stub
-    return null;
+    return this.deliveryMethodRepository.getMostUsedDeliveryMethod(PageRequest.of(0, 1)).getContent().get(0);
   }
 
   @Override
   public OnDeliveryPayment getMoreChangeOnDeliveryMethod() {
-    // TODO Auto-generated method stub
-    return null;
+    return this.onDeliveryPaymentRepository.getMoreChangeOnDeliveryMethod(PageRequest.of(0, 1)).getContent().get(0);
   }
 
   @Override
   public Product getHeaviestProduct() {
-    // TODO Auto-generated method stub
-    return null;
+    return this.productRepository.findTop1ByOrderByWeightDesc();
   }
 
   @Override

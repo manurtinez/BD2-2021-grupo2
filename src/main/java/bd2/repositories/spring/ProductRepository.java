@@ -13,4 +13,6 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
   @Query("SELECT prod FROM Purchase pur JOIN pur.productOnSale as pos JOIN pos.product as prod "
       + "GROUP BY prod.id ORDER BY count(*) DESC")
   public Page<Product> getBestSellingProduct(Pageable pageable);
+
+  public Product findTop1ByOrderByWeightDesc();
 }

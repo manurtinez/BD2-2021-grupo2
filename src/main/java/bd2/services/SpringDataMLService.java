@@ -160,14 +160,12 @@ public class SpringDataMLService implements MLService {
 
   @Override
   public Provider getProviderLessExpensiveProduct() {
-    // TODO Auto-generated method stub
-    return null;
+    return this.providerRepository.getProviderLessExpensiveProduct(PageRequest.of(0, 1)).getContent().get(0);
   }
 
   @Override
   public List<Provider> getProvidersDoNotSellOn(Date day) {
-    // TODO Auto-generated method stub
-    return null;
+    return this.providerRepository.getProvidersDoNotSellOn(day);
   }
 
   @Override

@@ -108,8 +108,7 @@ public class SpringDataMLService implements MLService {
 
   @Override
   public List<Provider> getTopNProvidersInPurchases(int n) {
-    // TODO Auto-generated method stub
-    return null;
+    return this.providerRepository.getTopNProvidersInPurchases(PageRequest.of(0, n));
   }
 
   @Override
@@ -125,8 +124,7 @@ public class SpringDataMLService implements MLService {
 
   @Override
   public List<Purchase> getPurchasesInPeriod(Date startDate, Date endDate) {
-    // TODO Auto-generated method stub
-    return null;
+    return this.purchaseRepository.getPurchasesInPeriod(startDate, endDate);
   }
 
   @Override

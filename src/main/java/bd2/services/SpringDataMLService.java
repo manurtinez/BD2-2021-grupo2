@@ -113,8 +113,7 @@ public class SpringDataMLService implements MLService {
 
   @Override
   public List<Product> getTop3MoreExpensiveProducts() {
-    // TODO Auto-generated method stub
-    return null;
+    return this.productRepository.getTop3MoreExpensiveProducts(PageRequest.of(0, 3));
   }
 
   @Override
@@ -129,14 +128,12 @@ public class SpringDataMLService implements MLService {
 
   @Override
   public List<Product> getProductForCategory(Category category) {
-    // TODO Auto-generated method stub
-    return null;
+    return this.productRepository.getProductForCategory(category);
   }
 
   @Override
   public List<Purchase> getPurchasesForProvider(Long cuit) {
-    // TODO Auto-generated method stub
-    return null;
+    return this.purchaseRepository.getPurchasesForProvider(cuit);
   }
 
   @Override
@@ -146,8 +143,7 @@ public class SpringDataMLService implements MLService {
 
   @Override
   public List<Product> getProductsOnePrice() {
-    // TODO Auto-generated method stub
-    return null;
+    return this.productRepository.getProductsOnePrice();
   }
 
   @Override

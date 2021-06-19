@@ -19,4 +19,7 @@ public interface PurchaseRepository extends CrudRepository<Purchase, UUID> {
 
     @Query("SELECT p FROM Purchase p WHERE p.dateOfPurchase BETWEEN :startDate and :endDate")
     public List<Purchase> getPurchasesInPeriod(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
+
+    @Query("SELECT pur FROM Purchase pur WHERE pur.productOnSale.provider.cuit = :cuit")
+    public List<Purchase> getPurchasesForProvider(@Param("cuit") Long cuit);
 }

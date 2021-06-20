@@ -234,8 +234,12 @@ public class SpringDataMLService implements MLService {
   @Override
   public DeliveryMethod createDeliveryMethod(String name, Float cost, Float startWeight, Float endWeight)
       throws MLException {
+	if (this.deliveryMethodRepository.findByName(name) != null) {
+	      throw new MLException("Constraint Violation");
+	 }
     DeliveryMethod dm = new DeliveryMethod(name, cost, startWeight, endWeight);
-    return (DeliveryMethod) this.deliveryMethodRepository.save(dm);
+    this.deliveryMethodRepository.save(dm);
+    return dm;
   }
 
   @Override
@@ -321,7 +325,7 @@ public class SpringDataMLService implements MLService {
 
   @Override
   public Optional<DeliveryMethod> getDeliveryMethodByName(String name) {
-    return this.deliveryMethodRepository.findByName(name);
+    return this.getDeliveryMethodRepository().findByName(name);
   }
 
   @Override

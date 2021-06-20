@@ -164,14 +164,12 @@ public class SpringDataMLService implements MLService {
 
   @Override
   public List<ProductOnSale> getSoldProductsOn(Date day) {
-    // TODO Auto-generated method stub
-    return null;
+	  return this.productOnSaleRepository.getSoldProductsOn(day);
   }
 
   @Override
   public List<Product> getProductsNotSold() {
-    // TODO Auto-generated method stub
-    return null;
+	  return this.productRepository.getProductsNotSold();
   }
 
   @Override
@@ -234,9 +232,7 @@ public class SpringDataMLService implements MLService {
   @Override
   public DeliveryMethod createDeliveryMethod(String name, Float cost, Float startWeight, Float endWeight)
       throws MLException {
-	if (this.deliveryMethodRepository.findByName(name) != null) {
-	      throw new MLException("Constraint Violation");
-	 }
+
     DeliveryMethod dm = new DeliveryMethod(name, cost, startWeight, endWeight);
     this.deliveryMethodRepository.save(dm);
     return dm;

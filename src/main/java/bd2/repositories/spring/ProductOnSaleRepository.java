@@ -11,6 +11,7 @@ import bd2.model.Product;
 import bd2.model.Provider;
 
 import java.util.Date;
+import java.util.List;
 
 public interface ProductOnSaleRepository extends CrudRepository<ProductOnSale, Long> {
 
@@ -23,5 +24,9 @@ public interface ProductOnSaleRepository extends CrudRepository<ProductOnSale, L
 			+ "and pos.finalDate IS NULL")
 	public Page<ProductOnSale> getLastProductOnSaleVersion(Pageable pageable, @Param("product") Product product,
 			@Param("provider") Provider provider);
+	
+	@Query("SELECT DISTINCT pos FROM Purchase pur " + "JOIN pur.productOnSale pos "
+            + "JOIN FETCH pos.product prod " + "WHERE pur.dateOfPurchase = :day ")
+	public List<ProductOnSale> getSoldProductsOn(@Param("day") Date day);
 
 }

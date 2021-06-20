@@ -30,4 +30,8 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
           + "WHERE NOT EXISTS "
           + "(SELECT pd FROM ProductOnSale as ps JOIN ps.product as pd WHERE ps.product.id = pos.product.id AND ps.price <> pos.price)")
   public List<Product> getProductsOnePrice();
+  
+  @Query("SELECT prod FROM Product as prod " + "WHERE prod.id NOT IN "
+          + "(SELECT pr.id FROM Purchase as pur JOIN pur.productOnSale as ps JOIN ps.product as pr)")
+  public List<Product> getProductsNotSold();
 }

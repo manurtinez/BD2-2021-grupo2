@@ -148,8 +148,7 @@ public class SpringDataMLService implements MLService {
 
   @Override
   public List<Product> getProductWithMoreThan20percentDiferenceInPrice() {
-    // TODO Auto-generated method stub
-    return null;
+    return this.productRepository.getProductWithMoreThan20percentDiferenceInPrice();
   }
 
   @Override

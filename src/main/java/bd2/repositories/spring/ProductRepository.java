@@ -34,4 +34,12 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
   @Query("SELECT prod FROM Product as prod " + "WHERE prod.id NOT IN "
           + "(SELECT pr.id FROM Purchase as pur JOIN pur.productOnSale as ps JOIN ps.product as pr)")
   public List<Product> getProductsNotSold();
+  
+  @Query("SELECT prod " +
+          "FROM ProductOnSale pos " +
+          "JOIN pos.product prod " +
+          "WHERE pos.finalDate IS NULL " +
+          "GROUP BY prod " +
+          "HAVING (((MAX(pos.price) - MIN(pos.price)) / (((MAX(pos.price) + MIN(pos.price))) / 2)) * 100) > 20")
+  public List<Product> getProductWithMoreThan20percentDiferenceInPrice();
 }

@@ -12,9 +12,6 @@ import org.springframework.data.repository.query.Param;
 import bd2.model.DeliveryMethod;
 
 public interface DeliveryMethodRepository extends CrudRepository<DeliveryMethod, UUID> {
-
-  //@Query("FROM DeliveryMethod WHERE name = :name LIMIT 1")
-  //Optional<DeliveryMethod> findBbyName(@Param("name") String name);
   
   Optional<DeliveryMethod> findFirstByName(String name);
 

@@ -231,7 +231,7 @@ public class SpringDataMLService implements MLService {
   @Override
   public DeliveryMethod createDeliveryMethod(String name, Float cost, Float startWeight, Float endWeight)
       throws MLException {
-
+	
     DeliveryMethod dm = new DeliveryMethod(name, cost, startWeight, endWeight);
     this.deliveryMethodRepository.save(dm);
     return dm;
@@ -320,7 +320,7 @@ public class SpringDataMLService implements MLService {
 
   @Override
   public Optional<DeliveryMethod> getDeliveryMethodByName(String name) {
-    return this.getDeliveryMethodRepository().findByName(name);
+    return this.getDeliveryMethodRepository().findFirstByName(name);
   }
 
   @Override

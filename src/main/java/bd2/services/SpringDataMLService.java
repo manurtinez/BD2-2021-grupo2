@@ -7,8 +7,6 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import javax.transaction.Transactional;
-
 import org.springframework.data.domain.PageRequest;
 
 import bd2.model.Category;
@@ -24,7 +22,6 @@ import bd2.model.User;
 import bd2.repositories.MLException;
 import bd2.repositories.spring.*;
 
-@Transactional
 public class SpringDataMLService implements MLService {
   // REPOSITORY DEFINITIONS
 

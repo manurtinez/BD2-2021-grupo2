@@ -3,6 +3,7 @@ package bd2.services;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import javax.inject.Inject;
 
@@ -163,12 +164,12 @@ public class SpringDataMLService implements MLService {
 
   @Override
   public List<ProductOnSale> getSoldProductsOn(Date day) {
-	  return this.productOnSaleRepository.getSoldProductsOn(day);
+    return this.productOnSaleRepository.getSoldProductsOn(day);
   }
 
   @Override
   public List<Product> getProductsNotSold() {
-	  return this.productRepository.getProductsNotSold();
+    return this.productRepository.getProductsNotSold();
   }
 
   @Override
@@ -231,7 +232,7 @@ public class SpringDataMLService implements MLService {
   @Override
   public DeliveryMethod createDeliveryMethod(String name, Float cost, Float startWeight, Float endWeight)
       throws MLException {
-	
+
     DeliveryMethod dm = new DeliveryMethod(name, cost, startWeight, endWeight);
     this.deliveryMethodRepository.save(dm);
     return dm;
@@ -314,8 +315,7 @@ public class SpringDataMLService implements MLService {
 
   @Override
   public ProductOnSale getProductOnSaleById(Long id) {
-    // TODO Auto-generated method stub
-    return null;
+    return this.getProductOnSaleRepository().findById(id).get();
   }
 
   @Override
@@ -336,8 +336,8 @@ public class SpringDataMLService implements MLService {
 
   @Override
   // Este método no es usado en los tests
-  public Optional<Purchase> getPurchaseById(Long id) {
-    return Optional.empty();
+  public Optional<Purchase> getPurchaseById(UUID id) {
+    return this.getPurchaseRepository().findById(id);
   }
 
 }

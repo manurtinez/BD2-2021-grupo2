@@ -3,7 +3,6 @@ package bd2.repositories.spring;
 import java.util.Date;
 import java.util.List;
 
-import bd2.model.Purchase;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
@@ -25,8 +24,8 @@ public interface ProviderRepository extends CrudRepository<Provider, Long> {
 			+ "ORDER BY pos.price")
 	public Page<Provider> getProviderLessExpensiveProduct(Pageable pageable);
 
-	@Query("SELECT p FROM Purchase pur " + "JOIN pur.productOnSale as pos "
-			+ "JOIN pos.provider as p " + "GROUP BY p.id " + "ORDER BY SUM(pur.quantity) DESC")
+	@Query("SELECT p FROM Purchase pur " + "JOIN pur.productOnSale as pos " + "JOIN pos.provider as p " + "GROUP BY p.id "
+			+ "ORDER BY SUM(pur.quantity) DESC")
 	public List<Provider> getTopNProvidersInPurchases(Pageable of);
 
 }

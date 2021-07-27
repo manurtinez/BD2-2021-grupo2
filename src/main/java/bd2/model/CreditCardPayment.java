@@ -1,13 +1,14 @@
 package bd2.model;
 
-import javax.persistence.Entity;
+import org.springframework.data.elasticsearch.annotations.Document;
+
 import java.util.Date;
 
 /**
  * Clase que representa un pago con tarjeta de crédito
  */
 
-@Entity
+@Document(indexName = "creditcardpaymentindex")
 public class CreditCardPayment extends PaymentMethod {
 
     private String brand;

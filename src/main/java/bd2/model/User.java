@@ -1,28 +1,30 @@
 package bd2.model;
 
-import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
+
 import java.util.HashSet;
 import java.util.Set;
+
 /**
  * Clase que representa usuarios de la plataforma
  */
-@Entity(name = "User")
-@Table(name = "users")
+
+@Document(indexName = "userindex")
 public class User {
 
     /**
      * Clave primaria del objeto usuario
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     /**
      * Email del usuario
      */
-    @Column(unique = true)
     private String email;
 
     /**
@@ -43,19 +45,18 @@ public class User {
     /**
      * Constructor vacio necesario
      */
-    
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "client", cascade = CascadeType.ALL)
+
     private Set<Purchase> purchases = new HashSet<Purchase>();
-    
+
     public User() {
     }
 
     /**
      * Constructor para la clase usuario
      * 
-     * @param email     El email del usuario
-     * @param fullName  El nombre completo del usuario
-     * @param password  La contraseña para el usuario
+     * @param email      El email del usuario
+     * @param fullName   El nombre completo del usuario
+     * @param password   La contraseña para el usuario
      * @param dayOfBirth Fecha de nacimiento del usuario
      */
     public User(String email, String fullName, String password, Date dayOfBirth) {
@@ -100,8 +101,8 @@ public class User {
     public void setDayOfBirth(Date birthDate) {
         this.dayOfBirth = birthDate;
     }
-    
+
     public Set<Purchase> purchases() {
-    	return purchases;
+        return purchases;
     }
 }

@@ -1,23 +1,6 @@
 package bd2.services;
 
-import bd2.config.*;
-import bd2.model.*;
-import bd2.repositories.MLException;
-import bd2.utils.DBInitializer;
-import org.junit.Assert;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
-import org.springframework.transaction.annotation.Transactional;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -26,10 +9,27 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Transactional
-@Rollback(false)
+import org.junit.Assert;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import bd2.model.Category;
+import bd2.model.DeliveryMethod;
+import bd2.model.OnDeliveryPayment;
+import bd2.model.Product;
+import bd2.model.ProductOnSale;
+import bd2.model.Provider;
+import bd2.model.Purchase;
+import bd2.model.User;
+import bd2.repositories.MLException;
+import bd2.utils.DBInitializer;
+
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = { SpringDataConfiguration.class }, loader = AnnotationConfigContextLoader.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 
 public class MLStatisticsTestCase {

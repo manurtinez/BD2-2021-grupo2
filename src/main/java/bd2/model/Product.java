@@ -1,27 +1,29 @@
 package bd2.model;
 
-import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 /**
  * Clase que representa un producto
  */
-@Entity(name = "Product")
-@Table(name = "product")
+
+@Document(indexName = "productindex")
 public class Product {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   private String name;
   private Float weight;
 
-  @ManyToOne(fetch = FetchType.LAZY)
   private Category category;
 
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
+  @Field(type = FieldType.Nested)
   private Set<ProductOnSale> productsOnSale = new HashSet<ProductOnSale>();
 
   /**

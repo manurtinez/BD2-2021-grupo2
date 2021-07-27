@@ -1,21 +1,21 @@
 package bd2.model;
 
-import javax.persistence.*;
 import java.util.UUID;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 /**
  * Clase que representa un Método de envio.
  */
 
-@Entity(name = "DeliveryMethod")
-@Table(name = "delivery_method")
+@Document(indexName = "deliverymethodindex")
 public class DeliveryMethod {
 
     /**
      * Clave primaria del objeto
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     private String name;

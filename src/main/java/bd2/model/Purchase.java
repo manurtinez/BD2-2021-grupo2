@@ -1,33 +1,28 @@
 package bd2.model;
 
-import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
 
-@Entity(name = "Purchase")
-@Table(name = "purchase")
+import bd2.model.DeliveryMethod;
+import bd2.model.PaymentMethod;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
+
+@Document(indexName = "purchaseindex")
 public class Purchase {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
   private UUID id;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "product_on_sale_id", nullable = false)
   private ProductOnSale productOnSale;
 
   private int quantity;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "client_id", nullable = false)
   private User client;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "delivery_method_id", nullable = false)
   private DeliveryMethod deliveryMethod;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "payment_method_id", nullable = false)
   private PaymentMethod paymentMethod;
 
   private String address;

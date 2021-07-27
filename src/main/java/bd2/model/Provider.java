@@ -1,23 +1,23 @@
 package bd2.model;
 
-import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 /**
  * Clase que representa un proveedor de productos
  */
-@Entity(name = "Provider")
-@Table(name = "provider")
+
+@Document(indexName = "providerindex")
 public class Provider {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   private String name;
 
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "provider")
   private Set<ProductOnSale> productsOnSale = new HashSet<ProductOnSale>();
 
   private Long cuit;

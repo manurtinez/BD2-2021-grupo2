@@ -1,27 +1,32 @@
 package bd2.services;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import bd2.config.SpringDataConfiguration;
-import bd2.model.*;
-import bd2.repositories.MLException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Optional;
 
-import java.util.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
-import org.springframework.transaction.annotation.Transactional;
 
-@Transactional
-@Rollback(true)
+import bd2.model.Category;
+import bd2.model.CreditCardPayment;
+import bd2.model.DeliveryMethod;
+import bd2.model.OnDeliveryPayment;
+import bd2.model.Product;
+import bd2.model.ProductOnSale;
+import bd2.model.Provider;
+import bd2.model.Purchase;
+import bd2.model.User;
+import bd2.repositories.MLException;
+
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = { SpringDataConfiguration.class }, loader = AnnotationConfigContextLoader.class)
 public class MLServiceTestCase {
 
     @Autowired

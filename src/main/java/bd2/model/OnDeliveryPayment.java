@@ -1,12 +1,12 @@
 package bd2.model;
 
-import javax.persistence.*;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 /**
  * Clase que representa un pago a contraentrega.
  */
 
-@Entity
+@Document(indexName = "ondeliverypaymentindex")
 public class OnDeliveryPayment extends PaymentMethod {
 
     private Float promisedAmount;

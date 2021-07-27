@@ -1,0 +1,75 @@
+version: '3.8'
+services:
+  backend:
+    image: maven:3.6.3-openjdk-11
+    command: mvn package -Dmaven.surefire.debug="-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=*:5005"
+    ports:
+      - 8080:8080
+      - 5005:5005
+    volumes:
+      - .:/usr/src/bd2:rw
+    working_dir: /usr/src/bd2
+    depends_on:
+      - es01
+
+  es01:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.13.3
+    container_name: es01
+    environment:
+      - node.name=es01
+      - cluster.name=elasticsearch
+      - cluster.initial_master_nodes=es01
+      - bootstrap.memory_lock=true
+      - 'ES_JAVA_OPTS=-Xms512m -Xmx512m'
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - db-data:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+    networks:
+      - elastic
+
+  kib01:
+    image: docker.elastic.co/kibana/kibana:7.13.3
+    container_name: kib01
+    ports:
+      - 5601:5601
+    environment:
+      ELASTICSEARCH_URL: http://es01:9200
+      ELASTICSEARCH_HOSTS: '["http://es01:9200"]'
+    networks:
+      - elastic
+  # db:
+  #   environment:
+  #     MYSQL_DATABASE: grupo2
+  #     MYSQL_ROOT_PASSWORD: root
+  #   image: mysql:8.0.23
+  #   restart: unless-stopped
+  #   healthcheck:
+  #     test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "--silent"]
+  #     interval: 3s
+  #     retries: 5
+  #     start_period: 30s
+  #   volumes:
+  #     - db-data:/var/lib/mysql
+  #   ports:
+  #     - 3306:3306
+  # phpmyadmin:
+  #   image: phpmyadmin:5.1.0
+  #   restart: unless-stopped
+  #   ports:
+  #     - 8000:80
+  #   environment:
+  #     - PMA_ARBITRARY=1
+  #   depends_on:
+  #     - db
+
+volumes:
+  db-data:
+
+networks:
+  elastic:
+    driver: bridge
